@@ -123,7 +123,7 @@ def LisitngDetailView(request, pk):
     
     map     = folium.Map(location=[28.3974, 84], tiles="OpenStreetMap", zoom_start=7)
     lat, lng = float(obj.lat), float(obj.lng)
-    folium.Marker(location=[lat, lng], popup=obj.title, color="red").add_to(map)
+    folium.Marker(location=[lat, lng], popup=obj.title, tooltip="Click for More").add_to(map)
     map     = map._repr_html_()
 
     if reviews: 
