@@ -1,0 +1,190 @@
+
+{% extends 'listings/base.html' %}
+
+{% block content %}
+{% load static %}
+<style>
+    /* Hide Radio button */
+.rate > input{
+  display: none;
+}
+
+.rate{
+  display: inline-block;
+  border: 0;
+}
+
+.rate > label{
+  float: right;
+}
+
+/* Showing the stars */
+.rate > label:before{
+  font-weight:  900;
+  display: inline-block;
+  font-size: 1.1rem;
+  font-family: "Font Awesome 5 Free";
+  content: "\f005";
+  margin:0;
+  padding:0.3rem .2rem;
+  cursor: pointer;
+}
+
+/* Half star */
+.rate .half:before{
+  content: "\f089";
+  position: absolute;
+  padding-right: 0;
+}
+
+/* Click and hover */
+input:checked ~ label, label:hover ~ label{
+  color: #ffb503;
+}
+
+/* hover hightlight */
+input:checked + label:hover, input:checked ~ label:hover,input:checked ~ label:hover ~ label,
+label:hover ~ input:checked ~ label{
+  color: #cc9000;
+}
+
+.rating-star i{
+  color: #ffb503 !important;
+}
+</style>
+<head>
+<title>{{ user.full_name }}</title>
+    <link rel="stylesheet" type="text/css" href=" {% static 'css/profile.css' %} " >
+    <link rel="stylesheet" href="{% static 'flags/sprite-hq.css' %}"> <!--To display flag built in-->
+</head>
+<body>
+    <div class="profileBody">
+      <img src="{{ object.image.url }}">
+      <br>
+      {% if object.user.is_host %}
+        Host
+      {% endif %}
+      {% if object.user.is_guest %}
+        Guest
+      {% endif %}
+      <!-- TO REPORT USERS BEGINS HERE -->
+      <div class="profileInfo">
+        {% if object.user.pk != user.pk %}
+          <span class="actInfo">
+            <form action="{% url 'report' object.user.pk %}" method="POST">
+              {% csrf_token %}
+              <h3>Report User</h3>
+              <textarea name="message"></textarea>
+              <br>
+              <input type="submit" value="Submit Report" class="btn btn-primary">
+            </form>
+          </span>
+        {% endif %}
+        <!-- TO REPORT USERS ENDS HERE -->
+          <span class="actInfo">
+            <p> <i class="fas fa-user"></i> : {{ object.user.country.name }} 
+                <i class="flag2x {{ object.user.country.flag_css }}" aria-label="{{ object.user.country.code }}"></i>
+            </p>
+            <p> <i class="fas fa-phone-alt"></i> : {{object.user.state}} </p>
+            <!-- To display the average review stars only starts here-->
+            {% if object.user.is_guest %}
+              {% if stars %}
+	              <div class="rating-star">
+	              	<span>
+	              		  <i class="fa fa-star{% if stars == 0.5 %}-half{% elif stars < 1 %}-o {% endif %}" aria-hidden="true"></i>
+                      <i class="fa fa-star{% if stars == 1.5 %}-half{% elif stars < 2 %}-o {% endif %}" aria-hidden="true"></i>
+                      <i class="fa fa-star{% if stars == 2.5 %}-half{% elif stars < 3 %}-o {% endif %}" aria-hidden="true"></i>
+                      <i class="fa fa-star{% if stars == 3.5 %}-half{% elif stars < 4 %}-o {% endif %}" aria-hidden="true"></i>
+                      <i class="fa fa-star{% if stars == 4.5 %}-half{% elif stars < 5 %}-o {% endif %}" aria-hidden="true"></i>
+			            </span>
+	              </div>
+              {% endif %}
+            {% endif %}
+            <!-- To display the average review stars only ends here-->
+          </span>
+          <span class="actInfo">
+            <p> <i class="fas fa-user"></i> : {{ object.user.full_name }} </p>
+            <p> <i class="fas fa-envelope"></i> : {{ object.user.email }}</p>
+            <p> <i class="fas fa-phone-alt"></i> : {{object.user.phone_number}} </p>
+          </span>
+          <span class="dataModLink">
+            {% if object.user.email == user.email %}
+              <p><a href="{% url 'password-change' %}">Change Password</a></p>
+              <p><a href="{% url 'delete-account' %}">Delete Account</a></p>
+              <p><a href="{% url 'profile-update' %}">Update Account</a></p>
+            {% endif %}
+          </span>
+      </div>
+      <!--Form to input review starts here-->
+      <div>
+        {% if object.user.is_guest %} 
+          {% if user.is_authenticated %}
+          <br>
+          <form action="{% url 'rate-and-review-guest' object.user.pk %}" method="POST">
+              {% csrf_token %}
+              <h3>Write Your Review</h3>
+              <div>
+                  <label>How do you rate the Guest</label>
+                  <br>
+                  <div class="rate">
+                      <input type="radio" name="rating" id="rating10" value="5" required /><label for="rating10" title="5"></label>
+                      <input type="radio" name="rating" id="rating9" value="4.5" required /><label for="rating9" title="4.5" class="half"></label>
+                      <input type="radio" name="rating" id="rating8" value="4" required /><label for="rating8" title="4"></label>
+                      <input type="radio" name="rating" id="rating7" value="3.5" required /><label for="rating7" title="3.5" class="half"></label>
+                      <input type="radio" name="rating" id="rating6" value="3" required /><label for="rating6" title="3"></label>
+                      <input type="radio" name="rating" id="rating5" value="2.5" required /><label for="rating5" title="2.5" class="half"></label>
+                      <input type="radio" name="rating" id="rating4" value="2" required /><label for="rating4" title="2"></label>
+                      <input type="radio" name="rating" id="rating3" value="1.5" required /><label for="rating3" title="1.5" class="half"></label>
+                      <input type="radio" name="rating" id="rating2" value="1" required /><label for="rating2" title="1"></label>
+                      <input type="radio" name="rating" id="rating1" value="0.5" required /><label for="rating1" title="0.5" class="half"></label>
+                  </div>
+                  <br>
+                  Review:
+                  <br>
+                  <textarea name="review"></textarea>
+                  <br>
+                  <input type="submit" value="Submit Review" class="btn btn-primary">
+                  <br>
+                  <br>
+              </div>
+          </form>
+          {% endif %}
+        {% endif %}
+      </div>
+      <!-- Form to enter review ends here-->
+
+      <!--To display all the reviews -->
+      {% if reviews %}
+      <div>
+      <h3>What hosts think of this guests</h3>
+       {% for review in reviews %}
+         <article>
+           <div>
+             <div>
+               <img src="{{ review.host.profile.image.url }}" style="width:40px; height:auto;">
+               <span>{{review.updated_at}} </span>
+               <a href="{% url 'profile' review.host.pk %}""><h6>{{review.host.full_name}} </h6></a>
+               <div class="rating-star">
+                 <span>
+                   <i class="fa fa-star{% if review.rating == 0.5 %}-half{% elif review.rating < 1 %}-o {% endif %}" aria-hidden="true"></i>
+                   <i class="fa fa-star{% if review.rating == 1.5 %}-half{% elif review.rating < 2 %}-o {% endif %}" aria-hidden="true"></i>
+                   <i class="fa fa-star{% if review.rating == 2.5 %}-half{% elif review.rating < 3 %}-o {% endif %}" aria-hidden="true"></i>
+                   <i class="fa fa-star{% if review.rating == 3.5 %}-half{% elif review.rating < 4 %}-o {% endif %}" aria-hidden="true"></i>
+                   <i class="fa fa-star{% if review.rating == 4.5 %}-half{% elif review.rating < 5 %}-o {% endif %}" aria-hidden="true"></i>
+                 </span>
+               </div>
+             </div>
+           </div>
+           <div>
+             <p>
+               {{review.review}}
+             </p>
+           </div>
+         </article>
+         <br>
+       {% endfor %}
+      </div>
+     {% endif %}
+     <!--Displating review ends here-->
+</body>
+{% endblock content %}

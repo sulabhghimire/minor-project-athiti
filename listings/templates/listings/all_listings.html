@@ -1,0 +1,26 @@
+
+{% extends 'listings/base.html' %}
+
+{% block content %}
+    <br>
+    <a href="{% url 'listing-post' %}">Add new Lisitng</a> 
+    <br>
+    <br>
+    {% for post in posts %}
+        {% if user == post.user %}
+            <a href="{% url 'listing-details' post.pk %}"> 
+                <div>
+                    Title : {{ post.title }}
+                    <br>
+                    Price : {{  post.price }}
+                    <br>
+                    Ratings : {{ post.rating }}              
+                </div>
+            </a>
+            <br>
+            <a href="{% url 'listing-update' post.pk %}">Update</a> | <a href="{% url 'listing-delete' post.pk %}">Delete</a> 
+            <br>
+            <br>
+        {% endif %}
+    {% endfor %}
+{% endblock content %}

@@ -1,0 +1,22 @@
+
+{% extends 'listings/base.html' %}
+
+{% block content %}
+    {% if searched %}
+        {% for post in posts %}
+            <a href="{% url 'listing-details' post.pk %}"> 
+                <div>
+                    Title : {{ post.title }}
+                    <br>
+                    Price : {{  post.price }}
+                    <br>
+                    Ratings : {{ post.rating }}              
+                </div>
+            </a>
+            <br>
+            <br>
+        {% endfor %}
+    {% else %}
+            No rooms available in the searched location.
+    {% endif %}
+{% endblock content %}

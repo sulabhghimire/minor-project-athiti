@@ -1,0 +1,10 @@
+MANIFEST.in
+README.rst
+setup.cfg
+setup.py
+jason/__init__.py
+jason.egg-info/PKG-INFO
+jason.egg-info/SOURCES.txt
+jason.egg-info/dependency_links.txt
+jason.egg-info/not-zip-safe
+jason.egg-info/top_level.txt

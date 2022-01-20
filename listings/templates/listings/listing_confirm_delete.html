@@ -1,0 +1,19 @@
+
+{% extends 'listings/base.html' %}
+
+{% block content %}
+<div>
+    <form method="POST">
+        {% csrf_token %}
+        <fieldset>
+            <legend>Delete Listing</legend>
+            <h2>Are you sure you want to delete your listing "{{object.title}}"</h2>
+        </fieldset>
+        <div>
+            <button type="submit"class="btn btn-outline-danger">Yes, Delete</button>
+            <a class="btn btn-outline-cancel" href="{% url 'listing-details' object.id %}">Cancel</button>
+        </div>
+    </form>
+</div>
+{% endblock content %}
+

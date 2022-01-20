@@ -1,0 +1,213 @@
+* {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  height: 100vh;
+}
+
+header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 100px;
+  width: 90vw;
+  letter-spacing: 1.5px;
+  border-bottom: 1px rebeccapurple solid;
+  margin: auto;
+  font-family: "Mulish";
+  font-weight: lighter;
+  margin-bottom: 10px;
+}
+
+header nav {
+  height: 100%;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+header nav .nav {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+header nav .nav .nav-left {
+  width: 40%;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding-left: 2rem;
+  -webkit-box-pack: left;
+      -ms-flex-pack: left;
+          justify-content: left;
+}
+
+header nav .nav .nav-left a {
+  font-size: 1.35rem;
+  color: #061830;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+header nav .nav .nav-right {
+  width: 60%;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-pack: right;
+      -ms-flex-pack: right;
+          justify-content: right;
+  padding-right: 2rem;
+}
+
+header nav .nav .nav-right a {
+  font-size: 1.05rem;
+  font-weight: bold;
+  color: #061830;
+  margin-right: 2rem;
+  text-decoration: none;
+}
+
+hr {
+  width: 90vw;
+  margin: auto;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+}
+
+.searchBox {
+  width: 90vw;
+  margin: auto;
+  margin-bottom: 1rem;
+}
+
+.searchBox div form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  font-family: "Mulish";
+  font-weight: lighter;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  font-size: 1.35rem;
+  color: #061830;
+}
+
+.searchBox div form .ratingSort, .searchBox div form .priceSort {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.searchBox div form .ratingSort select, .searchBox div form .priceSort select {
+  color: #061830;
+  margin-left: 5px;
+  font-family: "Mulish";
+  font-weight: lighter;
+  font-size: 1.25rem;
+}
+
+.searchBox div form .ratingSort select option, .searchBox div form .priceSort select option {
+  text-align: center;
+}
+
+.searchBox div form .ratingSort select option :enabled, .searchBox div form .priceSort select option :enabled {
+  border-color: teal;
+}
+
+.searchBox div span {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.searchBox div span input {
+  font-family: "Mulish";
+  font-weight: lighter;
+  font-size: 1.25rem;
+  text-align: center;
+}
+
+.searchBox div span button {
+  font-family: "Mulish";
+  font-weight: lighter;
+  font-size: 1.2rem;
+  text-align: center;
+  margin-left: 5px;
+  padding: 0.1rem;
+}
+
+footer {
+  font-family: "Mulish";
+  font-weight: lighter;
+  font-size: 1.25rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  bottom: 0;
+  text-align: center;
+  width: 99%;
+  position: absolute;
+  letter-spacing: 1.5px;
+}
+/*# sourceMappingURL=base.css.map */

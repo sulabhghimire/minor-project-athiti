@@ -1,0 +1,226 @@
+{% extends 'listings/base.html' %}
+{% load static %}
+
+
+{% block content %}
+<head>
+    <!-- FOr rating stars only -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/rating-stars.css' %}"></link>
+</head>
+<body>
+    <div>
+      <br>
+
+      <!-- LOGIC TO SHOW UPDATE AND DELETE BUTTON ONLY IF THE CURRENT LOGGED IN USER IS THE ONE TO 
+      PUBLISH THIS LISTING -->
+      {% if object.user == user %}
+          <div>
+              <a href="{% url 'listing-update' object.pk %}">Update</a>
+              <a href="{% url 'listing-delete' object.pk %}">Delete</a>
+          </div>
+      {% endif %}
+      <!-- UPDATE AND DELETE BUTTON LOGIC ENDS HERE  -->
+
+      <div>
+
+           <!-- GIVES THE TITLE OF LISTING -->
+          <h2> {{object.title}} </h2> 
+
+          <!-- SHOWS WHO IS HOST AND LINKS THE HOSTS EMAIL TO HIS/HER PROFILE -->
+          <h4> Host : <a href="{% url 'profile' object.user.pk %}">{{ object.user }}</a></h4>
+
+          <br>
+          <!-- SHOWS WHAT TYPE OF LISTING TYPE ROOM OR APARTEMENT OR HOUSE -->
+          Listing type : {{ object.listing_type }} <br><br>
+
+          <!-- TOTAL NUMBER OF TIMES THIS PARTICLAR ROOM HAS BEEN BOOKED -->
+          Total booked times : {{ object.total_bookings }} <br><br>
+
+          <!--Check Avaibalty from starts here SUGGESTED TO HAVE HIDDEN AND UNHIDDEN JS-->
+          <h4> Check If Available</h4>
+          <div>
+              <form method="POST" action="{% url 'check-avaibality' %}">
+                  {% csrf_token %}
+                      <fieldset>
+                          <legend>Enter Now</legend>
+                          <p><label for="id_room_name">Room name:</label> <input type="number" name="room_name" value={{ object.pk }} required="" id="id_room_name"></p>
+                          <p><label for="id_check_in">Check in:</label> <input type="date" name="check_in" required="" id="id_check_in"></p>
+                          <p><label for="id_check_out">Check out:</label> <input type="date" name="check_out" required="" id="id_check_out"></p>
+                      </fieldset>
+                  </fieldset>
+                  <button type="submit">Check</button>
+              </form>
+          </div>
+          <!--Check Avaibality form ends here-->
+
+          <!-- Booking form starts here SUGGESTED TO HAVE A POP UP BOX IT SHOWS UP IF YOU ARE LOGGED IN AS GUEST-->
+          <div>
+          {% if user.guest %}
+              <form method="POST" action="{% url 'add_to_cart' object.id %}">
+                  {% csrf_token %}
+                      <fieldset>
+                          <legend>Book Now</legend>
+                          <p><label for="id_check_in">Check in:</label> <input type="date" name="check_in" required="" id="id_check_in"></p>
+                          <p><label for="id_check_out">Check out:</label> <input type="date" name="check_out" required="" id="id_check_out"></p>
+                      </fieldset>
+                  </fieldset>
+                  <button type="submit">Add to your Cart</button>
+              </form>
+          {% endif %}
+          </div>
+          <!--Booking form ends here-->
+
+                    <!-- main photo to be displayed -->
+                    <img src="{{ object.main_photo.url }}"> 
+
+                    <!-- second photo to be displayed -->
+                    <img src="{{ object.photo_1.url }}"> 
+
+                    <!-- third photo to be displayed -->
+                    <img src="{{ object.photo_2.url }}"> 
+
+                    <!-- fourth photo to be displayed -->
+                    <img src="{{ object.photo_3.url }}"> 
+
+           <br>
+           <br>
+          <!-- To display average review stars starts here -->
+          <h3> Ratings:
+              <div class="rating-star">
+                  <span>
+                      <i class="fa fa-star{% if object.rating == 0.5 %}-half{% elif object.rating < 1 %}-o {% endif %}" aria-hidden="true"></i>
+                      <i class="fa fa-star{% if object.rating == 1.5 %}-half{% elif object.rating < 2 %}-o {% endif %}" aria-hidden="true"></i>
+                      <i class="fa fa-star{% if object.rating == 2.5 %}-half{% elif object.rating < 3 %}-o {% endif %}" aria-hidden="true"></i>
+                      <i class="fa fa-star{% if object.rating == 3.5 %}-half{% elif object.rating < 4 %}-o {% endif %}" aria-hidden="true"></i>
+                      <i class="fa fa-star{% if object.rating == 4.5 %}-half{% elif object.rating < 5 %}-o {% endif %}" aria-hidden="true"></i>
+                  </span>
+              </div>
+          </h3>
+          <br>
+          <!-- To end display of average review stars ends here -->
+
+          Address 
+          <!-- GIVES THE CITY OF THE LISTING LOCATION -->
+          City : {{ object.city }} 
+                
+          <br><br>
+          <!-- GIVES THE EXACT ADDRESS OF THE LISTTING LOCATION -->
+          Exact Address : {{ object.exact_address }} <br><br>
+
+          <!-- DISPLAYS THE MAP LOCATION OF THE PLACE -->
+          <div class="map" style="width: 1000px; height: auto;">
+            {{ map|safe }} 
+          </div>
+          <br><br>
+          
+          <!-- DISPLAYS THE PRICE PER NIGHT -->
+          <h4> Price : NRS. {{ object.price }}/night</h4>
+          
+            <!-- GIVES THE DESCRIPTION OF ROOM LONG TEXT PROBABLY -->
+            Description : 
+            {{ object.description }} 
+            <br><br> 
+
+            <!-- GIVES IF KITCHEN IS AVAILABLE OR NOT AND IF IT AVAILABLE THEN ONLY IT SHOWS DESCRIPTION
+            OF THE AVAILABLE KITCHEN  -->
+            IS Kitchen Available : 
+            {% if object.kitchen_available %}
+            Yes
+            <br><br>
+            Kitchen Description : {{ object.kitchen_description }}
+            <br><br>
+            {% else %}
+            No 
+            <br><br>
+            {% endif %}
+
+            <!-- TOTAL NUMBERS OF BEDROOMS -->
+            Bed Room : {{ object.bedrooms }} <br><br>
+
+            <!-- MAX NUMBERS OF PEOPLE THAT LISITNG CAN ACCOMODATE -->
+            Max Accomodation : {{ object.max_acomodation }} <br><br>
+
+            <!-- LISTING TYPE EITHER AC OR NON AC  -->
+            Room Type : {{ object.room_type }} <br><br>
+
+            <!-- NUMBER OF BATHROOMS IN THAT LISITNG -->
+            Bathrooms : {{ object.no_bathrooms }} <br><br>
+
+            <!-- TYPE OF BATHROOM ATTACHED OR NOT MAINLY -->
+            Bathroom Type : {{ object.bathroom_type }}
+          
+    </div>
+    
+    <!--Review form to be filled starts here-->
+    <div>
+        {% if user.is_authenticated %}
+            <br>
+            <form action="{% url 'rate-and-review' object.pk %}" method="POST">
+                {% csrf_token %}
+                <h3>Write Your Review</h3>
+                <div>
+                    <!-- Rating stars -->
+                    <label>How do you rate this product?</label>
+                    <br>
+                    <div class="rate">
+                        <input type="radio" name="rating" id="rating10" value="5" required /><label for="rating10" title="5"></label>
+                        <input type="radio" name="rating" id="rating9" value="4.5" required /><label for="rating9" title="4.5" class="half"></label>
+                        <input type="radio" name="rating" id="rating8" value="4" required /><label for="rating8" title="4"></label>
+                        <input type="radio" name="rating" id="rating7" value="3.5" required /><label for="rating7" title="3.5" class="half"></label>
+                        <input type="radio" name="rating" id="rating6" value="3" required /><label for="rating6" title="3"></label>
+                        <input type="radio" name="rating" id="rating5" value="2.5" required /><label for="rating5" title="2.5" class="half"></label>
+                        <input type="radio" name="rating" id="rating4" value="2" required /><label for="rating4" title="2"></label>
+                        <input type="radio" name="rating" id="rating3" value="1.5" required /><label for="rating3" title="1.5" class="half"></label>
+                        <input type="radio" name="rating" id="rating2" value="1" required /><label for="rating2" title="1"></label>
+                        <input type="radio" name="rating" id="rating1" value="0.5" required /><label for="rating1" title="0.5" class="half"></label>
+                    </div>
+                    <br>
+                    Review:
+                    <br>
+                    <textarea name="review"></textarea>
+                    <br>
+                    <input type="submit" value="Submit Review" class="btn btn-primary">
+                    <br>
+                    <br>
+                </div>
+            </form>
+        {% endif %}
+    </div>
+    <!--Review form to be filled ends here-->
+    <div>
+        <!-- Displaying the reviews -->
+        {% if reviews %}
+            <div>
+                <h3>What guests think of this listing</h3>
+                {% for review in reviews %}
+                    <article>
+                        <div>
+                            <div>
+                                <img src="{{ review.reviewer.profile.image.url }}" style="width:40px; height:auto;">
+                                <span>{{review.updated_at}} </span>
+                                <a href="{% url 'profile' review.reviewer.pk %}"><h4>{{review.reviewer.full_name}} </h4></a>
+                                <div class="rating-star">
+                                    <span>
+                                        <i class="fa fa-star{% if review.rating == 0.5 %}-half{% elif review.rating < 1 %}-o {% endif %}" aria-hidden="true"></i>
+                                        <i class="fa fa-star{% if review.rating == 1.5 %}-half{% elif review.rating < 2 %}-o {% endif %}" aria-hidden="true"></i>
+                                        <i class="fa fa-star{% if review.rating == 2.5 %}-half{% elif review.rating < 3 %}-o {% endif %}" aria-hidden="true"></i>
+                                        <i class="fa fa-star{% if review.rating == 3.5 %}-half{% elif review.rating < 4 %}-o {% endif %}" aria-hidden="true"></i>
+                                        <i class="fa fa-star{% if review.rating == 4.5 %}-half{% elif review.rating < 5 %}-o {% endif %}" aria-hidden="true"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <p>
+                            {{review.review}}
+                            </p>
+                        </div>
+                    </article>
+                    <br>
+                {% endfor %}
+            </div>
+        {% endif %}
+        <!-- Displaying review ends here-->
+    </div>
+</body>
+{% endblock content %}

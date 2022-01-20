@@ -1,0 +1,15 @@
+Metadata-Version: 1.0
+Name: jason
+Version: 0.1.7
+Summary: Lightweight helpers for views returning json data in Django.
+Home-page: https://github.com/runekaagaard/jason
+Author: Rune Kaagaard
+Author-email: rumi.kg@gmail.com
+License: GPLv2
+Description: About jason
+        ===========
+        
+        Lightweight helpers for views returning json data in Django.
+        
+        There are currently no tests. Not recommended for production.
+Platform: UNKNOWN

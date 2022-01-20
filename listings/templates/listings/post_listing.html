@@ -1,0 +1,143 @@
+{% extends 'listings/base.html' %}
+{% load static %}
+
+{% block content %}
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>  
+    <div>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <fieldset>
+                <legend>Enter Your New Lisitng</legend>
+                {{ form.non_field_errors }}
+                <!-- TITLE -->
+                <div>
+                    {{ form.title.errors }}
+                    <label for="{{ form.title.id_for_label }}">TITLE : </label>
+                    {{ form.title }}
+                </div>
+                <!-- CITY -->
+                <div>
+                    {{ form.city.errors }}
+                    <label for="{{ form.city.id_for_label }}">CITY : </label>
+                    {{ form.city }}
+                </div>
+                <!-- EXACT ADDRESS -->
+                <div>
+                    {{ form.exact_address.errors }}
+                    <label for="{{ form.exact_address.id_for_label }}">WRITE EXACT ADDRESS : </label>
+                    {{ form.exact_address }}
+                </div>
+                <!-- MAP AND LATITUDE AND LONGITUDE SELECTION -->
+                <div>
+                    <!--MAP DIV TO DISPLAY MAP-->
+                    SELECT YOUR LISTING LOCATION : 
+                    <br>
+                    <div id="map" style="width:700px; height: 500px;"></div>
+                    <!-- ENDS HERE -->
+                    {{ form.lat.errors }}
+                    <label for="{{ form.lat.id_for_label }}">LATITUDE : </label>
+                    <input type="number" name="lat" step="0.000001" required="" id="id_lat">
+                    <br>             
+                    {{ form.lng.errors }}
+                    <label for="{{ form.lng.id_for_label }}">LONGITUDE : </label>
+                    <input type="number" name="lng" step="0.000001" required="" id="id_lng">
+                    <script type="text/javascript" src="{% static 'js/maps.js' %}"></script>
+                </div>
+                <!-- DESCRIPTION -->
+                <div>
+                    {{ form.description.errors }}
+                    <label for="{{ form.description.id_for_label }}">DESCRIBE LISITNG : </label>
+                    {{ form.description }}
+                </div>
+                <!-- PRICE -->
+                <div>
+                    {{ form.price.errors }}
+                    <label for="{{ form.price.id_for_label }}">PRICE PER NIGHT : </label>
+                    {{ form.price }}
+                </div>
+                <!-- LISTING TYPE -->
+                <div>
+                    {{ form.listing_type.errors }}
+                    <label for="{{ form.listing_type.id_for_label }}">CHOOSE THE TYPE OF LISTING : </label>
+                    {{ form.listing_type }}
+                </div>
+                <!-- KITCHEN AVAILABLE -->
+                <div>
+                    {{ form.kitchen_available.errors }}
+                    <label for="{{ form.kitchen_available.id_for_label }}">TICK IF KITHCEN IS AVAILABLE : </label>
+                    {{ form.kitchen_available }}
+                </div>
+                <!-- KITCHEN DESCRIPTION -->
+                <div>
+                    {{ form.kitchen_description.errors }}
+                    <label for="{{ form.kitchen_description.id_for_label }}">DESCRIBE THE KITCHEN : </label>
+                    {{ form.kitchen_description }}
+                </div>
+                <!-- BEDROOMS -->
+                <div>
+                    {{ form.bedrooms.errors }}
+                    <label for="{{ form.bedrooms.id_for_label }}">NO OF BEDROOMS : </label>
+                    {{ form.bedrooms }}
+                </div>
+                <!-- MAX ACCOMODATION -->
+                <div>
+                    {{ form.max_acomodation.errors }}
+                    <label for="{{ form.max_acomodation.id_for_label }}">MAX ACCOMODATION : </label>
+                    {{ form.max_acomodation }}
+                </div>
+                <!-- BATH ROOM TYPE -->
+                <div>
+                    {{ form.bathroom_type.errors }}
+                    <label for="{{ form.bathroom_type.id_for_label }}">BATHROOOM TYPE : </label>
+                    {{ form.bathroom_type }}
+                </div>
+                <!-- NO OF BATHROOMS -->
+                <div>
+                    {{ form.no_bathrooms.errors }}
+                    <label for="{{ form.no_bathrooms.id_for_label }}">NO. OF BATHROOMS : </label>
+                    {{ form.no_bathrooms }}
+                </div>
+                <!-- ROOM TYPE AC OR NON AC -->
+                <div>
+                    {{ form.room_type.errors }}
+                    <label for="{{ form.room_type.id_for_label }}">TYPE OF ROOM : </label>
+                    {{ form.room_type }}
+                </div>
+                <!-- MAIN PHOTO -->
+                <div>
+                    {{ form.main_photo.errors }}
+                    <label for="{{ form.main_photo.id_for_label }}">MAIN PHOTO 2 : </label>
+                    {{ form.main_photo }}
+                </div>
+                <!-- PHOTO 1 -->
+                <div>
+                    {{ form.photo_3.errors }}
+                    <label for="{{ form.photo_3.id_for_label }}">PHOTO NO. 2 : </label>
+                    {{ form.photo_3 }}
+                </div>
+                <!-- PHOTO 2 -->
+                <div>
+                    {{ form.photo_2.errors }}
+                    <label for="{{ form.photo_2.id_for_label }}">PHOTO NO. 3 : </label>
+                    {{ form.photo_2 }}
+                </div>
+                <!-- PHOTO 3 -->
+                <div>
+                    {{ form.photo_3.errors }}
+                    <label for="{{ form.photo_3.id_for_label }}">PHOTO NO. 3 : </label>
+                    {{ form.photo_3 }}
+                </div>
+                <!-- IS PUBLISHED -->
+                <div>
+                    {{ form.is_published.errors }}
+                    <label for="{{ form.is_published.id_for_label }}">PUBLISH IT : </label>
+                    {{ form.is_published }}
+                </div>
+            </fieldset>
+            <div>
+                <button type="submit"class="btn btn-outline-info">Post</button>
+            </div>
+        </form>
+    </div>
+
+{% endblock content %}

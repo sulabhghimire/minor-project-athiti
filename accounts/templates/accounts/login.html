@@ -1,0 +1,32 @@
+
+{% extends 'listings/base.html' %}
+
+{% block content %}
+{% load static %}
+<head>
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+</head>
+    <div>
+        <form method="POST">
+            {% csrf_token %}
+            <fieldset>
+                <legend>
+                    Log In
+                </legend>
+                {{ form.as_p }}
+            </fieldset>
+            <div>
+                <button type="submit">Log In</button>
+            </div>
+        </form>
+        <div>
+            <small>
+                Don't have an Account? 
+                <a href="{% url 'guest-register' %}">Sign Up</a>
+            </small>
+            <small>
+                Forget your password? <a href="{% url 'password_reset' %}">Reset Now</a>
+            </small>
+        </div>
+    </div>
+{% endblock content %}

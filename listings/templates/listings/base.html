@@ -1,0 +1,161 @@
+{%  load static %}
+<!doctype html>
+<html lang="en">
+    <head>
+        <title>Athiti</title>
+        <!-- Font Awesome Import Start -->
+        <link crossorigin="anonymous" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css" integrity="sha384-Bfad6CLCknfcloXFOyFnlgtENryhrpZCe29RTifKEixXQZ38WheV+i/6YWSzkz3V" rel="stylesheet"/>
+        <!-- Font Awesome Import End -->
+        <!--- Khalti payment service down below---> 
+        <script src="https://khalti.s3.ap-south-1.amazonaws.com/KPG/dist/2020.12.17.0.0.0/khalti-checkout.iffe.js"></script>
+        <link rel="stylesheet" href="{% static 'css/base.css' %}">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@200&display=swap" rel="stylesheet">
+        
+        <style>
+            .fa-stack[data-count]:after{
+                position:absolute;
+                right:0%;
+                top:1%;
+                content: attr(data-count);
+                font-size:30%;
+                padding:.6em;
+                border-radius:999px;
+                line-height:.75em;
+                color: white;
+                background:rgba(255,0,0,.85);
+                text-align:center;
+                min-width:2em;
+                font-weight:bold;
+}
+        </style>
+    </head>
+  
+
+    <body>
+        <header>
+            <nav>
+                <div class="nav">
+                    <span class="nav-left"><a href="{% url 'home' %}">Home </a> </span>
+                    <div class="nav-right">
+                        {% if user.is_authenticated %}
+                            {% if user.host %}
+                                <span><a href="{% url 'listing-list' %}">Your Listings</a></span>
+                                <span><a href="{% url 'hosts-booking' %}">View Bookings</a></span>
+                            {% endif %}
+                            {% if user.guest %}
+                                <span><a href="{% url 'guests-booking' %}">View Bookings</a></span>
+                            {% endif %}
+                            <span><a href="{% url 'profile' user.pk %}">Profile</a> </span>
+                            {% if user.guest %}
+                                <span><a href="{% url 'display_cart' %}">Cart</a></span>
+                            {% endif %}
+                            <!--Data-count gives number of notifications that are not seen-->
+                            <a href="{% url 'notifications' %}">
+                            <span class="fa-stack fa-2x" data-count="{{count_notifications}}">
+                                    <i class="fa fa-bell fa-stack-2x icon-yellow"></i>
+                            </span>
+                            </a>
+                            <span><a href="{% url 'logout' %}">Log Out</a> </span> 
+                        {% else %}
+                            <span><a href="{% url 'host-register' %}">Join as Host</a</span>
+                            <span><a href="{% url 'guest-register' %}">Join as Guest</a> </span>
+                            <span>
+                               <a href="{% url 'login' %}">Log In</a> 
+                            </span>
+                        {% endif %}   
+                    </div>
+               </div>
+            </nav>
+        </header>
+
+       <section class="searchBox">
+           <div>
+               <form method=POST action="{% url 'search' %}">
+                   {% csrf_token %}
+                    <div class="ratingSort">
+                        <label for="ratings_by">Sort by Ratings</label>
+                            <select name="ratings_by">
+                                <option>------</option>
+                                <option>5</option>
+                                <option>4+</option>
+                                <option>3+</option>
+                                <option>2+</option>
+                                <option>1+</option>
+                                <option>0+</option>
+                            </select>
+                    </div>
+                    <div class="priceSort">
+                        <label for="price_by">Sort by Price</label>
+                            <select name="price_by">
+                                <option>------</option>
+                                <option>Low to high</option>
+                                <option>High to low</option>
+                            </select>
+                    </div>
+                    <span>
+                        <input placeholder="Your preferred Area" type="search" name="searched">
+                        <button type="submit">Search</button>
+                        </span>
+                </form>
+           </div>
+       </section>
+       <hr>
+       <section id="boxes">
+           <div class="container">
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+           </div>
+           
+           <div class="container">
+            {% block content %}
+            {% endblock content %}
+           </div>
+       </section>
+   
+        <div>
+            {% if is_paginated %}
+
+                {% if page_obj.has_previous %}
+                    <a class="btn btn-outline-info mb-4" href="?page=1">First</a>
+                    <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+                {% endif %}
+    
+                {% for num in page_obj.paginator.page_range %}
+                    {% if page_obj.number == num %}
+                        <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
+                    {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                        <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
+                    {% endif %}
+                {% endfor %}
+    
+                {% if page_obj.has_next %}
+                    <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">Next</a>
+                    <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+                {% endif %}
+    
+            {% endif %}
+        </div>
+        
+    </section>
+   
+       <footer>
+           <div class="container">
+           <p> Athiti &copy; 2021</p>
+           </div>
+       </footer>
+    
+  </body>
+</html>
+
+
+
+
+
+

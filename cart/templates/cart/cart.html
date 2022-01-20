@@ -1,0 +1,159 @@
+
+{% extends 'listings/base.html' %}
+
+{% block content %}
+<div class="row">
+
+    <div class="container mb-4">
+        <div class="row">
+            <div class="col-12">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th style="width: 150px; text-align: center;" scope="col">Image </th>
+                                <th style="width: 150px; text-align: center;" scope="col"> Title </th>
+                                <th style="width: 150px; text-align: center;" scope="col"> Host </th>
+                                <th style="width: 150px; text-align: center;" scope="col" class="text-center"> Check In </th>
+                                <th style="width: 150px; text-align: center;" scope="col" class="text-center"> Check Out </th>
+                                <th style="width: 150px; text-align: center;" scope="col" class="text-center"> Days </th>
+                                <th style="width: 150px; text-align: center;" > Unit Price </th>
+                                <th style="width: 150px; text-align: center;" scope="col" class="text-right"> Price  </th>
+                                <th> </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% with carts=cart.list %}
+                        {% for cart in carts %}
+                            
+                            <tr>
+                                <td style="width: 150px; text-align: center;"> <img src="{{cart.obj.main_photo.url}}" alt="" height="35px"/> </td>
+                                <td style="width: 150px; text-align: center;">{{cart.obj.title}}</td>
+                                <td style="width: 150px; text-align: center;">{{cart.obj.user}}</td>
+                                <td style="width: 150px; text-align: center;">{{cart.check_in}}</td>
+                                <td style="width: 150px; text-align: center;">{{cart.check_out}}</td>
+                                <td style="width: 150px; text-align: center;">{{cart.days}}</td>
+                                <td style="width: 150px; text-align: center;">Rs.{{cart.obj.price}}</td>
+                                <td style="width: 150px; text-align: center;" class="text-right">Rs. {{cart.price}}</td>
+                                <td style="width: 150px; text-align: center;" class="text-right">
+    
+                                    <form action="{% url 'delete_cart' cart.id %}" method="POST">
+                                        {% csrf_token %}
+                                        <button type="submit">Remove </button> 
+                                
+                                    </form>
+                                </td>
+                            </tr>   
+                        
+                         {% endfor %}
+                         {% if cart.list %}
+                            <tr>
+                                <td style="width: 150px; text-align: center;"></td>
+                                <td style="width: 150px; text-align: center;"></td>
+                                <td style="width: 150px; text-align: center;"></td>
+                                <td style="width: 150px; text-align: center;"></td>
+                                <td style="width: 150px; text-align: center;"></td>
+                                <td style="width: 150px; text-align: center;"><strong>Tax</strong></td>
+                                <td style="width: 150px; text-align: center;"><strong>{{cart.get_tax_percentage}}%</strong></td>
+                                <td style="width: 150px; text-align: center;"><strong>Rs. {{ cart.get_tax_amount }}</strong></td>
+                            </tr>
+                       
+                            <tr>
+                                <td style="width: 150px; text-align: center;"></td>
+                                <td style="width: 150px; text-align: center;"></td>
+                                <td style="width: 150px; text-align: center;"></td>
+                                <td style="width: 150px; text-align: center;"></td>
+                                <td style="width: 150px; text-align: center;"></td>
+                                <td style="width: 150px; text-align: center;"><strong>Service Charge</strong></td>
+                                <td style="width: 150px; text-align: center;"><strong>{{ cart.get_service_tax_percentage }}%</strong></td>
+                                <td style="width: 150px; text-align: center;"><strong>Rs. {{ cart.get_service_tax_amount }}</strong></td>
+                            </tr>
+
+                            <tr>
+                                <td style="width: 150px; text-align: center;"></td>
+                                <td style="width: 150px; text-align: center;"></td>
+                                <td style="width: 150px; text-align: center;"></td>
+                                <td style="width: 150px; text-align: center;"></td>
+                                <td style="width: 150px; text-align: center;"></td>
+                                <td style="width: 150px; text-align: center;"></td>
+                                <td style="width: 150px; text-align: center;"><strong>Total</strong></td>
+                                <td style="width: 150px; text-align: center;" class="text-right"><strong>Rs {{ cart.get_total_amount}}</strong></td>
+                            </tr>
+                            {% endif %}
+                            {% endwith %}
+    
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col mb-2">
+                <div class="row">
+                    <div class="col-sm-12  col-md-6">
+                        <a class="btn btn-outline-info" href="/">Continue Shopping</a>
+                    </div>
+                    <div class="col-sm-12 col-md-6 text-right">
+                        <button id="payment-button">Pay with Khalti</button>
+                        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+                        <script>
+                            var config = {
+                                // replace the publicKey with yours
+                                "publicKey": "test_public_key_e098c351038249f3b6aec9f2ddef6dfd",
+                                "productIdentity": "{% for cart in cart.list %}{{cart.obj.id}}{% endfor %}",
+                                "productName": "{% for cart in cart.list %}{{cart.obj.title}} booked by {{user.email}} from {{cart.check_in}} to {{cart.check_out}}. {% endfor %}",
+                                "productUrl": "http://localhost:8000",
+                                "paymentPreference": [
+                                    "KHALTI",
+                                    "EBANKING",
+                                    "MOBILE_BANKING",
+                                    "CONNECT_IPS",
+                                    "SCT",
+                                    ],
+                                "eventHandler": {
+                                    onSuccess (payload) {
+                                        // hit merchant api for initiating verfication
+                                        axios.get("/khalti-verify/", {
+                                            params : {
+                                                "token": payload.token,
+                                                "total_amount": payload.amount,
+                                                "amount": "{{ cart.sum_amount }}",
+                                                "tax_amount": "{{ cart.get_tax_amount }}",
+                                                "service_charge_amount": "{{ cart.get_service_tax_amount }}",
+                                                "room_id": "{% for cart in cart.list %}{{cart.obj.id}}{% endfor %}",
+                                                "check_in": "{% for cart in cart.list %}{{cart.check_in}}{% endfor %}",
+                                                "check_out": "{% for cart in cart.list %}{{cart.check_out}}{% endfor %}",
+                                            }
+                                        }).then(function(resp){
+                                            if (resp.data.sucess == true){
+                                                alert("Payment has been completed sucessfully and room has been booked.")
+                                                location.href = "/"
+                                            }
+                                            else{
+                                                alert("Sorry error occured in payment")
+                                                location.href = "{{ request.build_absolute_uri }}"
+                                            }
+                                        })
+                                    },
+                                    onError (error) {
+                                        console.log(error);
+                                    },
+                                    onClose () {
+                                        console.log('widget is closing');
+                                    }
+                                }
+                            };
+                    
+                            var checkout = new KhaltiCheckout(config);
+                            var btn = document.getElementById("payment-button");
+                            btn.onclick = function () {
+                                // minimum transaction amount must be 10, i.e 1000 in paisa.
+                                checkout.show({amount: {{cart.get_total_amount}}*100});
+                            }
+                        </script>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+{% endblock content %}
+

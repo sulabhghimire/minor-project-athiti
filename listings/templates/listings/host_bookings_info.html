@@ -1,0 +1,55 @@
+
+{% extends 'listings/base.html' %}
+
+{% block content %}
+    <h2>Current Bookings Are</h2>
+    <br>
+    {% for post in posts %}
+        {% if post.room_host_id == user.pk %}
+            {% ifequal post.booking_progres "Booked" %}
+            <p>
+                Guest Name  : <a href="{% url 'profile' post.user_id %}">{{post.user_full_name}} </a><br>                Room Booked : {{post.date_booked}}   <br>
+                Check In Date : {{post.check_in}}     <br>
+                Check Out Date : {{post.check_out}}     <br>
+                Amount Paid : NRS. {{post.total_amount}} via Khalti Wallet <br>
+                Status : {{post.booking_progres}}       <br>
+                <br>
+            </p>
+            {% endifequal %}
+        {% endif %}
+    {% endfor %}
+    <br>
+    <h2>Cancelled Bookings Are</h2>
+    <br>
+    {% for post in posts %}
+        {% if post.room_host_id == user.pk %}
+            {% ifequal post.booking_progres "Cancelled" %}
+            <p>
+                Guest Name  : <a href="{% url 'profile' post.user_id %}">{{post.user_full_name}} </a><br>                Room Booked : {{post.date_booked}}   <br>
+                Check In Date : {{post.check_in}}     <br>
+                Check Out Date : {{post.check_out}}     <br>
+                Amount Paid : NRS. {{post.total_amount}} via Khalti Wallet <br>
+                Status : {{post.booking_progres}}       <br>
+            </p>
+            <br>
+            {% endifequal %}
+        {% endif %}
+    {% endfor %}
+    <br>
+    <h2>Completed Bookings Are</h2>
+    <br>
+    {% for post in posts %}
+        {% if post.room_host_id == user.pk %}
+            {% ifequal post.booking_progres "Completed" %}
+            <p>
+                Guest Name  : <a href="{% url 'profile' post.user_id %}">{{post.user_full_name}} </a><br>                Room Booked : {{post.date_booked}}   <br>
+                Check In Date : {{post.check_in}}     <br>
+                Check Out Date : {{post.check_out}}     <br>
+                Amount Paid : NRS. {{post.total_amount}} via Khalti Wallet <br>
+                Status : {{post.booking_progres}}       <br>
+            </p>
+            <br>
+            {% endifequal %}
+        {% endif %}    
+    {% endfor %}
+{% endblock content %}
