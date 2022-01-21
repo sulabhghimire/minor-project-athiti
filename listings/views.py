@@ -1,8 +1,10 @@
+from turtle import color
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib import messages
+from django.template import context
 from django.urls import reverse
 from django.http.response import Http404, HttpResponse, HttpResponseRedirect
-from .forms import AvailabilityForm
+from .forms import AvailabilityForm, ContactUsForm
 import datetime
 from decimal import Decimal
 
@@ -161,48 +163,50 @@ def check_host(user):
         return False
 
 from .forms import PostForm
-@user_passes_test(check_host)
 def post_item(request):
 
-    if request.method == "POST":
-        form = PostForm(request.POST)
-        if form.is_valid():
-            data = form.cleaned_data
-            Listing.objects.create(
-                user                = request.user,
-                title               = data['title'],
-                city                = data['city'],
-                exact_address       = data['exact_address'],
-                lat                 = data['lat'],
-                lng                 = data['lng'],
-                description         = data['description'],
-                price               = data['price'],
-                listing_type        = data['listing_type'],
-                kitchen_available   = data['kitchen_available'],
-                kitchen_description = data['kitchen_description'],
-                bedrooms            = data['bedrooms'],
-                max_acomodation     = data['max_acomodation'],
-                bathroom_type       = data['bathroom_type'],
-                no_bathrooms        = data['no_bathrooms'],
-                room_type           = data['room_type'],
-                main_photo          = data['main_photo'],
-                photo_1             = data['photo_1'],
-                photo_2             = data['photo_2'],
-                photo_3             = data['photo_3'],
-                is_published        = data['is_published'],
-            )
-            messages.success(request, "Your listing has been saved You will be able to view after it has been approved by admin!")
-            return redirect('listing-list')
-        else:
-            messages.warning(request, "Your form is invalid!")
-            return redirect('listing-post')
+    if request.user.host:
+        if request.method == "POST":
+            form = PostForm(request.POST)
+            if form.is_valid():
+                data = form.cleaned_data
+                Listing.objects.create(
+                    user                = request.user,
+                    title               = data['title'],
+                    city                = data['city'],
+                    exact_address       = data['exact_address'],
+                    lat                 = data['lat'],
+                    lng                 = data['lng'],
+                    description         = data['description'],
+                    price               = data['price'],
+                    listing_type        = data['listing_type'],
+                    kitchen_available   = data['kitchen_available'],
+                    kitchen_description = data['kitchen_description'],
+                    bedrooms            = data['bedrooms'],
+                    max_acomodation     = data['max_acomodation'],
+                    bathroom_type       = data['bathroom_type'],
+                    no_bathrooms        = data['no_bathrooms'],
+                    room_type           = data['room_type'],
+                    main_photo          = data['main_photo'],
+                    photo_1             = data['photo_1'],
+                    photo_2             = data['photo_2'],
+                    photo_3             = data['photo_3'],
+                    is_published        = data['is_published'],
+                )
+                messages.success(request, "Your listing has been saved You will be able to view after it has been approved by admin!")
+                return redirect('listing-list')
+            else:
+                messages.warning(request, "Your form is invalid!")
+                return redirect('listing-post')
 
-    form    = PostForm()
-    context = {
-        'form'  : form,
-    }
+        form    = PostForm()
+        context = {
+            'form'  : form,
+        }
 
-    return render(request, "listings/post_listing.html", context)
+        return render(request, "listings/post_listing.html", context)
+    else:
+        raise Http404
 
 @user_passes_test(check_host)
 def update_item(request, pk):
@@ -254,8 +258,7 @@ def update_item(request, pk):
         return render(request, "listings/listing_update.html", context)
 
     else:
-        return Http404
-
+        raise Http404
 
 class ListingDelete(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Listing
@@ -299,16 +302,16 @@ def SearchTitle(request):
         price_by    = request.POST['price_by']
         searched    = request.POST['searched']
         ratings     = SendRatingNumerical(ratings_by)
-        
+
         if price_by=="Low to high" and ratings!=6:
-            #title = Listing.objects.filter(exact_address__contains = searched,  is_published=True).order_by('price')
-           title = Listing.objects.filter(rating__gte=ratings, exact_address__contains = searched, is_published=True, approved=True).order_by('-price')
-        elif price_by=="High to low" and ratings!=0:
-            #title = Listing.objects.filter(exact_address__contains = searched).order_by('-price')
-           title = Listing.objects.filter( rating__gte=ratings,exact_address__contains = searched, is_published=True, approved=True).order_by('-price')
+            title = Listing.objects.filter(rating__gte=ratings, exact_address__contains = searched, is_published=True, approved=True).order_by('price')
+        elif price_by=="High to low" and ratings!=6:
+            title = Listing.objects.filter( rating__gte=ratings,exact_address__contains = searched, is_published=True, approved=True).order_by('-price')
         elif price_by=="Low to high" and ratings==6:
+            print("working")
             title = Listing.objects.filter(exact_address__contains = searched, is_published=True, approved=True).order_by('price')
         elif price_by=="High to low" and ratings==6:
+            print("wORKING")
             title = Listing.objects.filter(exact_address__contains = searched, is_published=True, approved=True).order_by('-price')
         elif price_by=="------" and ratings!=6:
            title = Listing.objects.filter( rating__gte=ratings,exact_address__contains = searched, is_published=True, approved=True)
@@ -322,6 +325,43 @@ def SearchTitle(request):
     else:
         
         return render(request, 'listings/searched_listings.html')
+
+import branca
+def map(request):
+
+    object = Listing.objects.filter(approved=True)
+    map     = folium.Map(location=[28.3974, 84], tiles="OpenStreetMap", zoom_start=7)
+    for obj in object:
+        lat, lng = float(obj.lat), float(obj.lng)
+        if obj.is_published:
+            status = "Running"
+            col    = "Blue"
+        else:
+            status = "Not Running"
+            col    = "Red"
+        html = f"""
+                <h3> {obj.title} </h3> 
+                <p style="color: {col};">Status : {status}</p>
+                <p>
+                    Rating : {obj.rating}<br>
+                    Price : {obj.price}<br>
+                    Times Booked : {obj.total_bookings}<br>
+                    City : {obj.city}<br>
+                    Exact Location : {obj.exact_address}<br>
+                    Host Details : {obj.user.full_name }</a>
+                </p>
+            """
+        iframe = branca.element.IFrame(html=html, width=400, height=210)
+        color   = "blue" if obj.is_published else "red" 
+        popup = folium.Popup(iframe, max_width=500)
+        folium.Marker(location=[lat, lng], popup= popup, tooltip="Click for More", parse_html=True, icon=folium.Icon(color=color)).add_to(map)
+    map     = map._repr_html_()
+
+    context = {
+        'map' : map,
+    }
+
+    return render(request, "listings/map_listings.html", context)
 
 def find_stars(star):
     if star > 0 and star < 0.5:
@@ -347,3 +387,21 @@ def find_stars(star):
     else :
         stars = star
     return stars
+
+def contact_us(request):
+
+    if request.method=="POST":
+        form    =   ContactUsForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "The information was submitted")
+            return redirect(reverse('home'))
+        else:
+            messages.error(request, "The form was invalid. PLease heck and try again!")
+            return redirect(reverse('contact-us'))
+    else:
+        form    = ContactUsForm()
+        context = {
+            'form' : form,
+        }
+        return render(request, "listings/contact_us.html", context)

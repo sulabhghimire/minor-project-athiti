@@ -1,6 +1,8 @@
+from email.message import Message
+from operator import mod
 from pyexpat import model
 from django import forms
-from .models import Listing
+from .models import Listing, Contact
 
 class AvailabilityForm(forms.Form):
     room_name   = forms.IntegerField(required=True)
@@ -33,4 +35,15 @@ class PostForm(forms.ModelForm):
             'photo_2',
             'photo_3',
             'is_published',
+        )
+
+class ContactUsForm(forms.ModelForm):
+
+    class Meta:
+        model = Contact
+        fields = (
+            'full_name',
+            'Email', 
+            'Phone_Number', 
+            'Message',
         )
