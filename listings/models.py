@@ -1,18 +1,9 @@
-from cmath import log
-from operator import mod
-import this
-from types import CoroutineType
-from typing_extensions import Required
-from django.contrib.messages.api import MessageFailure
+
+
+
 from django.db import models
 from django.contrib.auth import get_user_model
-from django.db.models.enums import TextChoices
-from django.db.models.fields import DateField, SlugField
-from django.db.models.query_utils import check_rel_lookup_compatibility
-from django.db.models.signals import post_save
-from django.urls.resolvers import CheckURLMixin
 from django_extensions.db.fields import AutoSlugField
-from geoposition.fields import GeopositionField
 import uuid
 from accounts.forms import User
 from PIL import Image
@@ -102,6 +93,9 @@ class Listing(models.Model):
         except:
             pass
 
+    class Meta:
+        ordering = ['approved']
+
 class Booking(models.Model):
 
     uuid                    = models.UUIDField(default=uuid.uuid4, unique=True, db_index=True, editable=False)
@@ -126,6 +120,9 @@ class Booking(models.Model):
     booking_progres         = models.CharField(max_length=20, default='Booked')
     refund_status           = models.CharField(max_length=100, default='None')
 
+    class Meta:
+        ordering = ['check_in']
+
     def __str__(self):
         return f'{self.user_full_name} has booked {self.room_city} from {self.check_in} to {self.check_out} of {self.room_host_email}.'
 
@@ -138,6 +135,9 @@ class Refund_Control(models.Model):
     total_amount            = models.DecimalField(max_digits=10, decimal_places=3)
     refund_percentage       = models.CharField(max_length=3, default=' ')
     refund_completed        = models.BooleanField(default=False)
+
+    class Meta:
+        ordering = ['refund_completed']
 
     def __str__(self):
         return f'{self.booking_staus.user_full_name} has to recieve {self.refund_percentage}% refund.'

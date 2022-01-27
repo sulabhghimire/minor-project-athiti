@@ -1,4 +1,5 @@
 from turtle import color
+from django.conf import settings
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib import messages
 from django.template import context
@@ -7,7 +8,8 @@ from django.http.response import Http404, HttpResponse, HttpResponseRedirect
 from .forms import AvailabilityForm, ContactUsForm
 import datetime
 from decimal import Decimal
-
+import folium
+import googlemaps
 from . models import Listing, Booking, Refund_Control
 import review.models as rev_model
 
@@ -117,12 +119,22 @@ def CheckRoomAvabiality(request):
 
         return redirect(url)
 
-import folium
+
 def LisitngDetailView(request, pk):
 
     obj     = Listing.objects.get(id=pk, is_published=True, approved=True)
     reviews = rev_model.ReviewsAndRating.objects.filter(room_id=pk, status=True)
-    
+
+    gmaps = googlemaps.Client(key='AIzaSyBOy_NqTd4raZcqkEx7aExmO90dKiABBys') 
+    origin_latitude = 12.9551779
+    origin_longitude = 77.6910334
+    destination_latitude = 28.505278
+    destination_longitude = 77.327774
+    #distance = gmaps.distance_matrix([str(origin_latitude) + " " + str(origin_longitude)], [str(destination_latitude) + " " + str(destination_longitude)], mode='walking')['rows'][0]['elements'][0]
+
+    print(type(origin_latitude))
+
+
     map     = folium.Map(location=[28.3974, 84], tiles="OpenStreetMap", zoom_start=7)
     lat, lng = float(obj.lat), float(obj.lng)
     folium.Marker(location=[lat, lng], popup=obj.title, tooltip="Click for More").add_to(map)
