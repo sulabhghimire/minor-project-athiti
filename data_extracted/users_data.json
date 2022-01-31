@@ -1,0 +1,48 @@
+[
+    {
+        "model" : "accounts.User",
+        "pk"    : 2,
+        "fields" : {
+            "email"         : "admin4@admin.com",
+            "password"      : "pbkdf2_sha256$260000$Kkhgoe2cbQt77rbmAv407s$ASVcGTWgU9bryE0fov7vmA5+IolRK0CvSDURnmNnf+s=",
+            "is_active"     : true,
+            "staff"         : false,
+            "host"          : true,
+            "guest"         : false,
+            "full_name"     : "Shushil Paudel",
+            "country"       : "NP",
+            "state"         : "Gandaki",
+            "phone_number"  : 9866011033
+        }
+    },
+    {
+        "model" : "accounts.Profile",
+        "pk"    : 2,
+        "fields" : {
+            "user"          : 2
+        }
+    },
+    {
+        "model" : "accounts.User",
+        "pk"    : 3,
+        "fields" : {
+            "email"         : "admin4@admin.com",
+            "password"      : "pbkdf2_sha256$260000$Kkhgoe2cbQt77rbmAv407s$ASVcGTWgU9bryE0fov7vmA5+IolRK0CvSDURnmNnf+s=",
+            "is_active"     : true,
+            "staff"         : false,
+            "host"          : false,
+            "guest"         : true,
+            "full_name"     : "Shushil Paudel",
+            "country"       : "NP",
+            "state"         : "Gandaki",
+            "phone_number"  : 9866011033
+        }
+    },
+    {
+        "model" : "accounts.Profile",
+        "pk"    : 3,
+        "fields" : {
+            "user"          : 3
+        }
+    }
+]

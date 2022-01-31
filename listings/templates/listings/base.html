@@ -12,7 +12,6 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@200&display=swap" rel="stylesheet">
-        
         <style>
             .fa-stack[data-count]:after{
                 position:absolute;
@@ -53,9 +52,9 @@
                             {% endif %}
                             <!--Data-count gives number of notifications that are not seen-->
                             <a href="{% url 'notifications' %}">
-                            <span class="fa-stack fa-2x" data-count="{{count_notifications}}">
-                                    <i class="fa fa-bell fa-stack-2x icon-yellow"></i>
-                            </span>
+                                <span class="fa-stack fa-2x" data-count="{{count_notifications}}">
+                                        <i class="fa fa-bell fa-stack-2x icon-yellow"></i>
+                                </span>
                             </a>
                             <span><a href="{% url 'logout' %}">Log Out</a> </span> 
                         {% else %}

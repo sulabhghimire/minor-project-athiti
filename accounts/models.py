@@ -3,6 +3,7 @@ from django.contrib.auth.models import (
     AbstractBaseUser, BaseUserManager, UserManager
 )
 from django_countries.fields import CountryField
+from django.utils import timezone
 
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.forms.fields import ImageField
@@ -90,7 +91,7 @@ class User(AbstractBaseUser):
     admin       = models.BooleanField(default=False)
     host        = models.BooleanField(default=False)
     guest       = models.BooleanField(default=False)
-    timestamp   = models.DateTimeField(auto_now_add=True)
+    timestamp   = models.DateTimeField(default=timezone.now, editable=False)
     full_name   = models.CharField(max_length=255, blank=False, unique=False)
     country     = CountryField(blank_label='(Select Country)')
     state       = models.CharField(max_length=255, blank=False)

@@ -1,0 +1,31 @@
+Instructions
+
+1. We will be using json format for data collection
+2. To create a user sucessfully we will need to create two data for same user 
+3. First we need to create data in users.User
+4. A json file will start with [ and end with ]
+5. { indicates the satrt of one record and } indicated end of that record.
+6. Each record are seperated by comma ,
+7. First we give models name which will always be same
+8. Second will be pk that will start from 2 and will go on increasing
+9. 3rd will be filds
+        "model" : "accounts.User", Always same
+        "pk"    : 2, start from 2 and keep increasing
+        "fields" : {
+            "email"         : "admin4@admin.com", this must be unique and cannot be same
+            "password"      : "pbkdf2_sha256$260000$Kkhgoe2cbQt77rbmAv407s$ASVcGTWgU9bryE0fov7vmA5+IolRK0CvSDURnmNnf+s=", always copy same for password
+            "is_active"     : true, always keep this is_active true
+            "staff"         : false, always keep this staff false
+            "host"          : true, among all the users created keep first 10 from 2-11 as host is true and for other keep it false
+            "guest"         : false, if you kept host as true then keep guest false and vice versa
+            "full_name"     : "Shushil Paudel", Keep a full name
+            "country"       : "NP", Keep this always same
+            "state"         : "Gandaki", You can use any state of nepal among 7 of them
+            "phone_number"  : 9866011033 This must be unique
+        },
+10. Then you will need to make for Profile of same user
+        "model" : "accounts.Profile", Keep this same for every thing
+        "pk"    : 2,  same as pk in above
+        "fields" : {
+            "user"          : 2 , same as pk in above
+        }

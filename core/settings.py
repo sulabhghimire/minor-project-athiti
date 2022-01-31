@@ -41,7 +41,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     #created apps
     'accounts.apps.AccountsConfig',
-    'listings.apps.ListingsConfig',
+    'listings',
+    'django_celery_results',
+    'django_celery_beat',
     'cart.apps.CartConfig',
     'review.apps.ReviewConfig',
     'notification.apps.NotificationConfig',
@@ -165,6 +167,17 @@ EMAIL_HOST_PASSWORD = 'btwlpxduloghziuz'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-GEOPOSITION_GOOGLE_MAPS_API_KEY  = 'AIzaSyBOy_NqTd4raZcqkEx7aExmO90dKiABBys'
 
 CART_SESSION_KEY    =   'product_cart'
+
+#CELERY SETINGS
+
+CELERY_BROKER_URL = 'redis://127.0.0.1:6379'
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'Asia/Kathmandu'
+CELERY_RESULTS_BACKEND = 'django-db' 
+
+#CELERY BEAT
+CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'

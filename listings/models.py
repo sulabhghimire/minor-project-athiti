@@ -1,12 +1,10 @@
-
-
-
 from django.db import models
 from django.contrib.auth import get_user_model
 from django_extensions.db.fields import AutoSlugField
 import uuid
 from accounts.forms import User
 from PIL import Image
+from django.utils import timezone
 
 User = get_user_model()
 
@@ -29,7 +27,7 @@ class Listing(models.Model):
     class LisitngType(models.TextChoices):
         ROOM        = 'Room'
         APARTEMENT  = 'Apartement'
-        HOUSE       =  'Full House'
+        HOUSE       = 'Full House'
     
     user                = models.ForeignKey(User, on_delete=models.CASCADE)
     title               = models.CharField(max_length=255)
@@ -41,7 +39,7 @@ class Listing(models.Model):
     price               = models.IntegerField()
     listing_type        = models.CharField(max_length=20, choices=LisitngType.choices, default=LisitngType.ROOM)
     kitchen_available   = models.BooleanField(default=False)
-    kitchen_description = models.TextField()
+    kitchen_description = models.TextField(null=True, blank=True)
     bedrooms            = models.IntegerField()
     max_acomodation     = models.IntegerField()
     bathroom_type       = models.CharField(max_length=20, choices=BathRoomType.choices, default=BathRoomType.ATTACHED)
@@ -52,7 +50,7 @@ class Listing(models.Model):
     photo_2             = models.ImageField(upload_to='room_images', default='default_room.jpg')
     photo_3             = models.ImageField(upload_to='room_images', default='default_room.jpg')
     is_published        = models.BooleanField(default=False)
-    date_created        = models.DateTimeField(auto_now_add=True)
+    date_created        = models.DateTimeField(default=timezone.now, editable=False)
     slug                = AutoSlugField(populate_from=['title', 'listing_type', 'bathroom_type', 'room_type'])
     rating              = models.IntegerField(default=5)
     approved            = models.BooleanField(default=False)

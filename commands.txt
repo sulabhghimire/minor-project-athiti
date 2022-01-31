@@ -1,0 +1,8 @@
+To run celery worker
+celery -A core worker -l info
+
+To run celery beat
+celery -A core beat -l info
+
+To load-data from json files
+./manage.py loaddata listings_data.jso

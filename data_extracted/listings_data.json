@@ -1,0 +1,31 @@
+[
+    {
+        "model" : "listings.Listing",
+        "pk"    : 10,
+        "fields" : {
+            "user"                : 2,
+            "title"               : "New Valley Unique Resort 2",
+            "city"                : 2,
+            "exact_address"       : "Boudha, Kathmandu",
+            "lat"                 : "27.7215", 
+            "lng"                 : "85.3620",
+            "description"         : "A very good room with wifi avaibality",
+            "price"               : 15,
+            "listing_type"        : "Full House",
+            "kitchen_available"   : false,
+            "kitchen_description" : "",
+            "bedrooms"            : 3,
+            "max_acomodation"     : 10,
+            "bathroom_type"       : "Attached Bathroom",
+            "no_bathrooms"        : 2,
+            "room_type"           : "Air Conditioner",
+            "main_photo"          : "/room_images/Screenshot_from_2020-09-22_12-11-23.png",
+            "photo_1"             : "/room_images/Screenshot_from_2020-09-22_12-11-23.png",
+            "photo_2"             : "/room_images/Screenshot_from_2020-09-22_12-11-23.png",
+            "photo_3"             : "/room_images/Screenshot_from_2020-09-22_12-11-23.png",
+            "is_published"        : true,
+            "approved"            : true
+
+        }
+    }
+]
