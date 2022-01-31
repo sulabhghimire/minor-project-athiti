@@ -1,8 +1,6 @@
-from turtle import color
 from django.conf import settings
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib import messages
-from django.template import context
 from django.urls import reverse
 from django.http.response import Http404
 from .forms import AvailabilityForm, ContactUsForm
@@ -12,10 +10,10 @@ import googlemaps
 from . models import Listing, Booking, Refund_Control
 import review.models as rev_model
 
-from django.contrib.auth.decorators import login_required, user_passes_test
-from django.views.generic import DetailView, UpdateView, CreateView, DeleteView, ListView
+from django.contrib.auth.decorators import user_passes_test
+from django.views.generic import DeleteView, ListView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin, AccessMixin
-from django.core.paginator import Paginator
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from listings.booking_functions.availability import check_availability
 
 # Create your views here.
@@ -263,16 +261,13 @@ class ListingDelete(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     def test_func(self):
         post = self.get_object()
         if self.request.user == post.user:
-            messages.success(self.request, f'Your lisitng has been updated.')
             return True
         return False
 
 def SearchTitle(request):
 
     def SendRatingNumerical(word):
-        if word=="--------":
-            return 6
-        elif word=="5":
+        if word=="5":
             return 5
         elif word=="4+":
             return 4
@@ -286,37 +281,52 @@ def SearchTitle(request):
             return 0
         else:
             return 6
-            
 
-    if request.method == "POST":  
-        
-        ratings_by  = request.POST['ratings_by']
-        price_by    = request.POST['price_by']
-        searched    = request.POST['searched']
-        ratings     = SendRatingNumerical(ratings_by)
-
-        if price_by=="Low to high" and ratings!=6:
-            title = Listing.objects.filter(rating__gte=ratings, exact_address__contains = searched, is_published=True, approved=True).order_by('price')
-        elif price_by=="High to low" and ratings!=6:
-            title = Listing.objects.filter( rating__gte=ratings,exact_address__contains = searched, is_published=True, approved=True).order_by('-price')
-        elif price_by=="Low to high" and ratings==6:
-            print("working")
-            title = Listing.objects.filter(exact_address__contains = searched, is_published=True, approved=True).order_by('price')
-        elif price_by=="High to low" and ratings==6:
-            print("wORKING")
-            title = Listing.objects.filter(exact_address__contains = searched, is_published=True, approved=True).order_by('-price')
-        elif price_by=="------" and ratings!=6:
-           title = Listing.objects.filter( rating__gte=ratings,exact_address__contains = searched, is_published=True, approved=True)
-
+    def SendPriceSearch(word):
+        if word == "Low to high":
+            return 1
+        elif word == "High to low":
+            return 2
         else:
-            title = Listing.objects.filter(exact_address__contains = searched, is_published=True, approved=True)
-        
-        paginator = Paginator(title, 10)
-        return render(request, 'listings/searched_listings.html', {'searched': searched, 'posts': title} )
+            return 0
 
+    page        = request.GET.get('page') 
+    ratings_by  = request.GET.get('ratings_by')
+    price       = request.GET.get('price_by')
+    price_by    = SendPriceSearch(price)
+    searched    = request.GET.get('searched')
+    ratings     = SendRatingNumerical(ratings_by)
+
+
+    if price_by==1 and ratings!=6:
+        title = Listing.objects.filter(rating__gte=ratings, exact_address__contains = searched, is_published=True, approved=True).order_by('price')
+    elif price_by==2 and ratings!=6:
+        title = Listing.objects.filter( rating__gte=ratings,exact_address__contains = searched, is_published=True, approved=True).order_by('-price')
+    elif price_by==1 and ratings==6:
+        title = Listing.objects.filter(exact_address__contains = searched, is_published=True, approved=True).order_by('price')
+    elif price_by==2 and ratings==6:
+        title = Listing.objects.filter(exact_address__contains = searched, is_published=True, approved=True).order_by('-price')
+    elif price_by==0 and ratings!=6:
+       title = Listing.objects.filter( rating__gte=ratings,exact_address__contains = searched, is_published=True, approved=True)
     else:
-        
-        return render(request, 'listings/searched_listings.html')
+        title = Listing.objects.filter(exact_address__contains = searched, is_published=True, approved=True)
+    
+    paginator = Paginator(title, 20)
+    try:
+        title = paginator.page(page)
+    except PageNotAnInteger:
+        title = paginator.page(1)
+    except EmptyPage:
+        title = paginator.page(paginator.num_pages)
+
+    context = {
+        'posts'         : title,
+        'searched'      : searched,
+        'rating_search' : ratings_by,
+        'price_search'  : price,
+    }
+    return render(request, 'listings/searched_listings.html', context)
+
 
 import branca
 def map(request):

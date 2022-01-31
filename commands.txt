@@ -5,4 +5,6 @@ To run celery beat
 celery -A core beat -l info
 
 To load-data from json files
-./manage.py loaddata listings_data.jso
+./manage.py loaddata listings_data.json
+
+Get redis server installed on your system

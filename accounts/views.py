@@ -9,35 +9,48 @@ from .models import Profile
 from review.models import RateGuest
 
 def register_as_guest(request):
-    if request.method == 'POST':
-        form = GuestRegisterForm(request.POST)
-        if form.is_valid():
-            form.save()
-            username = form.cleaned_data.get('username')
-            messages.success(request, f'Your account has been created as guest you can login and update your phone no.')
-            return redirect('home')
-    else:
-        form = GuestRegisterForm()
 
-    return render(request, 'accounts/guest_register.html', {'form': form})
+    if not request.user.is_authenticated:
+        if request.method == 'POST':
+            form = GuestRegisterForm(request.POST)
+            if form.is_valid():
+                form.save()
+                username = form.cleaned_data.get('username')
+                messages.success(request, f'Your account has been created as guest you can login.')
+                return redirect('home')
+        else:
+            form = GuestRegisterForm()
+
+        return render(request, 'accounts/guest_register.html', {'form': form})
+    else:
+        return redirect("home")
 
 def register_as_host(request):
-    if request.method == 'POST':
-        form = HostRegisterForm(request.POST)
-        if form.is_valid():
-            form.save()
-            username = form.cleaned_data.get('username')
-            messages.success(request, f'Your account has been created as host now you can login and update your phone no.')
-            return redirect('home')
-    else:
-        form = HostRegisterForm()
 
-    return render(request, 'accounts/host_register.html', {'form': form})
+    if not request.user.is_authenticated:
+        if request.method == 'POST':
+            form = HostRegisterForm(request.POST)
+            if form.is_valid():
+                form.save()
+                username = form.cleaned_data.get('username')
+                messages.success(request, f'Your account has been created as host now you can login.')
+                return redirect('home')
+        else:
+            form = HostRegisterForm()
+
+        return render(request, 'accounts/host_register.html', {'form': form})
+
+    else:
+        return redirect("home")
 
 def logout_view(request):
-    logout(request)
-    messages.success(request, f'You have logged out of the account.')
-    return redirect('home')
+
+    if request.user.is_authenticated:
+        logout(request)
+        messages.success(request, f'You have been logged out from your account.')
+        return redirect('home')
+    else:
+        return redirect("home")
 
 @login_required
 def profile_update(request):
@@ -63,7 +76,6 @@ def profile_update(request):
 
     return render(request, 'accounts/update_profile.html', context)
 
-@login_required
 def profile(request, pk):
     obj     = Profile.objects.get(id=pk)
     reviews = RateGuest.objects.filter(guest__id=pk, status=True)
@@ -113,7 +125,7 @@ def change_password(request):
             logout(request)
             return redirect('login')
         else:
-            messages.error(request, 'Please correct the error below.')
+            messages.error(request, 'Error! Please try again.')
     else:
         form = PasswordChangeForm(request.user)
     return render(request, 'accounts/password_change.html', {

@@ -36,11 +36,11 @@
                     <!-- ENDS HERE -->
                     {{ form.lat.errors }}
                     <label for="{{ form.lat.id_for_label }}">LATITUDE : </label>
-                    <input type="number" name="lat" step="0.000001" required="" id="id_lat">
+                    <input type="number" name="lat" step="0.000001" required="" id="id_lat" readonly="yes" >
                     <br>             
                     {{ form.lng.errors }}
                     <label for="{{ form.lng.id_for_label }}">LONGITUDE : </label>
-                    <input type="number" name="lng" step="0.000001" required="" id="id_lng">
+                    <input type="number" name="lng" step="0.000001" required="" id="id_lng" readonly="yes" >
                     <script type="text/javascript" src="{% static 'js/maps.js' %}"></script>
                 </div>
                 <!-- DESCRIPTION -->

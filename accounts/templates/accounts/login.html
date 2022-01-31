@@ -2,31 +2,42 @@
 {% extends 'listings/base.html' %}
 
 {% block content %}
-{% load static %}
+{% load static%}
 <head>
-    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    <link rel="stylesheet" type="text/css" href=" {% static 'css/login.css' %} " >
 </head>
-    <div>
-        <form method="POST">
+    <div class="loginPage">
+        <form method="POST" class="form-inline">
             {% csrf_token %}
-            <fieldset>
-                <legend>
-                    Log In
-                </legend>
-                {{ form.as_p }}
-            </fieldset>
+            <div class="loginForm">
+                <h2>
+                    Login
+
+                </h2>
+                <span>
+                    <!-- <p>---------------</p> -->
+                    <p>Sign In with Email</p>
+                    <!-- <p>----------------</p> -->
+                </span>
+                
+                <!-- {{ form.as_p }} -->
+                <p><label for="exampleInputEmail">Email:</label> <input type="text" name="username" autofocus="" class="form-control col-sm-6" autocapitalize="none" autocomplete="off" maxlength="255" required="" id="id_username" placeholder="name@example.com" ></p>
+                <p><label for="id_password">Password:</label>
+                 <input type="password" name="password" class="form-control" autocomplete="off" required="" id="id_password" placeholder="Password"  ></p>
+            </div>
             <div>
-                <button type="submit">Log In</button>
+                <button type="submit" class="btn btn-primary">Log In</button>
+            </div>
+            <div class="dontHaveAccount">
+                <h6>
+                    Don't have an Account? 
+                    <a href="{% url 'guest-register' %}">Sign Up</a>
+                </h6>
+                <h6>
+                    Forget your password? <a href="{% url 'password_reset' %}">Reset Now</a>
+                </h6>
             </div>
         </form>
-        <div>
-            <small>
-                Don't have an Account? 
-                <a href="{% url 'guest-register' %}">Sign Up</a>
-            </small>
-            <small>
-                Forget your password? <a href="{% url 'password_reset' %}">Reset Now</a>
-            </small>
-        </div>
+
     </div>
 {% endblock content %}

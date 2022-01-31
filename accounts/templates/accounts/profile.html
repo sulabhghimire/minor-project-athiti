@@ -108,10 +108,10 @@ label:hover ~ input:checked ~ label{
             <p> <i class="fas fa-phone-alt"></i> : {{object.user.phone_number}} </p>
           </span>
           <span class="dataModLink">
-            {% if object.user.email == user.email %}
-              <p><a href="{% url 'password-change' %}">Change Password</a></p>
-              <p><a href="{% url 'delete-account' %}">Delete Account</a></p>
-              <p><a href="{% url 'profile-update' %}">Update Account</a></p>
+            {% if object.user == user %}
+              <p class="btn btn-info" ><a href="{% url 'password-change' %}">Change Password</a></p>
+              <p class="btn btn-danger"><a href="{% url 'delete-account' %}">Delete Account</a></p>
+              <p class="btn btn-success"><a href="{% url 'profile-update' %}">Update Account</a></p>
             {% endif %}
           </span>
       </div>

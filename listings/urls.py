@@ -6,7 +6,7 @@ from . import models
 
 urlpatterns = [
     path('', views.home, name='home'),
-    path('search_title/', views.SearchTitle, name='search'),
+    path('search_listings', views.SearchTitle, name='search'),
     path('listings/', views.ListListings.as_view(), name='listing-list'),
     path('listing_details/<int:pk>/', views.LisitngDetailView, name='listing-details'),
     path('listing_details/<int:pk>/update/', views.update_item, name='listing-update'),
