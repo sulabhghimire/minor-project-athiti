@@ -69,27 +69,49 @@ label:hover ~ input:checked ~ label{
       {% endif %}
       <!-- TO REPORT USERS BEGINS HERE -->
       <div class="profileInfo">
+        
         {% if object.user.pk != user.pk %}
-          <span class="actInfo">
-            <form action="{% url 'report' object.user.pk %}" method="POST">
+          <span class="actInfo" style="position:relative;">
+       
+            <button class="open-button btn btn-danger" style="width: 200px; border-radius: 10px; padding:0.5rem 1rem; margin: auto;" onclick="openForm()">Report User</button>
+
+            <form id="myForm" class="report_section" style="   display: none;
+            position: absolute;
+         z-index: 9;
+         width: 80%;
+     top: -10px;
+        background-color: white;
+        height: 100vh;
+     width:80%; margin: auto; " action="{% url 'report' object.user.pk %}" method="POST">
               {% csrf_token %}
               <h3>Report User</h3>
-              <textarea name="message"></textarea>
-              <br>
+              <textarea class="form-control" placeholder="Write your Report here" style="height: 200px; resize: none; margin-bottom: 1rem;" name="message"></textarea>
+     
               <input type="submit" value="Submit Report" class="btn btn-primary">
+              
+              <button type="button" class="btn btn-danger"  onclick="closeForm()">Close</button>
             </form>
           </span>
         {% endif %}
+        <script>
+          function openForm() {
+            document.getElementById("myForm").style.display = "block";
+          }
+          
+          function closeForm() {
+            document.getElementById("myForm").style.display = "none";
+          }
+          </script>
         <!-- TO REPORT USERS ENDS HERE -->
-          <span class="actInfo">
-            <p> <i class="fas fa-user"></i> : {{ object.user.country.name }} 
+          <span class="actInfo row justify-content-center">
+            <p class="col-md-4 col-lg-3  col-sm-8 "> <i class="fas fa-user"></i> : {{ object.user.country.name }} &nbsp;
                 <i class="flag2x {{ object.user.country.flag_css }}" aria-label="{{ object.user.country.code }}"></i>
             </p>
-            <p> <i class="fas fa-phone-alt"></i> : {{object.user.state}} </p>
+            <p class="col-md-4 col-lg-3  col-sm-8 "> <i class="fas fa-map-marker"></i> : {{object.user.state}} </p>
             <!-- To display the average review stars only starts here-->
             {% if object.user.is_guest %}
               {% if stars %}
-	              <div class="rating-star">
+	              <div class="rating-star col-md-4 col-lg-3  col-sm-8 ">
 	              	<span>
 	              		  <i class="fa fa-star{% if stars == 0.5 %}-half{% elif stars < 1 %}-o {% endif %}" aria-hidden="true"></i>
                       <i class="fa fa-star{% if stars == 1.5 %}-half{% elif stars < 2 %}-o {% endif %}" aria-hidden="true"></i>
@@ -102,25 +124,25 @@ label:hover ~ input:checked ~ label{
             {% endif %}
             <!-- To display the average review stars only ends here-->
           </span>
-          <span class="actInfo">
-            <p> <i class="fas fa-user"></i> : {{ object.user.full_name }} </p>
-            <p> <i class="fas fa-envelope"></i> : {{ object.user.email }}</p>
-            <p> <i class="fas fa-phone-alt"></i> : {{object.user.phone_number}} </p>
+          <span class="actInfo row justify-content-center">
+            <p class="col-md-4 col-lg-3  col-sm-8  "> <i class="fas fa-user"></i> : {{ object.user.full_name }} </p>
+            <p class="email_user_custom col-md-7 col-sm-8  col-lg-5" > <i class="fas fa-envelope" ></i> : {{ object.user.email }}</p>
+            <p class="col-md-4 col-sm-8  col-lg-3 "> <i class="fas fa-phone-alt"></i> : {{object.user.phone_number}} </p>
           </span>
-          <span class="dataModLink">
+          <span class="dataModLink row">
             {% if object.user == user %}
-              <p class="btn btn-info" ><a href="{% url 'password-change' %}">Change Password</a></p>
-              <p class="btn btn-danger"><a href="{% url 'delete-account' %}">Delete Account</a></p>
-              <p class="btn btn-success"><a href="{% url 'profile-update' %}">Update Account</a></p>
+             <a class="btn btn-info col-sm-4 col-md-3 col-lg-3" href="{% url 'password-change' %}">Change Password</a>
+             <a  class="btn btn-danger col-sm-4 mx-1 col-md-3 col-lg-3" href="{% url 'delete-account' %}">Delete Account</a>
+             <a class="col-lg-3 btn btn-success col-sm-4 col-md-3" href="{% url 'profile-update' %}">Update Account</a>
             {% endif %}
           </span>
       </div>
       <!--Form to input review starts here-->
-      <div>
+      <div class="review_section" style="width: 80%;">
         {% if object.user.is_guest %} 
           {% if user.is_authenticated %}
           <br>
-          <form action="{% url 'rate-and-review-guest' object.user.pk %}" method="POST">
+          <form  action="{% url 'rate-and-review-guest' object.user.pk %}" method="POST">
               {% csrf_token %}
               <h3>Write Your Review</h3>
               <div>
@@ -141,7 +163,7 @@ label:hover ~ input:checked ~ label{
                   <br>
                   Review:
                   <br>
-                  <textarea name="review"></textarea>
+                  <textarea class="form-control"  style="resize: none; height: 200px;" name="review" placeholder="Write your review"></textarea>
                   <br>
                   <input type="submit" value="Submit Review" class="btn btn-primary">
                   <br>
@@ -155,15 +177,17 @@ label:hover ~ input:checked ~ label{
 
       <!--To display all the reviews -->
       {% if reviews %}
-      <div>
-      <h3>What hosts think of this guests</h3>
+      <div style="width: 80%; " class="article">
+      <h4>What hosts think of this guests?</h4>
        {% for review in reviews %}
          <article>
            <div>
              <div>
                <img src="{{ review.host.profile.image.url }}" style="width:40px; height:auto;">
                <span>{{review.updated_at}} </span>
-               <a href="{% url 'profile' review.host.pk %}""><h6>{{review.host.full_name}} </h6></a>
+               <br>
+
+               <a style="text-decoration:none; " href="{% url 'profile' review.host.pk %}"><h5 style="font-weight: 1.25rem;" >{{review.host.full_name}} </h5></a>
                <div class="rating-star">
                  <span>
                    <i class="fa fa-star{% if review.rating == 0.5 %}-half{% elif review.rating < 1 %}-o {% endif %}" aria-hidden="true"></i>
