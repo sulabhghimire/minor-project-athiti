@@ -2,6 +2,7 @@ from turtle import distance
 from django.conf import settings
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib import messages
+from django.template import context
 from django.urls import reverse
 from django.http.response import Http404
 from numpy import sort
@@ -73,12 +74,41 @@ class HostsListingView(LoginRequiredMixin, ListView, AccessMixin):
     
 def home(request):
 
-    objects = Listing.objects.filter(is_published=True, approved=True)
+    # objects = Listing.objects.filter(is_published=True, approved=True).values(
+    #     'lat', 
+    #     'lng', 
+    #     'title',
+    #     'description', 
+    #     'exact_address', 
+    #     'city', 
+    #     'description', 
+    #     'price', 
+    #     'listing_type',
+    #     'kitchen_available', 
+    #     'kitchen_description', 
+    #     'bedrooms',
+    #     'max_acomodation',
+    #     'bathroom_type',
+    #     'no_bathrooms',
+    #     'room_type',
+    #     'main_photo',
+    #     'photo_1',
+    #     'photo_2',
+    #     'photo_3',
+    #     'rating',
+    #     'total_bookings',
+    # )
     
-    for object in objects:
-        lat, lng = float(object.lat), float(object.lng)
-        object.distance = near_places(lat, lng)
+    # for object in objects:
+    #     print(object['main_photo'])
+    #     lat, lng = float(object['lat']), float(object['lng'])
+    #     object['distance'] = near_places(lat, lng)
 
+    # my_sorted_list = sorted(objects, key=lambda k: k['distance'])
+    # print(type(my_sorted_list))
+    # context = {
+    #     'posts' : my_sorted_list,
+    # }
 
     return render(request, 'listings/home.html')
 

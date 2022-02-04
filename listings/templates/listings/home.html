@@ -3,4 +3,21 @@
 
 {% block content %}
     <h1>Places Near You:-</h1>
+
+    {% for post in posts %}
+    {{post.main_photo.url}}
+        <img src="{{post.main_photo}}"> 
+        <br>
+        {{post.title}}
+        <br>
+        {{post.rating}}
+        <br>
+        {{post.total_bookings}}
+        <br>
+        {{post.exact_address}}
+        <br>
+        {{post.price}}
+        <br>
+        <br>
+    {% endfor %}
 {% endblock content %}

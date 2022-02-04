@@ -45,6 +45,7 @@
                 <div class="nav">
                     <span class="nav-left"><a href="{% url 'home' %}">Home </a> </span>
                     <div class="nav-right">
+                        <span class="nav-left"><a href="{% url 'map' %}">Locations </a> </span>
                         {% if user.is_authenticated %}
                             {% if user.host %}
                                 <span><a href="{% url 'listing-list' %}">Your Listings</a></span>
@@ -63,10 +64,12 @@
                                         <i class="fa fa-bell fa-stack-2x icon-yellow"></i>
                                 </span>
                             </a>
+                            <span class="nav-left"><a href="{% url 'contact-us' %}">Contact Us </a> </span>
                             <span><a href="{% url 'logout' %}">Log Out</a> </span> 
                         {% else %}
                             <span><a href="{% url 'host-register' %}">Join as Host</a</span>
                             <span><a href="{% url 'guest-register' %}">Join as Guest</a> </span>
+                            <span class="nav-left"><a href="{% url 'contact-us' %}">Contact Us </a> </span>
                             <span>
                                <a href="{% url 'login' %}">Log In</a> 
                             </span>
