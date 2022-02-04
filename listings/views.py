@@ -1,12 +1,13 @@
+from turtle import distance
 from django.conf import settings
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib import messages
 from django.urls import reverse
 from django.http.response import Http404
+from numpy import sort
 from .forms import AvailabilityForm, ContactUsForm
 import datetime
 import folium
-import googlemaps
 from . models import Listing, Booking, Refund_Control
 import review.models as rev_model
 
@@ -15,6 +16,8 @@ from django.views.generic import DeleteView, ListView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin, AccessMixin
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from listings.booking_functions.availability import check_availability
+from listings.calculate_distance.distance import calculate_distance
+from listings.calculate_distance.find_optimun import near_places
 
 # Create your views here.
 
@@ -70,6 +73,13 @@ class HostsListingView(LoginRequiredMixin, ListView, AccessMixin):
     
 def home(request):
 
+    objects = Listing.objects.filter(is_published=True, approved=True)
+    
+    for object in objects:
+        lat, lng = float(object.lat), float(object.lng)
+        object.distance = near_places(lat, lng)
+
+
     return render(request, 'listings/home.html')
 
 class ListListings(LoginRequiredMixin, ListView, AccessMixin):
@@ -117,7 +127,7 @@ def LisitngDetailView(request, pk):
     lat, lng = float(obj.lat), float(obj.lng)
     folium.Marker(location=[lat, lng], popup=obj.title, tooltip="Click for More").add_to(map)
     map     = map._repr_html_()
-
+    distance = calculate_distance(lat, lng)
     if reviews: 
         star    = 0
         count   = 0
@@ -139,6 +149,7 @@ def LisitngDetailView(request, pk):
         'object'  : obj,
         'reviews' : reviews,
         'map'     : map, 
+        'distance': distance,
     }
     if obj:
         return render(request, 'listings/listing_details.html', context)

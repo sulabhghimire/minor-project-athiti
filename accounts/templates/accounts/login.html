@@ -14,14 +14,13 @@
                     Login
 
                 </h2>
-                <span>
-                    <!-- <p>---------------</p> -->
-                    <p>Sign In with Email</p>
-                    <!-- <p>----------------</p> -->
-                </span>
-                
-                <!-- {{ form.as_p }} -->
+                <div class="text-danger">
+                    {{ form.email.errors|striptags }} 
+                   </div>
                 <p><label for="exampleInputEmail">Email:</label> <input type="text" name="username" autofocus="" class="form-control col-sm-6" autocapitalize="none" autocomplete="off" maxlength="255" required="" id="id_username" placeholder="name@example.com" ></p>
+                <div class="text-danger">
+                    {{ form.password.errors|striptags }} 
+                   </div>
                 <p><label for="id_password">Password:</label>
                  <input type="password" name="password" class="form-control" autocomplete="off" required="" id="id_password" placeholder="Password"  ></p>
             </div>

@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'report.apps.ReportConfig',
     #created specific functions
     'listings.booking_functions',
+    'listings.calculate_distance',
     #others used
     'django_extensions',
     'django_countries',

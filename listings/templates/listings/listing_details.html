@@ -102,11 +102,16 @@
           Address 
           <!-- GIVES THE CITY OF THE LISTING LOCATION -->
           City : {{ object.city }} 
-                
+            
           <br><br>
           <!-- GIVES THE EXACT ADDRESS OF THE LISTTING LOCATION -->
-          Exact Address : {{ object.exact_address }} <br><br>
+          Exact Address : {{ object.exact_address }} 
+          <br><br>
 
+          <!-- GIVES THE DISTANCE FROM CURRENT LOCATION OF USER TO THE PLACE WHERE THIS LISITNG IS LISTED -->
+          Distance : {{distance}}
+
+          <br><br>
           <!-- DISPLAYS THE MAP LOCATION OF THE PLACE -->
           <div class="map" style="width: 1000px; height: auto;">
             {{ map|safe }} 
