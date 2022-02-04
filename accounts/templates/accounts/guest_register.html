@@ -27,12 +27,12 @@
                 Join Today as a Guest
             </h2>
             <div class="form-row">
-                {{ form.non_field_erroes|striptags }}
+                <div class="text-danger">{{ form.non_field_erroes|striptags }}</div>
                 <div class="row">
                     <div>
                         <p><label for="id_full_name">Full name:</label>
                             <br>
-                            {{ form.full_name.errors|striptags }} 
+                           <div class="text-danger"> {{ form.full_name.errors|striptags }} </div>
                             <input class="form-control"
                                 placeholder="Full name" type="text" name="full_name" maxlength="255" 
                                 required=""
@@ -43,7 +43,7 @@
                     <div>
                         <p><label for="id_email">Email:</label>
                             <br>
-                            {{ form.email.errors|striptags  }} 
+                           <div class="text-danger"> {{ form.email.errors|striptags  }} </div>
                             <input type="email" class="form-control"
                                 placeholder="mail@example.com" name="email" maxlength="255" 
                                 autofocus="" required=""
@@ -55,7 +55,9 @@
                     <div>
                         <p><label for="id_country">Country: 
                             <br>
+                           <div class="text-danger">
                             {{ form.country.errors|striptags  }} 
+                           </div>
                             <p class="country_custom form-control">
                             {{form.country}}</p>
                         </label></p>
@@ -65,7 +67,9 @@
                     <div>
                         <p><label for="id_state">State:</label>
                             <br>
+                           <div class="text-danger">
                             {{ form.state.errors|striptags  }} 
+                           </div>
                             <input class="form-control" type="text" 
                             name="state"
                             placeholder="State" maxlength="255" r
@@ -75,7 +79,9 @@
                     <div>
                         <p><label for="id_phone_number">Phone number:</label> 
                             <br>
-                            {{ form.phone_number.errors|striptags  }}
+                            <div class="text-danger">
+                                {{ form.phone_number.errors|striptags  }}
+                            </div>
                             <input class="form-control" type="number"
                             name="phone_number" placeholder="98********" 
                             min="0" id="id_phone_number">
@@ -86,7 +92,9 @@
                     <div>
                         <p><label for="id_password1">Password:</label>
                             <br>
-                            {{ form.password1.errors|striptags  }}
+                            <div class="text-danger">
+                                {{ form.password1.errors|striptags  }}
+                            </div>
                             <input type="password" class="form-control"
                                 placeholder="Password" name="password1" autocomplete="new-password" required=""
                                 id="id_password1">
@@ -95,7 +103,9 @@
                     <div>
                         <p><label for="id_password2">Password confirmation:</label> 
                             <br>
-                            {{ form.password1.errors|striptags  }}
+                            <div class="text-danger">
+                                {{ form.password1.errors|striptags  }}
+                            </div>
                             <input type="password"
                                 class="form-control" placeholder="Confirm Password" name="password2"
                                 autocomplete="new-password" required="" id="id_password2"> 
