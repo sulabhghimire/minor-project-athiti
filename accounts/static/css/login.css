@@ -1,0 +1,69 @@
+* {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.country_custom {
+  width: 100%;
+  margin: auto;
+}
+
+.country_custom select {
+  width: 100%;
+  border: 0px;
+  outline: none;
+  scroll-behavior: smooth;
+  border: none;
+}
+
+.country_custom select :focus {
+  outline: none;
+}
+
+.country_custom select option {
+  border: none;
+}
+
+.loginPage, .passwordchangepage, .guestRegisterPage, .hostRegisterPage {
+  width: 60%;
+  margin: auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.loginPage form, .passwordchangepage form, .guestRegisterPage form, .hostRegisterPage form {
+  padding: 3rem;
+}
+
+.loginPage form .loginForm h2, .loginPage form .RegisterForm h2, .passwordchangepage form .loginForm h2, .passwordchangepage form .RegisterForm h2, .guestRegisterPage form .loginForm h2, .guestRegisterPage form .RegisterForm h2, .hostRegisterPage form .loginForm h2, .hostRegisterPage form .RegisterForm h2 {
+  margin-bottom: 1rem;
+  font-family: "Mulish";
+  font-weight: lighter;
+}
+
+.loginPage form .dontHaveAccount, .loginPage form .alreadyHaveAccount, .passwordchangepage form .dontHaveAccount, .passwordchangepage form .alreadyHaveAccount, .guestRegisterPage form .dontHaveAccount, .guestRegisterPage form .alreadyHaveAccount, .hostRegisterPage form .dontHaveAccount, .hostRegisterPage form .alreadyHaveAccount {
+  margin-top: 1rem;
+  font-family: "Mulish";
+  font-weight: lighter;
+}
+
+.loginPage form .dontHaveAccount a, .loginPage form .alreadyHaveAccount a, .passwordchangepage form .dontHaveAccount a, .passwordchangepage form .alreadyHaveAccount a, .guestRegisterPage form .dontHaveAccount a, .guestRegisterPage form .alreadyHaveAccount a, .hostRegisterPage form .dontHaveAccount a, .hostRegisterPage form .alreadyHaveAccount a {
+  text-decoration: none;
+}
+
+@media screen and (max-width: 768px) {
+  .loginPage, .passwordchangepage, .guestRegisterPage, .hostRegisterPage {
+    width: 90%;
+  }
+}
+/*# sourceMappingURL=login.css.map */
