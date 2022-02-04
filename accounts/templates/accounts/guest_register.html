@@ -26,39 +26,82 @@
             <h2>
                 Join Today as a Guest
             </h2>
-                <div class="form-row">
-                    <div class="row">
-                        <div >
-                                           <p><label for="id_full_name">Full name:</label> <input  class="form-control" placeholder="Full name" type="text" name="full_name" maxlength="255" required="" id="id_full_name" ></p>
-                        </div>
-                   
-                   <div >
-                       <p><label for="id_email">Email:</label> <input type="email"  class="form-control" placeholder="mail@example.com" name="email" maxlength="255" autofocus="" required="" id="id_email"></p>
-                   </div>
-                                   </div>
-                                   <div class="row">
-                                       <div>
-                                        <p><label for="id_country">Country: <p class="country_custom form-control">{{form.country}}</p></label></p>
-                                       </div>
-                                   </div>
-                                   <div class="row">
-                              <div>
-                                <p><label for="id_state">State:</label> <input placeholder="State" class="form-control" type="text" name="state" maxlength="255" required="" id="id_state"></p>
-                              </div>
-                        <div>
-                            <p><label for="id_phone_number">Phone number:</label> <input class="form-control" type="number" name="phone_number" placeholder="98********" min="0" id="id_phone_number"></p>
-                        </div>
-                                   </div>
-     <div class="row">
-        <div >
-                       
-            <p><label for="id_password1">Password:</label> <input type="password"  class="form-control" placeholder="Password" name="password1" autocomplete="new-password" required="" id="id_password1" >
-         </div>
-                   
-            <div >
-                <p><label for="id_password2">Password confirmation:</label> <input type="password"  class="form-control" placeholder="Confirm Password" name="password2" autocomplete="new-password" required="" id="id_password2" > </p>
-            </div>
-     </div>
+            <div class="form-row">
+                {{ form.non_field_erroes|striptags }}
+                <div class="row">
+                    <div>
+                        <p><label for="id_full_name">Full name:</label>
+                            <br>
+                            {{ form.full_name.errors|striptags }} 
+                            <input class="form-control"
+                                placeholder="Full name" type="text" name="full_name" maxlength="255" 
+                                required=""
+                                id="id_full_name">
+                        </p>
+                    </div>
+
+                    <div>
+                        <p><label for="id_email">Email:</label>
+                            <br>
+                            {{ form.email.errors|striptags  }} 
+                            <input type="email" class="form-control"
+                                placeholder="mail@example.com" name="email" maxlength="255" 
+                                autofocus="" required=""
+                                id="id_email">
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div>
+                        <p><label for="id_country">Country: 
+                            <br>
+                            {{ form.country.errors|striptags  }} 
+                            <p class="country_custom form-control">
+                            {{form.country}}</p>
+                        </label></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div>
+                        <p><label for="id_state">State:</label>
+                            <br>
+                            {{ form.state.errors|striptags  }} 
+                            <input class="form-control" type="text" 
+                            name="state"
+                            placeholder="State" maxlength="255" r
+                            equired="" id="id_state">
+                        </p>
+                    </div>
+                    <div>
+                        <p><label for="id_phone_number">Phone number:</label> 
+                            <br>
+                            {{ form.phone_number.errors|striptags  }}
+                            <input class="form-control" type="number"
+                            name="phone_number" placeholder="98********" 
+                            min="0" id="id_phone_number">
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div>
+                        <p><label for="id_password1">Password:</label>
+                            <br>
+                            {{ form.password1.errors|striptags  }}
+                            <input type="password" class="form-control"
+                                placeholder="Password" name="password1" autocomplete="new-password" required=""
+                                id="id_password1">
+                    </div>
+
+                    <div>
+                        <p><label for="id_password2">Password confirmation:</label> 
+                            <br>
+                            {{ form.password1.errors|striptags  }}
+                            <input type="password"
+                                class="form-control" placeholder="Confirm Password" name="password2"
+                                autocomplete="new-password" required="" id="id_password2"> 
+                            </p>
+                    </div>
+                </div>
             </div>
             </fieldset>
             <br>
@@ -67,11 +110,11 @@
             </div>
             <div class="alreadyHaveAccount">
                 <small>
-                    Already Have an Account? 
-                    <a href="#">Log In</a>
+                    Already Have an Account?
+                    <a href="{% url 'login' %}">Log In</a>
                 </small>
             </div>
-        </form>
+    </form>
 
     </div>
 {% endblock content %}

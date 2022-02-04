@@ -95,7 +95,7 @@ class User(AbstractBaseUser):
     full_name   = models.CharField(max_length=255, blank=False, unique=False)
     country     = CountryField(blank_label='(Select Country)')
     state       = models.CharField(max_length=255, blank=False)
-    phone_number = models.PositiveIntegerField(blank=True, validators=[MaxValueValidator(9999999999), MinValueValidator(9000000000)], default=0000000000,error_messages={'required': 'Enter a valid phone number'})
+    phone_number = models.PositiveIntegerField(unique=True, blank=True, validators=[MaxValueValidator(9999999999), MinValueValidator(9000000000)], default=0000000000,error_messages={'required': 'Enter a valid phone number'})
     
     USERNAME_FIELD = 'email'
 

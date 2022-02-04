@@ -1,3 +1,4 @@
+from typing_extensions import Required
 from django.db import models
 from django.contrib.auth import get_user_model
 from django_extensions.db.fields import AutoSlugField
@@ -33,8 +34,8 @@ class Listing(models.Model):
     title               = models.CharField(max_length=255)
     city                = models.ForeignKey(RoomLocation, on_delete=models.CASCADE)
     exact_address       = models.CharField(max_length=255)
-    lat                 = models.CharField(max_length=300)
-    lng                 = models.CharField(max_length=300)
+    lat                 = models.CharField(max_length=300, blank=False, null=False, default="0")
+    lng                 = models.CharField(max_length=300, blank=False, null=False, default="0")
     description         = models.TextField()
     price               = models.IntegerField()
     listing_type        = models.CharField(max_length=20, choices=LisitngType.choices, default=LisitngType.ROOM)
