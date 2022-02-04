@@ -46,13 +46,6 @@
                     Check Out Date : {{post.check_out}}     <br>
                     Amount Paid : NRS. {{post.total_amount}} via Khalti Wallet <br>
                     Status : {{post.booking_progres}}       <br>
-                    {% ifnotequal post.booking_progres "Cancelled" %}
-                    <a href="{% url 'cancel-booking' post.pk %}" >Cancel Booking</a>
-                    <br>
-                    {% endifnotequal %}
-                    <a href="{% url 'generate_invoice' post.pk post.uuid %}">Download Invoice</a>
-                    <br>
-                    <a href="{% url 'send_invoice' post.pk post.uuid %}">Mail Invoice</a>
                 </p>
                 <br>
             {% endifequal %}
@@ -75,10 +68,6 @@
                     Check Out Date : {{post.check_out}}     <br>
                     Amount Paid : NRS. {{post.total_amount}} via Khalti Wallet <br>
                     Status : {{post.booking_progres}}       <br>
-                    {% ifnotequal post.booking_progres "Cancelled" %}
-                    <a href="{% url 'cancel-booking' post.pk %}" >Cancel Booking</a>
-                    <br>
-                    {% endifnotequal %}
                     <a href="{% url 'generate_invoice' post.pk post.uuid %}">Download Invoice</a>
                     <br>
                     <a href="{% url 'send_invoice' post.pk post.uuid %}">Mail Invoice</a>

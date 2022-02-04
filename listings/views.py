@@ -23,30 +23,36 @@ from listings.calculate_distance.find_optimun import near_places
 # Create your views here.
 
 def CancelBooking(request, pk):
-    obj                       = Booking.objects.get(id=pk)
-    check_in_date             = obj.check_in
-    current_date              = datetime.date.today()
-    rem_days                  = int((check_in_date-current_date).days )
-    if rem_days <=2 :
-        obj.refund_status        = 'You aren\'t eledgible for any refund'
-        refund_percentage = '0'
-    elif rem_days<=7:
-        obj.refund_status        = 'Cancelled - You are eledgible for 50% refund of your booking amount'
-        refund_percentage = '50'
-    else:
-        obj.refund_status           = 'Cancelled - You are eledgible for 100% refund of your booking amount'
-        refund_percentage = '100'
-    obj.booking_progres       = 'Cancelled' 
-    refund                    = Refund_Control.objects.create(
-       booking_staus          = obj,
-       sum_amount             = obj.sum_amount,
-       tax_amount             = obj.tax_amount,
-       service_charge_amount  = obj.service_charge_amount,
-       total_amount           = obj.total_amount,
-       refund_percentage      = refund_percentage,
-    )
-    obj.save()
-    return redirect('guests-booking')
+
+    if request.user.is_authenticated:
+        obj                       = Booking.objects.get(id=pk)
+
+        if obj.user_id == request.user.pk:
+            check_in_date             = obj.check_in
+            current_date              = datetime.date.today()
+            rem_days                  = int((check_in_date-current_date).days )
+            if rem_days <=2 :
+                obj.refund_status        = 'You aren\'t eledgible for any refund'
+                refund_percentage = '0'
+            elif rem_days<=7:
+                obj.refund_status        = 'Cancelled - You are eledgible for 50% refund of your booking amount'
+                refund_percentage = '50'
+            else:
+                obj.refund_status           = 'Cancelled - You are eledgible for 100% refund of your booking amount'
+                refund_percentage = '100'
+            obj.booking_progres       = 'Cancelled' 
+            refund                    = Refund_Control.objects.create(
+            booking_staus          = obj,
+            sum_amount             = obj.sum_amount,
+            tax_amount             = obj.tax_amount,
+            service_charge_amount  = obj.service_charge_amount,
+            total_amount           = obj.total_amount,
+            refund_percentage      = refund_percentage,
+            )
+            obj.save()
+            return redirect('guests-booking')
+
+    return redirect('home')
     
 
 class GuestsListingView(LoginRequiredMixin, ListView, AccessMixin):
