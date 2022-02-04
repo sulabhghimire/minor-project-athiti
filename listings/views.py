@@ -311,7 +311,7 @@ def SearchTitle(request):
     else:
         title = Listing.objects.filter(exact_address__contains = searched, is_published=True, approved=True)
     
-    paginator = Paginator(title, 20)
+    paginator = Paginator(title, 1)
     try:
         title = paginator.page(page)
     except PageNotAnInteger:

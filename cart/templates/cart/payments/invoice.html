@@ -1,219 +1,307 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
-{% load static %}
 <head>
   <title>Athiti Invoice</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@500&family=Sacramento&family=Satisfy&display=swap" rel="stylesheet">
+
+</head>
 <style>
   .clearfix:after {
-  content: "";
-  display: table;
-  clear: both;
+ content: "";
+ display: table;
+ clear: both;
 }
 
+.title {
+  color: #11468F;
+  font-family: 'Satisfy', cursive;
+}
+
+
+
 a {
-  text-decoration: underline;
+ text-decoration: underline;
 }
 
 body {
-  position: relative;
-  margin: 0 auto; 
-  color: #001028;
-  background: #FFFFFF; 
-  font-family: Arial, sans-serif; 
-  font-size: 14px; 
-  font-family: Arial;
+ position: relative;
+ margin: 0 auto;
+ color: #001028;
+ background: #FFFFFF;
+ font-family: Arial, sans-serif;
+ font-size: 14px;
+ font-family: Arial;
+ /* background-image: url("atithi-logo.png");
+ background-repeat: no-repeat;
+ background-position: center;
+   */
 }
 
 header {
-  padding: 10px 0;
-  margin-bottom: 30px;
+ padding: 10px 0;
+ margin-bottom: 30px;
 }
 
 #logo {
-  text-align: center;
-  margin-bottom: 10px;
+ text-align: center;
+ margin-bottom: 10px;
 }
 
 #logo img {
-  width: 90px;
+ width: 150px;
 }
 
 h1 {
-  
-  color: #5D6975;
-  font-size: 2.4em;
-  line-height: 1.4em;
-  font-weight: normal;
-  text-align: center;
-  margin: 0 0 20px 0;
+
+ color: #5D6975;
+ font-size: 2.4em;
+ line-height: 1.4em;
+ font-weight: normal;
+ text-align: center;
+ margin: 0 0 20px 0;
 }
+
+
+
 
 #project {
-  float: left;
+  text-align: left;
+  width: 20%;
+  margin: auto;
 }
 
+
 #project span {
-  color: #5D6975;
-  text-align: right;
-  width: 52px;
-  margin-right: 10px;
-  display: inline-block;
-  font-size: 14px;
+ color: #5D6975;
+ text-align: right;
+ /* width: 52px; */
+ margin-right: 10px;
+ display: inline-block;
+ font-size: 14px;
 }
 
 #company {
-  float: right;
-  text-align: right;
+
+ margin-bottom: 20px;
+ text-align: center;
 }
 
 #project div,
 #company div {
-  white-space: nowrap;        
+ white-space: nowrap;
 }
 
 table {
-  width: 100%;
-  border-collapse: collapse;
-  border-spacing: 0;
-  margin-bottom: 20px;
+ width: 55%;
+ border-collapse: collapse;
+ border-spacing: 0;
+ margin-bottom: 20px;
 }
 
-
+table#project {
+  border-collapse: separate;
+}
 
 table th,
 table td {
-  text-align: center;
+ text-align: center;
 }
 
 table th {
-  
-  
-  color: #5D6975;
-  border-bottom: 1px solid #C1CED9;
-  white-space: nowrap;        
-  font-weight: normal;
+
+
+ color: #5D6975;
+ border-bottom: 1px solid #C1CED9;
+ white-space: nowrap;
+ font-weight: normal;
 }
 
 table .service,
 table .desc {
-  text-align: left;
+ text-align: left;
 }
 
 table td {
- padding-top:5px;
- padding-bottom:5px;
-  
+padding-top:5px;
+padding-bottom:5px;
+
 }
 
 table tr {
-  border-bottom: 1px solid #C1CED9;
+ border-bottom: 1px solid #C1CED9;
+}
+
+.headOfTable {
+  font-weight: bold;
 }
 
 table td.service,
 table td.desc {
-  vertical-align: top;
+ vertical-align: top;
 }
 
 table td.unit,
 table td.qty,
 table td.total {
-  font-size: 1.2em;
+ font-size: 1.2em;
 }
 
 table td.grand {
-  border-top: 1px solid #5D6975;;
+ border-top: 1px solid #5D6975;;
 }
 
 #notices .notice {
-  color: #5D6975;
-  font-size: 1.2em;
+ color: #5D6975;
+ font-size: 1.2em;
 }
 
 footer {
-  color: #5D6975;
-  width: 100%;
-  height: 30px;
-  position: absolute;
-  bottom: 0;
-  border-top: 1px solid #C1CED9;
-  padding: 8px 0;
-  text-align: center;
+ color: #5D6975;
+ width: 100%;
+ height: 30px;
+ position: absolute;
+ bottom: 0;
+ border-top: 1px solid #C1CED9;
+ padding: 8px 0;
+ text-align: center;
 }
 
 
-  </style>
-</head>
+.demo-wrap {
+  position: relative;
+}
 
+.demo-wrap::before {
+  content: ' ';
+  display: block;
+  position: absolute;
+  left: 25%;
+  top: 0;
+  width: 49.5%;
+  height: 130%;
+  opacity: 0.2;
+  background-image: url('background.png');
+  background-repeat: no-repeat;
+  background-position: 50% 0;
+  background-size: cover;
+}
+
+.demo-content {
+  position: relative;
+}
+
+</style>
 <body>
-  <header class="clearfix">
-    <div id="logo" style="display:flex; justify-content:center; align-items:center;">
-      <img src="logo.png" class="brand-logo" width=100 height=100>
-    </div>
-    <h1 class="brand-name">Athiti</h1>
+  <div id="logo" style="display:flex; justify-content:center; align-items:center;">
+    <img src="{% static 'images/aa.png' %}" class="brand-logo" >
+  </div> 
 
-    <h1>INVOICE</h1>
-    <div id="company" class="clearfix">
-      <div>Athiti</div>
-      <div><a href="mailto:company@example.com">athiti@athiti.com</a></div>
-      <div><a href="www.wondershop.in:8000">some site</a></div>
-    </div>
-    <div id="project">
-      <div><span>CLIENT:</span>{{user_full_name}}</div>
-      <div><span>EMAIL:</span> <a href="mailto:{{user_email}}">{{user_email}}</a></div>
-      <div><span>HOST:</span> {{room_host_full_name}}</div>
-      <div><span>HOST EMAIL:</span> {{room_host_email}}</div>
-      <div><span>HOST CONTACT NUMBER:</span>  {{room_host_phone}}</div>
-      <div><span>CITY:</span>{{room_city}}</div>
-      <div><span>EXACT ADDRESS:</span>{{room_exact_address}}</div>
-      <div><span>DATE:</span>{{date}}</div>
-      <div><span>INVOICE ID:</span> {{order_id}} </div>
-      <div><span>TRANSACTION ID:</span>{{idx}}</div>
-    </div>
-    <br>
-    <br>
-  </header>
-    <div class="table-container" style="overflow-x:auto">
-      <table class="table" style="width:100%">
-          <thead>
-              <tr>
-                  <th scope="col">CHECK IN</th>
-                  <th scope="col">CHECK OUT</th>
-                  <th scope="col">DAYS</th>
-                  <th scope="col">PRICE</th>
-              </tr>
-          </thead>
-          <tbody>
-              <tr>
-                  <td scope="row">{{check_in}}</td>
-                  <td scope="row">{{check_out}}</td>
-                  <td scope="row">{{days}}</td>
-                  <td scope="row">{{sum_amount}}</td>
-                  
-              </tr>
-              <tr>
-                  <td scope="row"></td>
-                  <td scope="row"></td>
-                  <td>TAX : 13% </td>
-                  <td>{{tax_amount}}</td>
-              </tr>
-              <tr>
-                <td scope="row"></td>
-                <td scope="row"></td>
-                <td>SERVICE CHARGE : 5% </td>
-                <td>{{service_charge_amount}}</td>
-              </tr>
-              <tr>
-                <td scope="row"></td>
-                <td scope="row"></td>
-                <td>TOTAL : </td>
-                <td>{{total_amount}}</td>
-              </tr>
-            
-          </tbody>
+  <div class='demo-wrap'>
+    <div class='demo-content'>
+  <header class="clearfix">
+
+
+      <h1 class='title'>INVOICE</h1>
+
+
+      <table id="project">
+      <tr>
+        <td class ='headOfTable'>CLIENT:</td>
+        <td>user_full_name</td>
+      </tr>
+      <tr>
+        <td class ='headOfTable'>EMAIL:</td>
+        <td>someemail@gmail.com</td>
+      </tr>
+      <tr>
+        <td class ='headOfTable'>HOST:</td>
+        <td>room_host_full_name</td>
+      </tr>
+      <tr>
+        <td class ='headOfTable'>HOST EMAIL:</td>
+        <td>room_host_email</td>
+      </tr>
+      <tr>
+        <td class ='headOfTable'>CITY:</td>
+        <td>room_city</td>
+      </tr>
+      <tr>
+        <td class ='headOfTable'>EXACT ADDRESS:</td>
+        <td>room_exact_address</td>
+      </tr>
+      <tr>
+        <td class ='headOfTable'>DATE</td>
+        <td>date</td>
+      </tr>
+      <tr>
+        <td class ='headOfTable'>INVOICE_ID:</td>
+        <td>order_id</td>
+      </tr>
+      <tr>
+        <td class ='headOfTable'>TRANSACTION_ID</td>
+        <td>idx</td>
+      </tr>
       </table>
 
+
+      <br>
+      <br>
+      </header>
+      <div class="table-container" style="overflow-x:auto">
+        <table class="table" style="width:45%; margin: 0 auto;">
+            <thead>
+                <tr>
+                    <th scope="col">CHECK IN</th>
+                    <th scope="col">CHECK OUT</th>
+                    <th scope="col">DAYS</th>
+                    <th scope="col">PRICE</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td scope="row">{{check_in}}</td>
+                    <td scope="row">{{check_out}}</td>
+                    <td scope="row">{{days}}</td>
+                    <td scope="row">{{sum_amount}}</td>
+
+                </tr>
+                <tr>
+                    <td scope="row"></td>
+                    <td scope="row"></td>
+                    <td>TAX : 13% </td>
+                    <td>{{tax_amount}}</td>
+                </tr>
+                <tr>
+                  <td scope="row"></td>
+                  <td scope="row"></td>
+                  <td>SERVICE CHARGE : 5% </td>
+                  <td>{{service_charge_amount}}</td>
+                </tr>
+                <tr>
+                  <td scope="row"></td>
+                  <td scope="row"></td>
+                  <td>TOTAL : </td>
+                  <td>{{total_amount}}</td>
+                </tr>
+
+            </tbody>
+        </table>
+
+      </div>
+      </div>
     </div>
-    <p style="text-align:right; font-size:12px;">*All values are in NR<p>
+
+
+    <p style="text-align:right; font-size:12px; margin-right: 10px; text-align: center; margin-top: 30px">*All values are in NR<p>
+      <div id="company" class="clearfix">
+        <div>Athiti</div>
+        <div><a href="mailto:company@example.com">athiti@athiti.com</a></div>
+        <div><a href="www.wondershop.in:8000">some site</a></div>
+      </div>
 </body>
 
 </html>
