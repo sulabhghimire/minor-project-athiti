@@ -74,7 +74,11 @@
     {% endif %}
     <!-- TO REPORT USERS BEGINS HERE -->
     <div class="profileInfo">
-
+      {% if object.user.host %}
+        {% if not user.host %}
+          <a href="{% url 'host-lisitngs' object.user.pk %}"> listing by this host </a>
+        {% endif %}
+      {% endif %}
       {% if object.user.pk != user.pk %}
       <span class="actInfo" style="position:relative;">
 
