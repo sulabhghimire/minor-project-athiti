@@ -18,4 +18,5 @@ urlpatterns = [
     path('check-avaibality/', views.CheckRoomAvabiality, name='check-avaibality'),
     path('all_locations/', views.map, name="map"),
     path('contact-us/', views.contact_us, name="contact-us"),
+    path('view-hosts-listings/<int:pk>', views.GuestViewsHostsListings, name="host-lisitngs"),
 ]

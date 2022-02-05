@@ -1,0 +1,42 @@
+
+{% extends 'listings/base.html' %}
+
+{% block content %}
+    The listings made by Host :- {{host_name}}
+    <br>
+    <!-- If posts checks if host has posted any lsitings or not -->
+    {% if posts %}
+        {% for post in posts %}
+            Host Name : <a href="{% url 'profile' post.user.pk %}">{{post.user.full_name}}</a> 
+            Title     : {{post.title}}  
+            <!-- To redirect the url to the details of current lisitng this anchor tag can be used -->
+            <a href="{% url 'listing-details' post.pk %}">LINK</a> 
+            <!-- OTHER ATTRIBUTES CAN BE ACESSED AS USING FOLLOWS IF NEEDED -->
+            <!-- {{post.city}}   
+            {{post.exact_address}}   
+            {{post.lat}}   
+            {{post.lng                }}   
+            {{post.description        }}   
+            {{post.price              }}   
+            {{post.listing_type       }}   
+            {{post.kitchen_available  }}   
+            {{post.kitchen_description}}   
+            {{post.bedrooms           }}   
+            {{post.max_acomodation    }}   
+            {{post.bathroom_type      }}   
+            {{post.no_bathrooms       }}   
+            {{post.room_type          }}   
+            {{post.main_photo.url         }}   
+            {{post.photo_1.url            }}   
+            {{post.photo_2.url            }}   
+            {{post.photo_3.url            }}   
+            {{post.date_created       }}   
+            {{post.rating             }}   
+            {{post.total_bookings     }}    -->
+        
+        <br>
+        {% endfor %}
+    {% else %}
+        <h2> This host has no lisitngs currently posted</h2>        
+    {% endif %}
+{% endblock content %}

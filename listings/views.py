@@ -19,7 +19,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from listings.booking_functions.availability import check_availability
 from listings.calculate_distance.distance import calculate_distance
 from listings.calculate_distance.find_optimun import near_places
-
+from django.contrib.auth import get_user_model
 # Create your views here.
 
 def CancelBooking(request, pk):
@@ -54,6 +54,23 @@ def CancelBooking(request, pk):
 
     return redirect('home')
     
+def GuestViewsHostsListings(request, pk):
+
+    user    = get_user_model().objects.get(id=pk)
+    if not user.host:
+        return redirect("home")
+    objects = Listing.objects.filter(is_published=True, approved=True, user__id=pk)
+    if len(objects) == 0:
+        context = {
+            'host_name' : user.full_name,
+        }
+    else:
+        context = {
+            'posts' : objects,
+            'host_name' : user.full_name,
+        }
+
+    return render(request, 'listings/guest_look_host_listings.html', context)
 
 class GuestsListingView(LoginRequiredMixin, ListView, AccessMixin):
 
@@ -358,7 +375,7 @@ def SearchTitle(request):
     else:
         title = Listing.objects.filter(exact_address__contains = searched, is_published=True, approved=True)
     
-    paginator = Paginator(title, 1)
+    paginator = Paginator(title, 20)
     try:
         title = paginator.page(page)
     except PageNotAnInteger:
