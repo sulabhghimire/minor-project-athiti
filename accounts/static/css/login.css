@@ -26,7 +26,12 @@
   border: none;
 }
 
-.loginPage, .passwordchangepage, .guestRegisterPage, .hostRegisterPage {
+.loginPage,
+.passwordchangepage,
+.guestRegisterPage,
+.hostRegisterPage,
+.ContactUsPage,
+.UpdateProfilePage {
   width: 60%;
   margin: auto;
   display: -webkit-box;
@@ -41,28 +46,94 @@
           justify-content: center;
 }
 
-.loginPage form, .passwordchangepage form, .guestRegisterPage form, .hostRegisterPage form {
+.loginPage form,
+.passwordchangepage form,
+.guestRegisterPage form,
+.hostRegisterPage form,
+.ContactUsPage form,
+.UpdateProfilePage form {
   padding: 3rem;
 }
 
-.loginPage form .loginForm h2, .loginPage form .RegisterForm h2, .passwordchangepage form .loginForm h2, .passwordchangepage form .RegisterForm h2, .guestRegisterPage form .loginForm h2, .guestRegisterPage form .RegisterForm h2, .hostRegisterPage form .loginForm h2, .hostRegisterPage form .RegisterForm h2 {
+.loginPage form .loginForm h2,
+.loginPage form .RegisterForm h2,
+.loginPage form .ContactUsForm h2,
+.loginPage form .ProfileUpdateForm h2,
+.passwordchangepage form .loginForm h2,
+.passwordchangepage form .RegisterForm h2,
+.passwordchangepage form .ContactUsForm h2,
+.passwordchangepage form .ProfileUpdateForm h2,
+.guestRegisterPage form .loginForm h2,
+.guestRegisterPage form .RegisterForm h2,
+.guestRegisterPage form .ContactUsForm h2,
+.guestRegisterPage form .ProfileUpdateForm h2,
+.hostRegisterPage form .loginForm h2,
+.hostRegisterPage form .RegisterForm h2,
+.hostRegisterPage form .ContactUsForm h2,
+.hostRegisterPage form .ProfileUpdateForm h2,
+.ContactUsPage form .loginForm h2,
+.ContactUsPage form .RegisterForm h2,
+.ContactUsPage form .ContactUsForm h2,
+.ContactUsPage form .ProfileUpdateForm h2,
+.UpdateProfilePage form .loginForm h2,
+.UpdateProfilePage form .RegisterForm h2,
+.UpdateProfilePage form .ContactUsForm h2,
+.UpdateProfilePage form .ProfileUpdateForm h2 {
   margin-bottom: 1rem;
   font-family: "Mulish";
   font-weight: lighter;
 }
 
-.loginPage form .dontHaveAccount, .loginPage form .alreadyHaveAccount, .passwordchangepage form .dontHaveAccount, .passwordchangepage form .alreadyHaveAccount, .guestRegisterPage form .dontHaveAccount, .guestRegisterPage form .alreadyHaveAccount, .hostRegisterPage form .dontHaveAccount, .hostRegisterPage form .alreadyHaveAccount {
+.loginPage form .dontHaveAccount,
+.loginPage form .alreadyHaveAccount,
+.passwordchangepage form .dontHaveAccount,
+.passwordchangepage form .alreadyHaveAccount,
+.guestRegisterPage form .dontHaveAccount,
+.guestRegisterPage form .alreadyHaveAccount,
+.hostRegisterPage form .dontHaveAccount,
+.hostRegisterPage form .alreadyHaveAccount,
+.ContactUsPage form .dontHaveAccount,
+.ContactUsPage form .alreadyHaveAccount,
+.UpdateProfilePage form .dontHaveAccount,
+.UpdateProfilePage form .alreadyHaveAccount {
   margin-top: 1rem;
   font-family: "Mulish";
   font-weight: lighter;
 }
 
-.loginPage form .dontHaveAccount a, .loginPage form .alreadyHaveAccount a, .passwordchangepage form .dontHaveAccount a, .passwordchangepage form .alreadyHaveAccount a, .guestRegisterPage form .dontHaveAccount a, .guestRegisterPage form .alreadyHaveAccount a, .hostRegisterPage form .dontHaveAccount a, .hostRegisterPage form .alreadyHaveAccount a {
+.loginPage form .dontHaveAccount a,
+.loginPage form .alreadyHaveAccount a,
+.passwordchangepage form .dontHaveAccount a,
+.passwordchangepage form .alreadyHaveAccount a,
+.guestRegisterPage form .dontHaveAccount a,
+.guestRegisterPage form .alreadyHaveAccount a,
+.hostRegisterPage form .dontHaveAccount a,
+.hostRegisterPage form .alreadyHaveAccount a,
+.ContactUsPage form .dontHaveAccount a,
+.ContactUsPage form .alreadyHaveAccount a,
+.UpdateProfilePage form .dontHaveAccount a,
+.UpdateProfilePage form .alreadyHaveAccount a {
   text-decoration: none;
 }
 
+@media screen and (max-width: 1120px) {
+  .loginPage,
+  .passwordchangepage,
+  .guestRegisterPage,
+  .hostRegisterPage,
+  .ContactUsPage,
+  .UpdateProfilePage {
+    width: 75%;
+  }
+}
+
 @media screen and (max-width: 768px) {
-  .loginPage, .passwordchangepage, .guestRegisterPage, .hostRegisterPage {
+  .loginPage,
+  .passwordchangepage,
+  .guestRegisterPage,
+  .hostRegisterPage,
+  .ContactUsPage,
+  .UpdateProfilePage {
     width: 90%;
   }
 }

@@ -1,11 +1,87 @@
+{% extends 'listings/base.html' %} {% block content %} {% load static%}
+<head>
+  <link
+    rel="stylesheet"
+    type="text/css"
+    href=" {% static 'css/login.css' %} "
+  />
+</head>
 
-{% extends 'listings/base.html' %}
+<div class="ContactUsPage">
+  <form method="POST" class="form-group">
+    {% csrf_token %}
 
-{% block content %}
-    <h1>Contact Us</h1>
-    <form method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Post</button>
-    </form>
+    <div class="ConactUsForm">
+      <h3>Contact us</h3>
+      <h5>We are keen to hear from you!</h5>
+      <div class="row">
+        <div>
+          <p>
+            <label for="id_full_name">Full name:</label>
+            <input
+              class="form-control"
+              type="text"
+              name="full_name"
+              maxlength="30"
+              required=""
+              placeholder="John Doe"
+              id="id_full_name"
+            />
+          </p>
+        </div>
+        <div>
+          <p>
+            <label for="id_Email">Email:</label>
+            <input
+              class="form-control"
+              type="email"
+              name="Email"
+              maxlength="255"
+              required=""
+              placeholder="mail@example.com"
+              id="id_Email"
+            />
+          </p>
+        </div>
+        <div>
+          <p>
+            <label for="id_Phone_Number">Phone Number:</label>
+            <input
+              class="form-control"
+              type="text"
+              name="Phone_Number"
+              maxlength="10"
+              placeholder="98********"
+              id="id_Phone_Number"
+            />
+          </p>
+        </div>
+        <div>
+          <p>
+            <label for="id_Message">Message:</label>
+            <textarea
+              class="form-control"
+              name="Message"
+              cols="40"
+              rows="10"
+              required=""
+              placeholder="Your Message"
+              id="id_Message"
+              style="resize: none"
+            ></textarea>
+          </p>
+        </div>
+        <div style="width: 100%; text-align: center">
+          <button
+            style="padding: 0.5rem 1rem"
+            class="btn btn-primary"
+            type="submit"
+          >
+            Post
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
 {% endblock content %}
