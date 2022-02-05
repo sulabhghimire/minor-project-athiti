@@ -1,11 +1,9 @@
-from turtle import distance
 from django.conf import settings
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib import messages
 from django.template import context
 from django.urls import reverse
 from django.http.response import Http404
-from numpy import sort
 from .forms import AvailabilityForm, ContactUsForm
 import datetime
 import folium
@@ -76,7 +74,7 @@ class GuestsListingView(LoginRequiredMixin, ListView, AccessMixin):
 
     def dispatch(self, request, *args, **kwargs):
         if self.request.user.host == True:
-            raise Http404
+            return redirect("home")
         return super().dispatch(request, *args, **kwargs)
     
    
@@ -95,45 +93,64 @@ class HostsListingView(LoginRequiredMixin, ListView, AccessMixin):
     template_name       = 'listings/host_bookings_info.html'
     context_object_name = 'posts'
     
+import geocoder    
 def home(request):
 
-    # objects = Listing.objects.filter(is_published=True, approved=True).values(
-    #     'lat', 
-    #     'lng', 
-    #     'title',
-    #     'description', 
-    #     'exact_address', 
-    #     'city', 
-    #     'description', 
-    #     'price', 
-    #     'listing_type',
-    #     'kitchen_available', 
-    #     'kitchen_description', 
-    #     'bedrooms',
-    #     'max_acomodation',
-    #     'bathroom_type',
-    #     'no_bathrooms',
-    #     'room_type',
-    #     'main_photo',
-    #     'photo_1',
-    #     'photo_2',
-    #     'photo_3',
-    #     'rating',
-    #     'total_bookings',
-    # )
-    
-    # for object in objects:
-    #     print(object['main_photo'])
-    #     lat, lng = float(object['lat']), float(object['lng'])
-    #     object['distance'] = near_places(lat, lng)
+    objects = Listing.objects.filter(is_published=True, approved=True).values(
+        'lat', 
+        'lng', 
+        'title',
+        'description', 
+        'exact_address', 
+        'city', 
+        'description', 
+        'price', 
+        'listing_type',
+        'kitchen_available', 
+        'kitchen_description', 
+        'bedrooms',
+        'max_acomodation',
+        'bathroom_type',
+        'no_bathrooms',
+        'room_type',
+        # 'main_photo__url',
+        # # 'photo_1__url',
+        # # 'photo_2__url',
+        # # 'photo_3__url',
+        'rating',
+        'total_bookings',
+    )
 
-    # my_sorted_list = sorted(objects, key=lambda k: k['distance'])
-    # print(type(my_sorted_list))
-    # context = {
-    #     'posts' : my_sorted_list,
-    # }
+    if 'lat' in request.COOKIES and 'lng' in request.COOKIES:
+        or_lat = float(request.COOKIES['lat'])
+        or_lng = float(request.COOKIES['lng'])
 
-    return render(request, 'listings/home.html')
+        for object in objects:
+            des_lat, des_lng = float(object['lat']), float(object['lng'])
+            object['distance'] = near_places(or_lat, or_lng, des_lat, des_lng)
+        
+        my_sorted_list = sorted(objects, key=lambda k: k['distance'])
+        context = {
+            'posts' : my_sorted_list,
+        }
+        return render(request, 'listings/home.html', context)
+    else:
+        g = geocoder.ip('me')
+        
+        for object in objects:
+            lat, lng = float(object['lat']), float(object['lng'])
+            object['distance'] = near_places(float(g.latlng[0]), float(g.latlng[1]), lat, lng)
+
+        my_sorted_list = sorted(objects, key=lambda k: k['distance'])
+        context = {
+            'posts' : my_sorted_list,
+        }
+
+        response =  render(request, 'listings/home.html')
+        
+        response.set_cookie('lat', g.latlng[0])
+        response.set_cookie('lng', g.latlng[1])
+        return response
 
 class ListListings(LoginRequiredMixin, ListView, AccessMixin):
     
@@ -414,7 +431,7 @@ def map(request):
                     Times Booked : {obj.total_bookings}<br>
                     City : {obj.city}<br>
                     Exact Location : {obj.exact_address}<br>
-                    Host Details : {obj.user.full_name }</a>
+                    Host Details : {obj.user.full_name }<br>
                 </p>
             """
         iframe = branca.element.IFrame(html=html, width=400, height=210)
@@ -463,7 +480,7 @@ def contact_us(request):
             messages.success(request, "The information was submitted")
             return redirect(reverse('home'))
         else:
-            messages.error(request, "The form was invalid. PLease heck and try again!")
+            messages.warning(request, "The form was invalid. Please check and try again!")
             return redirect(reverse('contact-us'))
     else:
         form    = ContactUsForm()

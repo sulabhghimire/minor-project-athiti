@@ -2,18 +2,18 @@
 {% load static%}
 
 <head>
-    <link rel="stylesheet" type="text/css" href=" {% static 'css/login.css' %} ">
+  <link rel="stylesheet" type="text/css" href=" {% static 'css/login.css' %} ">
 </head>
 
 <style>
   .UpdateProfilePage>form>.ProfileUpdateForm>.form-row>div>div>p {
-      /* width: 90%; */
+    /* width: 90%; */
 
-      margin: auto;
+    margin: auto;
   }
 
   .UpdateProfilePage>form>.ProfileUpdateForm>.form-row>div>div>p>input {
-      padding: 0.5rem 1rem;
+    padding: 0.5rem 1rem;
   }
 </style>
 
@@ -21,56 +21,50 @@
 <div class="UpdateProfilePage">
   <form method="POST" enctype="multipart/form-data" class="form-group">
     {% csrf_token %}
-  
+
     <div class="ProfileUpdateForm">
       <h2>Update Profile Information</h2>
       <div class="form-row">
+        <div class="text-danger">{{ u_form.non_field_errors|striptags }}</div>
+        <div class="text-danger">{{ p_form.non_field_errors|striptags }}</div>
         <div class="row">
-          <div>      <p>
-            <label for="id_full_name">Full name:</label>
-            <input
-              type="text"
-              class="form-control"
-              name="full_name"
-              value='{{ user.full_name }}'
-              maxlength="255"
-              required=""
-              id="id_full_name"
-            />
-          </p></div>
+          <div>
+            <p>
+              <label for="id_full_name">Full name:</label>
+            <div class="text-danger">{{ u_form.full_name.errors|striptags }}</div>
+            <input type="text" class="form-control" name="full_name" value='{{ user.full_name }}' maxlength="255"
+              required="" id="id_full_name" />
+            </p>
+          </div>
 
-          <div>     
-               <p><label for="id_country">Country:
-        </label>
-        <p class="country_custom form-control">
-          {{u_form.country}}</p>
-      </p>
- 
-    </div>
+          <div>
+            <p><label for="id_country">Country:</label>
+            <div class="text-danger">{{ u_form.country.errors|striptags }}</div>
+            <p class="country_custom form-control">
+              {{u_form.country}}</p>
+            </p>
+
+          </div>
           <div>
             <p>
               <label for="id_state">State:</label>
-              <input
-              class="form-control"
-                type="text"
-                name="state"
-                value="Gandaki"
-                maxlength="255"
-                required=""
-                id="id_state"
-              />
+              <div class="text-danger">{{ u_form.state.errors|striptags }}</div>
+              <input class="form-control" type="text" name="state" value="Gandaki" maxlength="255" required=""
+                id="id_state" />
             </p>
           </div>
-          <div>     <p>
-            <label for="id_image">Current Image:</label> 
-            <!-- <img src={{ user.image }}> -->
-            <a href="{{user.image}}">{{user.image}}</a>
-            <br />
-            Change:
-            <input type="file"  class="form-control" name="image" accept="image/*" id="id_image" />
-          </p></div>
-          
-          <div  style="width: 100%; text-align: center; margin-top: 1rem;">
+          <div>
+            <p>
+              <label for="id_image">Current Image:</label>
+              <img src="{{ user.profile.image.url }}">
+              <br>
+              <div class="text-danger">{{ p_form.image.errors|striptags }}</div>
+              Change:
+              <input type="file" class="form-control" name="image" accept="image/*" id="id_image" />
+            </p>
+          </div>
+
+          <div style="width: 100%; text-align: center; margin-top: 1rem;">
             <button class="btn btn-primary" type="submit">Update</button>
           </div>
         </div>
@@ -79,13 +73,13 @@
       <div>
 
 
- 
-    </div>
+
+      </div>
 
   </form>
 </div>
 
 
-  </form>
+</form>
 </div>
 {% endblock content %}

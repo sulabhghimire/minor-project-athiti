@@ -16,8 +16,10 @@
       <h5>We are keen to hear from you!</h5>
       <div class="row">
         <div>
+          <div class="text-danger">{{ form.non_field_errors|striptags }}</div>
           <p>
             <label for="id_full_name">Full name:</label>
+            <div class="text-danger">{{ form.full_name.errors|striptags }}</div>
             <input
               class="form-control"
               type="text"
@@ -32,6 +34,7 @@
         <div>
           <p>
             <label for="id_Email">Email:</label>
+            <div class="text-danger">{{ form.Email.errors|striptags }}</div>
             <input
               class="form-control"
               type="email"
@@ -46,6 +49,7 @@
         <div>
           <p>
             <label for="id_Phone_Number">Phone Number:</label>
+            <div class="text-danger">{{ form.Phone_Number.errors|striptags }}</div>
             <input
               class="form-control"
               type="text"
@@ -59,6 +63,7 @@
         <div>
           <p>
             <label for="id_Message">Message:</label>
+            <div class="text-danger">{{ form.Message.errors|striptags }}</div>
             <textarea
               class="form-control"
               name="Message"

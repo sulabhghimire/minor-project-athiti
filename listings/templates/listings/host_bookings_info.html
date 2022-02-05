@@ -8,11 +8,14 @@
         {% if post.room_host_id == user.pk %}
             {% ifequal post.booking_progres "Booked" %}
             <p>
-                Guest Name  : <a href="{% url 'profile' post.user_id %}">{{post.user_full_name}} </a><br>                Room Booked : {{post.date_booked}}   <br>
+                Booking Id : {{post.uuid}} <br>
+                Guest Name  : <a href="{% url 'profile' post.user_id %}">{{post.user_full_name}} </a><br> 
+                <a href="{% url 'listing-details' post.room_id %}">View Booked Room </a>  <br>
+                Guest Email : {{post.user_email }}   <br>
+                Room Booked : {{post.date_booked}}   <br>
                 Check In Date : {{post.check_in}}     <br>
                 Check Out Date : {{post.check_out}}     <br>
                 Amount Paid : NRS. {{post.total_amount}} via Khalti Wallet <br>
-                Status : {{post.booking_progres}}       <br>
                 <br>
             </p>
             {% endifequal %}
@@ -25,11 +28,14 @@
         {% if post.room_host_id == user.pk %}
             {% ifequal post.booking_progres "Cancelled" %}
             <p>
-                Guest Name  : <a href="{% url 'profile' post.user_id %}">{{post.user_full_name}} </a><br>                Room Booked : {{post.date_booked}}   <br>
+                Booking Id : {{post.uuid}} <br>
+                Guest Name  : <a href="{% url 'profile' post.user_id %}">{{post.user_full_name}} </a><br> 
+                <a href="{% url 'listing-details' post.room_id %}">View Cancelled Room </a>  <br>
+                Guest Email : {{post.user_email }}   <br>               
+                Room Booked : {{post.date_booked}}   <br>
                 Check In Date : {{post.check_in}}     <br>
                 Check Out Date : {{post.check_out}}     <br>
                 Amount Paid : NRS. {{post.total_amount}} via Khalti Wallet <br>
-                Status : {{post.booking_progres}}       <br>
             </p>
             <br>
             {% endifequal %}
@@ -42,11 +48,14 @@
         {% if post.room_host_id == user.pk %}
             {% ifequal post.booking_progres "Completed" %}
             <p>
-                Guest Name  : <a href="{% url 'profile' post.user_id %}">{{post.user_full_name}} </a><br>                Room Booked : {{post.date_booked}}   <br>
+                Booking Id : {{post.uuid}} <br>
+                Guest Name  : <a href="{% url 'profile' post.user_id %}">{{post.user_full_name}} </a><br>
+                <a href="{% url 'listing-details' post.room_id %}">View Completed Room </a>  <br>
+                Guest Email : {{post.user_email }}   <br>                
+                Room Booked : {{post.date_booked}}   <br>
                 Check In Date : {{post.check_in}}     <br>
                 Check Out Date : {{post.check_out}}     <br>
                 Amount Paid : NRS. {{post.total_amount}} via Khalti Wallet <br>
-                Status : {{post.booking_progres}}       <br>
             </p>
             <br>
             {% endifequal %}

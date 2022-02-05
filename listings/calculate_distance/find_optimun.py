@@ -1,9 +1,8 @@
 import geocoder
 from haversine import haversine
 
-def near_places(dest_lat, dest_lng):
-    g = geocoder.ip('me')
-    origin = tuple(g.latlng)
+def near_places(orign_lat, origin_lng, dest_lat, dest_lng):
+    origin = (orign_lat, origin_lng)
 
     destination = (dest_lat, dest_lng)
 
