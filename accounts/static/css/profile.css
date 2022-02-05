@@ -5,7 +5,9 @@
   padding: 0;
 }
 
-.article, .review_section, .review_section {
+.article,
+.review_section,
+.review_section {
   font-family: "Mulish";
   font-weight: lighter;
   font-size: 1.25rem;

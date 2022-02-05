@@ -134,7 +134,8 @@ hr {
   color: #061830;
 }
 
-.searchBox div form .ratingSort, .searchBox div form .priceSort {
+.searchBox div form .ratingSort,
+.searchBox div form .priceSort {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -147,7 +148,8 @@ hr {
           align-items: center;
 }
 
-.searchBox div form .ratingSort select, .searchBox div form .priceSort select {
+.searchBox div form .ratingSort select,
+.searchBox div form .priceSort select {
   color: #061830;
   margin-left: 5px;
   font-family: "Mulish";
@@ -155,11 +157,13 @@ hr {
   font-size: 1.25rem;
 }
 
-.searchBox div form .ratingSort select option, .searchBox div form .priceSort select option {
+.searchBox div form .ratingSort select option,
+.searchBox div form .priceSort select option {
   text-align: center;
 }
 
-.searchBox div form .ratingSort select option :enabled, .searchBox div form .priceSort select option :enabled {
+.searchBox div form .ratingSort select option :enabled,
+.searchBox div form .priceSort select option :enabled {
   border-color: teal;
 }
 
@@ -209,5 +213,10 @@ footer {
   width: 99%;
   position: absolute;
   letter-spacing: 1.5px;
+}
+
+.form-control {
+  border: none;
+  outline: none;
 }
 /*# sourceMappingURL=base.css.map */
