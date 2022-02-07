@@ -1,17 +1,9 @@
-<!-- Page description
-This page can only be acessed by host. Here they can see their all listings.
-Get link to update or delete the lisitngs. -->
-
-
 {% extends 'listings/base.html' %}
 
 {% block content %}
     <br>
-    <a href="{% url 'listing-post' %}">Add new Lisitng</a> 
-    <br>
     <br>
     {% for post in posts %}
-        {% if user == post.user %}
             <a href="{% url 'listing-details' post.pk %}"> 
                 <div>
                     Title : {{ post.title }}
@@ -22,9 +14,6 @@ Get link to update or delete the lisitngs. -->
                 </div>
             </a>
             <br>
-            <a href="{% url 'listing-update' post.pk %}">Update</a> | <a href="{% url 'listing-delete' post.pk %}">Delete</a> 
             <br>
-            <br>
-        {% endif %}
     {% endfor %}
 {% endblock content %}

@@ -4,19 +4,72 @@
 {% block content %}
     <h1>Places Near You:-</h1>
 
-    <!-- {% for post in posts %}
-        <img src="{{post.main_photo}}"> 
+    {% for post in near_by_lisitngs %}
+        <!-- <img src="{{post.main_photo}}">     Can be used to acess main_photo 
+        <img src="{{post.photo_1}}">      Can be used to acess photo_1 
+        <img src="{{post.photo_2}}">     Can be used to acess photo_2 
+        <img src="{{post.photo_3}}">     Can be used to acess photo_3 -->
         <br>
+        <!-- to get title -->
+        Title : {{post.title}} 
+        <br>
+        <!-- to get distance -->
+        distance : {{post.distance}}
+        <!-- for others acessing we can use following
+        {{post.lat}}
+        {{post.lng}}
         {{post.title}}
-        <br>
-        {{post.rating}}
-        <br>
-        {{post.total_bookings}}
-        <br>
+        {{post.description}}
         {{post.exact_address}}
-        <br>
+        {{post.city}}
+        {{post.description}}
         {{post.price}}
+        {{post.listing_type}}
+        {{post.kitchen_available}}
+        {{post.kitchen_description}} 
+        {{post.bedrooms}}
+        {{post.max_acomodation}}
+        {{post.bathroom_type}}
+        {{post.no_bathrooms}}
+        {{post.room_type}}
+        {{post.rating}}
+        {{post.total_bookings}}              -->
         <br>
         <br>
-    {% endfor %} -->
+    {% endfor %} 
+    
+
+    <h1>Top Listings:-</h1>
+    {% for post in top_lisitngs %}
+    <!-- <img src="{{post.main_photo.url}}">     Can be used to acess main_photo 
+        <img src="{{post.photo_1.url}}">      Can be used to acess photo_1 
+        <img src="{{post.photo_2.url}}">     Can be used to acess photo_2 
+        <img src="{{post.photo_3.url}}">     Can be used to acess photo_3 -->
+        <br>
+        <!-- to get title -->
+        Title : {{post.title}} 
+        <br>
+        Number of bookings : {{post.total_bookings}}
+        <!-- for others acessing we can use following
+        {{post.lat}}
+        {{post.lng}}
+        {{post.title}}
+        {{post.description}}
+        {{post.exact_address}}
+        {{post.city}}
+        {{post.description}}
+        {{post.price}}
+        {{post.listing_type}}
+        {{post.kitchen_available}}
+        {{post.kitchen_description}} 
+        {{post.bedrooms}}
+        {{post.max_acomodation}}
+        {{post.bathroom_type}}
+        {{post.no_bathrooms}}
+        {{post.room_type}}
+        {{post.rating}}              -->
+        <br>
+        <br>
+    {% endfor %}
+    See other listings <a href="{% url 'lisitngs' %}">Here</a>
 {% endblock content %}

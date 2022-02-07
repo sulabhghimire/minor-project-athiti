@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
+
+from listings.models import Listing
 from . forms import GuestRegisterForm, HostRegisterForm, UserUpdateForm, ProfileUpdateForm, UserDeleteForm
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
@@ -78,7 +80,11 @@ def profile_update(request):
 
 def profile(request, pk):
     obj     = Profile.objects.get(id=pk)
+
     reviews = RateGuest.objects.filter(guest__id=pk, status=True)
+
+    listings = Listing.objects.filter(is_published=True, approved=True, user=obj.user).order_by('-total_bookings') 
+
     if reviews: 
         star    = 0
         count   = 0
@@ -87,15 +93,32 @@ def profile(request, pk):
             count   = count + 1
 
         stars = find_stars(star/count)
+
         context = {
             'object' : obj,
             'reviews': reviews,
             'stars'  : stars, 
         }
+
+        if listings:
+            context = {
+                'object' : obj,
+                'reviews': reviews,
+                'stars'  : stars,
+                'posts'  : listings,    
+            }
+        
     else:
         context = {
             'object' : obj,
         }
+
+        if listings:
+            context = {
+                'object'    : obj,
+                'posts'     : listings,
+            }
+
     return render(request, 'accounts/profile.html', context)
     
 @login_required

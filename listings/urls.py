@@ -7,7 +7,7 @@ from . import models
 urlpatterns = [
     path('', views.home, name='home'),
     path('search_listings', views.SearchTitle, name='search'),
-    path('listings/', views.ListListings.as_view(), name='listing-list'),
+    path('host_listings/', views.ListListings.as_view(), name='listing-list'),
     path('listing_details/<int:pk>/', views.LisitngDetailView, name='listing-details'),
     path('listing_details/<int:pk>/update/', views.update_item, name='listing-update'),
     path('listing_details/<int:pk>/delete/', views.ListingDelete.as_view(), name='listing-delete'),
@@ -19,4 +19,5 @@ urlpatterns = [
     path('all_locations/', views.map, name="map"),
     path('contact-us/', views.contact_us, name="contact-us"),
     path('view-hosts-listings/<int:pk>', views.GuestViewsHostsListings, name="host-lisitngs"),
+    path('all_listings/', views.see_all_listings, name='lisitngs'),
 ]

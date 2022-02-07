@@ -74,11 +74,6 @@
     {% endif %}
     <!-- TO REPORT USERS BEGINS HERE -->
     <div class="profileInfo">
-      {% if object.user.host %}
-        {% if not user.host %}
-          <a href="{% url 'host-lisitngs' object.user.pk %}"> listing by this host </a>
-        {% endif %}
-      {% endif %}
       {% if object.user.pk != user.pk %}
       <span class="actInfo" style="position:relative;">
 
@@ -117,6 +112,21 @@
         }
       </script>
       <!-- TO REPORT USERS ENDS HERE -->
+
+      {% if posts %}
+      <a href="{% url 'host-lisitngs' object.user.pk %}">See more from host</a>
+        {% for post in posts %}
+          <!-- Only providing top 10 posts with highest ratings to see more click see_all -->
+          Title : {{post.title}} <br>
+          Ratings : {{post.rating}} <br>
+          Price : {{post.price}} <br>
+          <!-- Main image : <img src="{{post.main_photo.url}}"> -->
+          <!-- If needed other attributes are needed same thing as homepage top lisitngs can be followed -->
+          <br>
+        {% endfor %}
+      {% endif %}
+
+
       <span class="actInfo row justify-content-center">
         <p class="col-md-4 col-lg-3  col-sm-8 "> <i class="fas fa-user"></i> : {{ object.user.country.name }} &nbsp;
           <i class="flag2x {{ object.user.country.flag_css }}" aria-label="{{ object.user.country.code }}"></i>

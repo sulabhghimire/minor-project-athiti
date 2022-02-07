@@ -4,6 +4,7 @@ from django.contrib import messages
 from django.template import context
 from django.urls import reverse
 from django.http.response import Http404
+from markupsafe import re
 from .forms import AvailabilityForm, ContactUsForm
 import datetime
 import folium
@@ -95,62 +96,102 @@ class HostsListingView(LoginRequiredMixin, ListView, AccessMixin):
     
 import geocoder    
 def home(request):
+       
+    url     = request.META.get('HTTP_REFERER')
 
+    top_lisitngs = Listing.objects.filter(is_published=True, approved=True).order_by('-total_bookings')[:10]
     objects = Listing.objects.filter(is_published=True, approved=True).values(
-        'lat', 
-        'lng', 
-        'title',
-        'description', 
-        'exact_address', 
-        'city', 
-        'description', 
-        'price', 
-        'listing_type',
-        'kitchen_available', 
-        'kitchen_description', 
-        'bedrooms',
-        'max_acomodation',
-        'bathroom_type',
-        'no_bathrooms',
-        'room_type',
-        # 'main_photo__url',
-        # # 'photo_1__url',
-        # # 'photo_2__url',
-        # # 'photo_3__url',
-        'rating',
-        'total_bookings',
+        'lat', 'lng', 'title', 'description', 'exact_address', 'city', 'description', 'price', 'listing_type',
+        'kitchen_available', 'kitchen_description', 'bedrooms', 'max_acomodation', 'bathroom_type', 'no_bathrooms',
+        'room_type', 'main_photo', 'photo_1', 'photo_2', 'photo_3', 'rating', 'total_bookings',
     )
-
-    if 'lat' in request.COOKIES and 'lng' in request.COOKIES:
-        or_lat = float(request.COOKIES['lat'])
-        or_lng = float(request.COOKIES['lng'])
-
-        for object in objects:
-            des_lat, des_lng = float(object['lat']), float(object['lng'])
-            object['distance'] = near_places(or_lat, or_lng, des_lat, des_lng)
+    g = geocoder.ip('me')
         
-        my_sorted_list = sorted(objects, key=lambda k: k['distance'])
-        context = {
-            'posts' : my_sorted_list,
-        }
-        return render(request, 'listings/home.html', context)
-    else:
-        g = geocoder.ip('me')
-        
-        for object in objects:
-            lat, lng = float(object['lat']), float(object['lng'])
-            object['distance'] = near_places(float(g.latlng[0]), float(g.latlng[1]), lat, lng)
+    for object in objects:
 
-        my_sorted_list = sorted(objects, key=lambda k: k['distance'])
-        context = {
-            'posts' : my_sorted_list,
-        }
-        print("Fetched")
-        response =  render(request, 'listings/home.html')
+        lat, lng = float(object['lat']), float(object['lng'])
+        object['distance'] = near_places(float(g.latlng[0]), float(g.latlng[1]), lat, lng)
+
+        if object['main_photo'] == "default_room.jpg":
+            initial_url          = object['main_photo']
+            object['main_photo'] = "media/" + initial_url
+        else:
+            initial_url          = object['main_photo']
+            object['main_photo'] = "media/room_images/" + initial_url
+
+        if object['photo_1'] == "default_room.jpg":
+            initial_url          = object['photo_1']
+            object['photo_1']    = "media/" + initial_url
+        else:
+            initial_url          = object['photo_1']
+            object['photo_1']    = "media/room_images/" + initial_url
+
+        if object['photo_2'] == "default_room.jpg":
+            initial_url          = object['photo_2']
+            object['photo_2'] = "media/" + initial_url
+        else:
+            initial_url          = object['photo_2']
+            object['photo_2'] = "media/room_images/" + initial_url
+
+        if object['photo_3'] == "default_room.jpg":
+            initial_url          = object['photo_3']
+            object['photo_3'] = "media/" + initial_url
+        else:
+            initial_url          = object['photo_3']
+            object['photo_3'] = "media/room_images/" + initial_url
+
+
+    my_sorted_list = sorted(objects, key=lambda k: k['distance'])
+
+    context = {
+        'near_by_lisitngs' : my_sorted_list[:10],
+        'top_lisitngs'     : top_lisitngs,
+    }
+
+    response =  render(request, 'listings/home.html', context)
+
+    return response
+
+    # if 'lat' in request.COOKIES and 'lng' in request.COOKIES:
+    #     or_lat = float(request.COOKIES['lat'])
+    #     or_lng = float(request.COOKIES['lng'])
+
+    #     for object in objects:
+    #         des_lat, des_lng = float(object['lat']), float(object['lng'])
+    #         object['distance'] = near_places(or_lat, or_lng, des_lat, des_lng)
         
-        response.set_cookie('lat', g.latlng[0])
-        response.set_cookie('lng', g.latlng[1])
-        return response
+    #     my_sorted_list = sorted(objects, key=lambda k: k['distance'])
+    #     context = {
+    #         'posts' : my_sorted_list,
+    #     }
+    #     return render(request, 'listings/home.html', context)
+    # else:
+    #     g = geocoder.ip('me')
+        
+    #     for object in objects:
+    #         lat, lng = float(object['lat']), float(object['lng'])
+    #         object['distance'] = near_places(float(g.latlng[0]), float(g.latlng[1]), lat, lng)
+
+    #     my_sorted_list = sorted(objects, key=lambda k: k['distance'])
+    #     context = {
+    #         'posts' : my_sorted_list,
+    #     }
+    #     print("Fetched")
+    #     response =  render(request, 'listings/home.html')
+        
+    #     response.set_cookie('lat', g.latlng[0])
+    #     response.set_cookie('lng', g.latlng[1])
+    #     return response
+
+def see_all_listings(request):
+
+    lisitngs = Listing.objects.filter(is_published=True, approved=True).order_by('-total_bookings')
+
+    context = {
+        'posts' : lisitngs,
+    }
+
+    return render(request, 'listings/see_all_lisitngs.html', context)
 
 class ListListings(LoginRequiredMixin, ListView, AccessMixin):
     
@@ -287,32 +328,9 @@ def update_item(request, pk):
     if request.user== listing.user:
 
         if request.method == "POST":
-            form = PostForm(request.POST)
+            form = PostForm(request.POST, request.FILES, instance=listing)
             if form.is_valid():
-                data = form.cleaned_data
-
-                Listing.objects.filter(id=pk).update(
-                    title               = data['title'],
-                    city                = data['city'],
-                    exact_address       = data['exact_address'],
-                    lat                 = data['lat'],
-                    lng                 = data['lng'],
-                    description         = data['description'],
-                    price               = data['price'],
-                    listing_type        = data['listing_type'],
-                    kitchen_available   = data['kitchen_available'],
-                    kitchen_description = data['kitchen_description'],
-                    bedrooms            = data['bedrooms'],
-                    max_acomodation     = data['max_acomodation'],
-                    bathroom_type       = data['bathroom_type'],
-                    no_bathrooms        = data['no_bathrooms'],
-                    room_type           = data['room_type'],
-                    main_photo          = data['main_photo'],
-                    photo_1             = data['photo_1'],
-                    photo_2             = data['photo_2'],
-                    photo_3             = data['photo_3'],
-                    is_published        = data['is_published'],
-                )
+                form.save()
                 messages.success(request, "Your listing has been updated!")
                 return redirect('listing-list')
             else:
@@ -322,8 +340,7 @@ def update_item(request, pk):
         form    = PostForm(instance=listing)
         context = {
             'form'  : form,
-            'lng'   : listing.lng,
-            'lat'   : listing.lat,
+            'post'  : listing,
         }
 
         return render(request, "listings/listing_update.html", context)

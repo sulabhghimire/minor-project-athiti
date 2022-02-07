@@ -39,11 +39,11 @@
                         <!-- ENDS HERE -->
                         {{ form.lat.errors }}
                         <label for="{{ form.lat.id_for_label }}">LATITUDE : </label>
-                        <input type="number" name="lat" step="0.000001" required="" id="id_lat" readonly="yes" value="{{lat}}">
+                        <input type="number" name="lat" step="0.000001" required="" id="id_lat" readonly="yes" value="{{post.lat}}">
                         <br>             
                         {{ form.lng.errors }}
                         <label for="{{ form.lng.id_for_label }}">LONGITUDE : </label>
-                        <input type="number" name="lng" step="0.000001" required="" id="id_lng" readonly="yes" value="{{lng}}">
+                        <input type="number" name="lng" step="0.000001" required="" id="id_lng" readonly="yes" value="{{post.lng}}">
                         <script type="text/javascript" src="{% static 'js/u-maps.js' %}"></script>
                     </div>
                     <!-- DESCRIPTION -->
@@ -109,24 +109,36 @@
                     <!-- MAIN PHOTO -->
                     <div>
                         {{ form.main_photo.errors }}
-                        <label for="{{ form.main_photo.id_for_label }}">MAIN PHOTO 2 : </label>
+                        <div>
+                            Current pic : <img src="{{post.main_photo.url}}">
+                        </div>
+                        <label for="{{ form.main_photo.id_for_label }}">MAIN PHOTO : </label>
                         {{ form.main_photo }}
                     </div>
                     <!-- PHOTO 1 -->
                     <div>
-                        {{ form.photo_3.errors }}
-                        <label for="{{ form.photo_3.id_for_label }}">PHOTO NO. 2 : </label>
-                        {{ form.photo_3 }}
+                        {{ form.photo_1.errors }}
+                        <div>
+                            Current pic : <img src="{{post.photo_1.url}}">
+                        </div>
+                        <label for="{{ form.photo_3.id_for_label }}">PHOTO NO. 1 : </label>
+                        {{ form.photo_1 }}
                     </div>
                     <!-- PHOTO 2 -->
                     <div>
                         {{ form.photo_2.errors }}
-                        <label for="{{ form.photo_2.id_for_label }}">PHOTO NO. 3 : </label>
+                        <div>
+                            Current pic : <img src="{{post.photo_2.url}}">
+                        </div>
+                        <label for="{{ form.photo_2.id_for_label }}">PHOTO NO. 2 : </label>
                         {{ form.photo_2 }}
                     </div>
                     <!-- PHOTO 3 -->
                     <div>
                         {{ form.photo_3.errors }}
+                        <div>
+                            Current pic : <img src="{{post.photo_3.url}}">
+                        </div>
                         <label for="{{ form.photo_3.id_for_label }}">PHOTO NO. 3 : </label>
                         {{ form.photo_3 }}
                     </div>
