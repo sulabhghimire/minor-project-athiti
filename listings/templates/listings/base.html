@@ -45,33 +45,35 @@
                 <div class="nav">
                     <span class="nav-left"><a href="{% url 'home' %}">Home </a> </span>
                     <div class="nav-right">
-                        <span class="nav-left"><a href="{% url 'map' %}">Locations </a> </span>
+                        <span title="Locations" ><a href="{% url 'map' %}"><i class="fas fa-map-marker fa-2x"></i> </a> </span>
                         {% if user.is_authenticated %}
                             {% if user.host %}
-                                <span><a href="{% url 'listing-list' %}">Your Listings</a></span>
-                                <span><a href="{% url 'hosts-booking' %}">View Bookings</a></span>
+                                <span title="My Listings"><a href="{% url 'listing-list' %}"><i class="fas fa-house-user fa-2x"></i></a></span>
+                                <span title="View Bookings"><a href="{% url 'hosts-booking' %}"><i class="fas fa-calendar-check fa-2x"></i></a></span>
                             {% endif %}
                             {% if user.guest %}
-                                <span><a href="{% url 'guests-booking' %}">View Bookings</a></span>
+                                <span title="View Bookings"><a href="{% url 'guests-booking' %}"><i class="fas fa-calendar-check fa-2x"></i></a></span>
                             {% endif %}
-                            <span><a href="{% url 'profile' user.pk %}">Profile</a> </span>
+                            <span title="Profile"><a href="{% url 'profile' user.pk %}"><i class="fas fa-user-circle fa-2x"></i></a> </span>
                             {% if user.guest %}
-                                <span><a href="{% url 'display_cart' %}">Cart</a></span>
+                                <span title="Cart"><a href="{% url 'display_cart' %}"><i class="fas fa-cart-plus"></i></a></span>
                             {% endif %}
                             <!--Data-count gives number of notifications that are not seen-->
-                            <a href="{% url 'notifications' %}">
-                                <span class="fa-stack fa-2x" data-count="{{count_notifications}}">
-                                        <i class="fa fa-bell fa-stack-2x icon-yellow"></i>
-                                </span>
-                            </a>
-                            <span class="nav-left"><a href="{% url 'contact-us' %}">Contact Us </a> </span>
-                            <span><a href="{% url 'logout' %}">Log Out</a> </span> 
+                      <span title="Notification" >
+                        <a  href="{% url 'notifications' %}">
+                            <span style=" width: 40px; " class="fa-stack fa-2x" data-count="{{count_notifications}}">
+                                    <i class="fa fa-bell fa-stack-1.8x icon-yellow"></i>
+                            </span>
+                        </a>
+                      </span>
+                            <span title="Contact Us"><a href="{% url 'contact-us' %}"><i class="fas fa-comments fa-2x"></i></a> </span>
+                            <span title="Log Out"><a  href="{% url 'logout' %}"><i class="fas fa-sign-out-alt fa-2x"></i></a> </span> 
                         {% else %}
                             <span><a href="{% url 'host-register' %}">Join as Host</a</span>
                             <span><a href="{% url 'guest-register' %}">Join as Guest</a> </span>
-                            <span class="nav-left"><a href="{% url 'contact-us' %}">Contact Us </a> </span>
-                            <span>
-                               <a href="{% url 'login' %}">Log In</a> 
+                            <span title="Contact Us"><a href="{% url 'contact-us' %}"><i class="fas fa-comments fa-2x"> </i></a> </span>
+                            <span title="Log In">
+                               <a href="{% url 'login' %}"><i class="fas fa-sign-in-alt fa-2x"></i></a> 
                             </span>
                         {% endif %}   
                     </div>
