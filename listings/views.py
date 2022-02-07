@@ -145,7 +145,7 @@ def home(request):
         context = {
             'posts' : my_sorted_list,
         }
-
+        print("Fetched")
         response =  render(request, 'listings/home.html')
         
         response.set_cookie('lat', g.latlng[0])

@@ -1,8 +1,10 @@
 from celery import shared_task
+from jason import response
 from .models import Booking
 import datetime
 from django.core.mail import send_mail
 from django.contrib.auth import get_user_model
+from django.shortcuts import render
 
 @shared_task(bind=True)
 def check_for_completed_booking(self):
