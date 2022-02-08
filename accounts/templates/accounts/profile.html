@@ -120,6 +120,7 @@
           Title : {{post.title}} <br>
           Ratings : {{post.rating}} <br>
           Price : {{post.price}} <br>
+          <a href="{% url 'listing-details' post.pk %}">View DETAILS </a> <br>
           <!-- Main image : <img src="{{post.main_photo.url}}"> -->
           <!-- If needed other attributes are needed same thing as homepage top lisitngs can be followed -->
           <br>

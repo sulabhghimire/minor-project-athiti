@@ -14,7 +14,8 @@
         Title : {{post.title}} 
         <br>
         <!-- to get distance -->
-        distance : {{post.distance}}
+        distance : {{post.distance}}<br>
+        <a href="{% url 'listing-details' post.id %}">View DETAILS </a> <br>
         <!-- for others acessing we can use following
         {{post.lat}}
         {{post.lng}}
@@ -49,7 +50,8 @@
         <!-- to get title -->
         Title : {{post.title}} 
         <br>
-        Number of bookings : {{post.total_bookings}}
+        Number of bookings : {{post.total_bookings}} <br>
+        <a href="{% url 'listing-details' post.pk %}">View DETAILS </a> <br>
         <!-- for others acessing we can use following
         {{post.lat}}
         {{post.lng}}

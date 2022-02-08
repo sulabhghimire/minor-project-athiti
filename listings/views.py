@@ -103,7 +103,7 @@ def home(request):
     objects = Listing.objects.filter(is_published=True, approved=True).values(
         'lat', 'lng', 'title', 'description', 'exact_address', 'city', 'description', 'price', 'listing_type',
         'kitchen_available', 'kitchen_description', 'bedrooms', 'max_acomodation', 'bathroom_type', 'no_bathrooms',
-        'room_type', 'main_photo', 'photo_1', 'photo_2', 'photo_3', 'rating', 'total_bookings',
+        'room_type', 'main_photo', 'photo_1', 'photo_2', 'photo_3', 'rating', 'total_bookings', 'id',
     )
     g = geocoder.ip('me')
         

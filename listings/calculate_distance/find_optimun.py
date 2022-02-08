@@ -8,4 +8,4 @@ def near_places(orign_lat, origin_lng, dest_lat, dest_lng):
 
     distance    = haversine(origin, destination)
 
-    return distance
+    return f'{round(distance, 3)} km'
