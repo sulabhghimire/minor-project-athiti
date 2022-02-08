@@ -30,6 +30,7 @@ body {
 }
 header {
   display: flex;
+  // background-color: #e3f2fd;
   height: 100px;
   width: 90vw;
   letter-spacing: $mainLetterSpacing;
@@ -49,9 +50,30 @@ header {
       width: 100%;
       height: 100%;
 
+      .hamburger {
+        display: none;
+        height: 50px;
+
+        .bar1,
+        .bar2,
+        .bar3 {
+          width: 25px;
+          height: 3px;
+          background-color: rgb(0, 0, 0);
+          margin: 2px;
+
+          transition: all 0.3s ease-in-out;
+          background-color: #101010;
+        }
+      }
+
+      .hambugerPopUp {
+        display: none;
+      }
+
       .nav-left {
         width: 40%;
-        height: 100%;
+
         @include flex();
         padding-left: 2rem;
         justify-content: left;
@@ -73,8 +95,17 @@ header {
           font-size: 1.05rem;
           font-weight: bold;
           color: $font-color;
-          margin-right: 2rem;
+          margin-right: 1rem;
           text-decoration: none;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          text-align: center;
+          justify-content: center;
+
+          b {
+            font-weight: lighter;
+          }
         }
       }
     }
@@ -155,4 +186,92 @@ footer {
 .form-control {
   border: none;
   outline: none;
+}
+
+@media screen and (max-width: 920px) {
+  header.active {
+    height: auto;
+    nav {
+      height: 100%;
+
+      .nav {
+        height: 100%;
+        justify-content: space-between;
+        .nav-left {
+          width: 100%;
+          justify-content: center;
+        }
+        .nav-right {
+          display: initial;
+          flex-direction: row;
+          width: 100%;
+
+          span {
+            align-items: center;
+            display: flex;
+            justify-content: space-evenly;
+            a {
+              margin: 1rem;
+            }
+          }
+        }
+      }
+    }
+  }
+  header {
+    nav {
+      .nav {
+        display: flex;
+        justify-content: space-between;
+        flex-direction: row;
+        .hamburger {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-direction: column;
+          padding-right: 2rem;
+          cursor: pointer;
+        }
+        .hamburger.active {
+          position: absolute;
+          right: 0;
+          top: 0;
+          .bar1 {
+            opacity: 0;
+          }
+
+          .bar2 {
+            transform: translateY(4px) rotate(45deg);
+          }
+
+          .bar3 {
+            transform: translateY(-4px) rotate(-45deg);
+          }
+        }
+
+        .nav-right {
+          display: none;
+          flex-direction: row;
+        }
+        .nav-right.active {
+          display: flex;
+          flex-direction: row;
+          flex-wrap: wrap;
+          align-items: center;
+          justify-content: center;
+          width: 100%;
+        }
+      }
+    }
+  }
+  .searchBox {
+    div {
+      form {
+        flex-wrap: wrap;
+        div {
+          margin-bottom: 1rem;
+        }
+      }
+    }
+  }
 }

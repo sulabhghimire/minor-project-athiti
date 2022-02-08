@@ -51,9 +51,29 @@ header nav .nav {
   height: 100%;
 }
 
+header nav .nav .hamburger {
+  display: none;
+  height: 50px;
+}
+
+header nav .nav .hamburger .bar1,
+header nav .nav .hamburger .bar2,
+header nav .nav .hamburger .bar3 {
+  width: 25px;
+  height: 3px;
+  background-color: black;
+  margin: 2px;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+  background-color: #101010;
+}
+
+header nav .nav .hambugerPopUp {
+  display: none;
+}
+
 header nav .nav .nav-left {
   width: 40%;
-  height: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -98,8 +118,26 @@ header nav .nav .nav-right a {
   font-size: 1.05rem;
   font-weight: bold;
   color: #061830;
-  margin-right: 2rem;
+  margin-right: 1rem;
   text-decoration: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  text-align: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+header nav .nav .nav-right a b {
+  font-weight: lighter;
 }
 
 hr {
@@ -218,5 +256,125 @@ footer {
 .form-control {
   border: none;
   outline: none;
+}
+
+@media screen and (max-width: 920px) {
+  header.active {
+    height: auto;
+  }
+  header.active nav {
+    height: 100%;
+  }
+  header.active nav .nav {
+    height: 100%;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+  }
+  header.active nav .nav .nav-left {
+    width: 100%;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+  }
+  header.active nav .nav .nav-right {
+    display: initial;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    width: 100%;
+  }
+  header.active nav .nav .nav-right span {
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: space-evenly;
+        -ms-flex-pack: space-evenly;
+            justify-content: space-evenly;
+  }
+  header.active nav .nav .nav-right span a {
+    margin: 1rem;
+  }
+  header nav .nav {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+  }
+  header nav .nav .hamburger {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    padding-right: 2rem;
+    cursor: pointer;
+  }
+  header nav .nav .hamburger.active {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+  header nav .nav .hamburger.active .bar1 {
+    opacity: 0;
+  }
+  header nav .nav .hamburger.active .bar2 {
+    -webkit-transform: translateY(4px) rotate(45deg);
+            transform: translateY(4px) rotate(45deg);
+  }
+  header nav .nav .hamburger.active .bar3 {
+    -webkit-transform: translateY(-4px) rotate(-45deg);
+            transform: translateY(-4px) rotate(-45deg);
+  }
+  header nav .nav .nav-right {
+    display: none;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+  }
+  header nav .nav .nav-right.active {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    width: 100%;
+  }
+  .searchBox div form {
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+  }
+  .searchBox div form div {
+    margin-bottom: 1rem;
+  }
 }
 /*# sourceMappingURL=base.css.map */
