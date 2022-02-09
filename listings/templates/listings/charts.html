@@ -1,0 +1,47 @@
+{% extends 'listings/base.html' %}
+
+
+
+<script>
+    {% block jquery %}
+        var endpoint = '/api/'
+        $.ajax({
+            method : "GET",
+            url : endpoint,
+            sucess : function(data){
+                console.log(data)
+            },
+            error : function(error_data){
+                console.log("Error")
+                console.log(error_data)
+            } 
+        })
+    {% endblock %}
+</script>
+
+
+
+{% block content %}
+<head>
+
+</head>
+<body>
+
+</body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock content %}

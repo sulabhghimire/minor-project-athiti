@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib import messages
 from django.template import context
@@ -505,3 +506,18 @@ def contact_us(request):
             'form' : form,
         }
         return render(request, "listings/contact_us.html", context)
+
+def chart_view(request):
+    return render(request, 'listings/charts.html', {})
+
+
+def get_data(request, *args, **kwargs):
+
+    data ={
+
+        "Sales" : 100,
+        "customers" : 10
+
+    }
+
+    return JsonResponse(data)
