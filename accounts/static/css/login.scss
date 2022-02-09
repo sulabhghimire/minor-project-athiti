@@ -61,10 +61,13 @@ $mainLetterSpacing: 1.5px;
     .RegisterForm,
     .ContactUsForm,
     .ProfileUpdateForm {
-      h2 {
+      h2,
+      h5 {
         margin-bottom: 1rem;
+
         font-family: "Mulish";
-        font-weight: lighter;
+        font-weight: bolder;
+        color: orange;
       }
     }
 

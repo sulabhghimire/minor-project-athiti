@@ -7,6 +7,7 @@
 
 body {
   height: 100vh;
+  letter-spacing: 1.5px;
 }
 
 header {
@@ -143,14 +144,16 @@ header nav .nav .nav-right a b {
 hr {
   width: 90vw;
   margin: auto;
-  margin-bottom: 1rem;
   margin-top: 1rem;
 }
 
 .searchBox {
   width: 90vw;
   margin: auto;
-  margin-bottom: 1rem;
+}
+
+.searchBox div {
+  height: 100%;
 }
 
 .searchBox div form {
@@ -164,16 +167,23 @@ hr {
       -ms-flex-pack: center;
           justify-content: center;
   font-family: "Mulish";
-  font-weight: lighter;
+  font-weight: bold;
   -webkit-box-pack: space-evenly;
       -ms-flex-pack: space-evenly;
           justify-content: space-evenly;
   font-size: 1.35rem;
-  color: #061830;
+  height: 100%;
+  min-height: 200px;
+  color: teal;
 }
 
 .searchBox div form .ratingSort,
-.searchBox div form .priceSort {
+.searchBox div form .priceSort,
+.searchBox div form .searchArea {
+  background-color: white;
+  opacity: 0.6;
+  padding: 5px;
+  border-radius: 5px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -187,22 +197,70 @@ hr {
 }
 
 .searchBox div form .ratingSort select,
-.searchBox div form .priceSort select {
-  color: #061830;
+.searchBox div form .priceSort select,
+.searchBox div form .searchArea select {
+  border: 1px solid teal;
+  border-radius: 2px;
+  outline: none;
+  color: teal;
   margin-left: 5px;
-  font-family: "Mulish";
-  font-weight: lighter;
-  font-size: 1.25rem;
+  font-weight: bold;
 }
 
 .searchBox div form .ratingSort select option,
-.searchBox div form .priceSort select option {
+.searchBox div form .priceSort select option,
+.searchBox div form .searchArea select option {
   text-align: center;
+  color: teal;
 }
 
 .searchBox div form .ratingSort select option :enabled,
-.searchBox div form .priceSort select option :enabled {
+.searchBox div form .priceSort select option :enabled,
+.searchBox div form .searchArea select option :enabled {
   border-color: teal;
+}
+
+.searchBox div form .searchArea input {
+  border: none;
+  outline: none;
+  color: teal;
+  font-weight: bold;
+}
+
+.searchBox div form .searchArea ::-webkit-input-placeholder {
+  text-align: center;
+  color: teal;
+  font-family: "Mulish";
+  font-weight: lighter;
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.searchBox div form .searchArea :-ms-input-placeholder {
+  text-align: center;
+  color: teal;
+  font-family: "Mulish";
+  font-weight: lighter;
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.searchBox div form .searchArea ::-ms-input-placeholder {
+  text-align: center;
+  color: teal;
+  font-family: "Mulish";
+  font-weight: lighter;
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.searchBox div form .searchArea ::placeholder {
+  text-align: center;
+  color: teal;
+  font-family: "Mulish";
+  font-weight: lighter;
+  font-size: 1.25rem;
+  font-weight: bold;
 }
 
 .searchBox div span {
