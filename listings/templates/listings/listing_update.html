@@ -1,159 +1,250 @@
+{% extends 'listings/base.html' %} {% load static %} {% block content %}
+<script
+  type="text/javascript"
+  src="https://maps.googleapis.com/maps/api/js"
+></script>
+<style>
+  div > form > div > div.row {
+    margin-bottom: 1rem;
+  }
+  div > form > div > div.describe {
+    margin-bottom: 1rem;
+  }
+  div > form > div > div.tick {
+    margin-bottom: 1rem;
+  }
+  div > form > div > div > div > b > input {
+    border: none;
+    outline: none;
+    width: 100%;
+  }
+  div > form > div > div > div > b > select {
+    border: none;
+    outline: none;
+    width: 100%;
+  }
+  div > form > div > div > b > textarea {
+    border: none;
+    outline: none;
+    width: 100%;
+    resize: none;
+  }
+  div > form > div > h3 {
+    color: orange;
+  }
+  div>form>div>div>div>div.current-images{
+      margin-bottom: 1rem;
+      margin-top: 1rem;
+  }
+  div>form>div>div>div>div.current-images>img{
+      width: 100px;
+      height: 100px;
+  }
+</style>
 
-{% extends 'listings/base.html' %}
-{% load static %}
-
-{% block content %}
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script> 
-    <div>
+<div>
+    <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div>
+        <h3>Update Listing</h3>
+ 
+        {{ form.non_field_errors }}
+        <!-- TITLE -->
+        <div class="row">
+          <div class="col">
+            {{ form.title.errors }}
+            <label for="{{ form.title.id_for_label }}">TITLE : </label>
+            <b class="form-control"> {{ form.title }} </b>
+          </div>
+          <!-- CITY -->
+          <div class="col">
+            {{ form.city.errors }}
+            <label for="{{ form.city.id_for_label }}">CITY : </label>
+            <b class="form-control">{{ form.city }}</b>
+          </div>
+          <!-- EXACT ADDRESS -->
+          <div class="col">
+            {{ form.exact_address.errors }}
+            <label for="{{ form.exact_address.id_for_label }}"
+              >EXACT ADDRESS :
+            </label>
+            <b class="form-control"> {{ form.exact_address }} </b>
+          </div>
+        </div>
+        <!-- MAP AND LATITUDE AND LONGITUDE SELECTION -->
         <div>
-            <h2>Update</h2>
-            <form method="POST" enctype="multipart/form-data">
-                {% csrf_token %}
-                <fieldset>
-                    <legend>Enter Your New Lisitng</legend>
-                    {{ form.non_field_errors }}
-                    <!-- TITLE -->
-                    <div>
-                        {{ form.title.errors }}
-                        <label for="{{ form.title.id_for_label }}">TITLE : </label>
-                        {{ form.title }}
-                    </div>
-                    <!-- CITY -->
-                    <div>
-                        {{ form.city.errors }}
-                        <label for="{{ form.city.id_for_label }}">CITY : </label>
-                        {{ form.city }}
-                    </div>
-                    <!-- EXACT ADDRESS -->
-                    <div>
-                        {{ form.exact_address.errors }}
-                        <label for="{{ form.exact_address.id_for_label }}">WRITE EXACT ADDRESS : </label>
-                        {{ form.exact_address }}
-                    </div>
-                    <!-- MAP AND LATITUDE AND LONGITUDE SELECTION -->
-                    <div>
-                        <!--MAP DIV TO DISPLAY MAP-->
-                        SELECT YOUR LISTING LOCATION : 
-                        <br>
-                        <div id="map" style="width:700px; height: 500px;"></div>
-                        <!-- ENDS HERE -->
-                        {{ form.lat.errors }}
-                        <label for="{{ form.lat.id_for_label }}">LATITUDE : </label>
-                        <input type="number" name="lat" step="0.000001" required="" id="id_lat" readonly="yes" value="{{post.lat}}">
-                        <br>             
-                        {{ form.lng.errors }}
-                        <label for="{{ form.lng.id_for_label }}">LONGITUDE : </label>
-                        <input type="number" name="lng" step="0.000001" required="" id="id_lng" readonly="yes" value="{{post.lng}}">
-                        <script type="text/javascript" src="{% static 'js/u-maps.js' %}"></script>
-                    </div>
-                    <!-- DESCRIPTION -->
-                    <div>
-                        {{ form.description.errors }}
-                        <label for="{{ form.description.id_for_label }}">DESCRIBE LISITNG : </label>
-                        {{ form.description }}
-                    </div>
-                    <!-- PRICE -->
-                    <div>
-                        {{ form.price.errors }}
-                        <label for="{{ form.price.id_for_label }}">PRICE PER NIGHT : </label>
-                        {{ form.price }}
-                    </div>
-                    <!-- LISTING TYPE -->
-                    <div>
-                        {{ form.listing_type.errors }}
-                        <label for="{{ form.listing_type.id_for_label }}">CHOOSE THE TYPE OF LISTING : </label>
-                        {{ form.listing_type }}
-                    </div>
-                    <!-- KITCHEN AVAILABLE -->
-                    <div>
-                        {{ form.kitchen_available.errors }}
-                        <label for="{{ form.kitchen_available.id_for_label }}">TICK IF KITHCEN IS AVAILABLE : </label>
-                        {{ form.kitchen_available }}
-                    </div>
-                    <!-- KITCHEN DESCRIPTION -->
-                    <div>
-                        {{ form.kitchen_description.errors }}
-                        <label for="{{ form.kitchen_description.id_for_label }}">DESCRIBE THE KITCHEN : </label>
-                        {{ form.kitchen_description }}
-                    </div>
-                    <!-- BEDROOMS -->
-                    <div>
-                        {{ form.bedrooms.errors }}
-                        <label for="{{ form.bedrooms.id_for_label }}">NO OF BEDROOMS : </label>
-                        {{ form.bedrooms }}
-                    </div>
-                    <!-- MAX ACCOMODATION -->
-                    <div>
-                        {{ form.max_acomodation.errors }}
-                        <label for="{{ form.max_acomodation.id_for_label }}">MAX ACCOMODATION : </label>
-                        {{ form.max_acomodation }}
-                    </div>
-                    <!-- BATH ROOM TYPE -->
-                    <div>
-                        {{ form.bathroom_type.errors }}
-                        <label for="{{ form.bathroom_type.id_for_label }}">BATHROOOM TYPE : </label>
-                        {{ form.bathroom_type }}
-                    </div>
-                    <!-- NO OF BATHROOMS -->
-                    <div>
-                        {{ form.no_bathrooms.errors }}
-                        <label for="{{ form.no_bathrooms.id_for_label }}">NO. OF BATHROOMS : </label>
-                        {{ form.no_bathrooms }}
-                    </div>
-                    <!-- ROOM TYPE AC OR NON AC -->
-                    <div>
-                        {{ form.room_type.errors }}
-                        <label for="{{ form.room_type.id_for_label }}">TYPE OF ROOM : </label>
-                        {{ form.room_type }}
-                    </div>
-                    <!-- MAIN PHOTO -->
-                    <div>
-                        {{ form.main_photo.errors }}
-                        <div>
-                            Current pic : <img src="{{post.main_photo.url}}">
-                        </div>
-                        <label for="{{ form.main_photo.id_for_label }}">MAIN PHOTO : </label>
-                        {{ form.main_photo }}
-                    </div>
-                    <!-- PHOTO 1 -->
-                    <div>
-                        {{ form.photo_1.errors }}
-                        <div>
-                            Current pic : <img src="{{post.photo_1.url}}">
-                        </div>
-                        <label for="{{ form.photo_3.id_for_label }}">PHOTO NO. 1 : </label>
-                        {{ form.photo_1 }}
-                    </div>
-                    <!-- PHOTO 2 -->
-                    <div>
-                        {{ form.photo_2.errors }}
-                        <div>
-                            Current pic : <img src="{{post.photo_2.url}}">
-                        </div>
-                        <label for="{{ form.photo_2.id_for_label }}">PHOTO NO. 2 : </label>
-                        {{ form.photo_2 }}
-                    </div>
-                    <!-- PHOTO 3 -->
-                    <div>
-                        {{ form.photo_3.errors }}
-                        <div>
-                            Current pic : <img src="{{post.photo_3.url}}">
-                        </div>
-                        <label for="{{ form.photo_3.id_for_label }}">PHOTO NO. 3 : </label>
-                        {{ form.photo_3 }}
-                    </div>
-                    <!-- IS PUBLISHED -->
-                    <div>
-                        {{ form.is_published.errors }}
-                        <label for="{{ form.is_published.id_for_label }}">PUBLISH IT : </label>
-                        {{ form.is_published }}
-                    </div>
-                </fieldset>
-                <div>
-                    <button type="submit"class="btn btn-outline-info">Post</button>
-                </div>
-            </form>
+          <!--MAP DIV TO DISPLAY MAP-->
+          SELECT YOUR LISTING LOCATION :
+          <br />
+          <div
+            class="form-control"
+            id="map"
+            style="width: 100%; height: 500px"
+          ></div>
+          <!-- ENDS HERE -->
+  
+          <div class="row" style="margin-top: 1rem; margin-bottom: 1rem">
+            <div class="col">
+              {{ form.lat.errors }}
+              <label for="{{ form.lat.id_for_label }}">LATITUDE : </label>
+              <input
+                class="form-control"
+                type="number"
+                name="lat"
+                step="0.000001"
+                required=""
+                id="id_lat"
+                readonly="yes"
+                value="{{post.lat}}"
+              />
             </div>
-    </div>
-{% endblock content %}
+  
+            <div class="col">
+              {{ form.lng.errors }}
+              <label for="{{ form.lng.id_for_label }}">LONGITUDE : </label>
+              <input
+                class="form-control"
+                type="number"
+                name="lng"
+                step="0.000001"
+                required=""
+                id="id_lng"
+                readonly="yes"
+                value="{{post.lng}}"
+              />
+            </div>
+          </div>
+          <script type="text/javascript" src="{% static 'js/maps.js' %}"></script>
+        </div>
+        <!-- DESCRIPTION -->
+        <div class="describe">
+          {{ form.description.errors }}
+          <label for="{{ form.description.id_for_label }}"
+            >DESCRIBE LISITNG :
+          </label>
+          <b class="form-control"> {{ form.description }} </b>
+        </div>
+        <div class="row">
+          <!-- PRICE -->
+          <div class="col">
+            {{ form.price.errors }}
+            <label for="{{ form.price.id_for_label }}">PRICE PER NIGHT : </label>
+            <b class="form-control"> {{ form.price }} </b>
+          </div>
+          <!-- LISTING TYPE -->
+          <div class="col">
+            {{ form.listing_type.errors }}
+            <label for="{{ form.listing_type.id_for_label }}"
+              >TYPE OF LISTING :
+            </label>
+            <b class="form-control"> {{ form.listing_type }} </b>
+          </div>
+        </div>
+        <!-- KITCHEN AVAILABLE -->
+        <div class="tick">
+          {{ form.kitchen_available.errors }}
+          <label for="{{ form.kitchen_available.id_for_label }}"
+            >KITHCEN AVAILABLE ?
+          </label>
+          {{ form.kitchen_available }}
+        </div>
+        <!-- KITCHEN DESCRIPTION -->
+        <div class="describe">
+          {{ form.kitchen_description.errors }}
+          <label for="{{ form.kitchen_description.id_for_label }}"
+            >DESCRIBE THE KITCHEN :
+          </label>
+          <b class="form-control"> {{ form.kitchen_description }} </b>
+        </div>
+        <div class="row">
+          <!-- BEDROOMS -->
+          <div class="col">
+            {{ form.bedrooms.errors }}
+            <label for="{{ form.bedrooms.id_for_label }}"
+              >NO OF BEDROOMS :
+            </label>
+            <b class="form-control"> {{ form.bedrooms }} </b>
+          </div>
+          <!-- MAX ACCOMODATION -->
+          <div class="col">
+            {{ form.max_acomodation.errors }}
+            <label for="{{ form.max_acomodation.id_for_label }}"
+              >MAX ACCOMODATION :
+            </label>
+            <b class="form-control"> {{ form.max_acomodation }} </b>
+          </div>
+          <!-- NO OF BATHROOMS -->
+          <div class="col">
+            {{ form.no_bathrooms.errors }}
+            <label for="{{ form.no_bathrooms.id_for_label }}"
+              >NO. OF BATHROOMS :
+            </label>
+            <b class="form-control"> {{ form.no_bathrooms }} </b>
+          </div>
+        </div>
+        <div class="row">
+          <!-- BATH ROOM TYPE -->
+          <div class="col">
+            {{ form.bathroom_type.errors }}
+            <label for="{{ form.bathroom_type.id_for_label }}"
+              >BATHROOOM TYPE :
+            </label>
+            <b class="form-control"> {{ form.bathroom_type }} </b>
+          </div>
+          <!-- ROOM TYPE AC OR NON AC -->
+          <div class="col">
+            {{ form.room_type.errors }}
+            <label for="{{ form.room_type.id_for_label }}">TYPE OF ROOM : </label>
+            <b class="form-control"> {{ form.room_type }} </b>
+          </div>
+        </div>
+  
+        <div class="row">
+          <!-- MAIN PHOTO -->
+          <div class="col-sm-12 col-md-6 ">
+            {{ form.main_photo.errors }}
+            <div class="current-images col">Current pic : <img src="{{post.main_photo.url}}" /></div>
+            <label for="{{ form.main_photo.id_for_label }}">MAIN PHOTO : </label>
+            <b class="form-control"> {{ form.main_photo }} </b>
+          </div>
+          <!-- PHOTO 1 -->
+          <div class="col-md-6 col-sm-12">
+            {{ form.photo_3.errors }}
+            <div class="current-images">Current pic : <img src="{{post.photo_1.url}}" /></div>
+            <label for="{{ form.photo_3.id_for_label }}">PHOTO NO. 2 : </label>
+            <b class="form-control"> {{ form.photo_3 }} </b>
+          </div>
+        </div>
+        <div class="row">
+          <!-- PHOTO 2 -->
+          <div class="col-md-6 col-sm-12 ">
+            {{ form.photo_2.errors }}
+            <div class="current-images">Current pic : <img src="{{post.photo_2.url}}" /></div>
+            <label for="{{ form.photo_2.id_for_label }}">PHOTO NO. 3 : </label>
+            <b class="form-control"> {{ form.photo_2 }} </b>
+          </div>
+          <!-- PHOTO 3 -->
+          <div class="col-md-6 col-sm-12">
+            {{ form.photo_3.errors }}
+            <div class="current-images">Current pic : <img src="{{post.photo_3.url}}" /></div>
+            <label for="{{ form.photo_3.id_for_label }}">PHOTO NO. 4 : </label>
+            <b class="form-control"> {{ form.photo_3 }} </b>
+          </div>
+        </div>
+        <!-- IS PUBLISHED -->
+        <div class="tick">
+          {{ form.is_published.errors }}
+          <label for="{{ form.is_published.id_for_label }}">PUBLISH IT : </label>
+          {{ form.is_published }}
+        </div>
+      </div>
+      <div>
+        <button style="margin-bottom: 1rem" class="btn btn-primary" type="submit">
+          Update
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
 
+{% endblock content %}
