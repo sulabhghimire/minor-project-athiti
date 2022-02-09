@@ -35,11 +35,13 @@
                 min-width:2em;
                 font-weight:bold;
 }
+
+
         </style>
     </head>
   
 
-    <body>
+    <body style="background: #e5f0f8;">
         <header id="HeaderPopUp">
             <nav class="navbar ">
                 <div class="nav" >
@@ -99,7 +101,8 @@
             </script>
         </header>
 
-       <section class="searchBox">
+       <section class="searchBox" style='background-image: url("https://th.bing.com/th/id/R.85bc4da66ac2a667c4c92dffe18e5a79?rik=ZVZCkg%2bldu2V%2bw&pid=ImgRaw&r=0")
+      ; background-position: center; background-repeat: no-repeat; background-size: cover; border-radius: 5px;'>
            <div>
                <form method="GET" action="{% url 'search' %}">
                     <div class="ratingSort">
@@ -116,13 +119,13 @@
                     </div>
                     <div class="priceSort">
                         <label for="price_by">Sort by Price</label>
-                            <select name="price_by">
+                            <select name="price_by" style="color: teal;">
                                 <option></option>
-                                <option>Low to high</option>
+                                <option style="color: teal;">Low to high</option>
                                 <option>High to low</option>
                             </select>
                     </div>
-                    <div>
+                    <div class="searchArea">
                         <input placeholder="Your preferred Area" type="search" name="searched">
                     </div>
                     <div>
