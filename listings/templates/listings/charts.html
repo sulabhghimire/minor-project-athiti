@@ -1,47 +1,28 @@
 {% extends 'listings/base.html' %}
 
-
-
-<script>
-    {% block jquery %}
-        var endpoint = '/api/'
-        $.ajax({
-            method : "GET",
-            url : endpoint,
-            sucess : function(data){
-                console.log(data)
-            },
-            error : function(error_data){
-                console.log("Error")
-                console.log(error_data)
-            } 
-        })
-    {% endblock %}
-</script>
-
-
-
 {% block content %}
-<head>
-
-</head>
-<body>
-
-</body>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<div>
+    <form method="GET" action="">
+        <label>Know About</label>
+        <br>
+        <input type="radio" id="first" name="gtype" value="earnings" >
+        <label for="first">Earnings</label>
+        <input type="radio" id="second" name="gtype" value="bookings">
+        <label for="second">Bookings</label>
+        {% if graph_type %}
+        <br>
+            View your Earnings By Date
+            <br>
+            <label for="from">From:</label> <input type="date" name="from" id="from">
+            <br>
+            <label for="to">To:</label> <input type="date" name="to" id="to">
+        {% endif %}
+        <br>
+        <button type="submit" class="btn btn-primary">Search</button>
+     </form>
+</div>
+    
+    {% if chart %}
+        <img src="data:image/png;base64, {{chart|safe}}">
+    {% endif %}
 {% endblock content %}

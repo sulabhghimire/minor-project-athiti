@@ -20,6 +20,5 @@ urlpatterns = [
     path('contact-us/', views.contact_us, name="contact-us"),
     path('view-hosts-listings/<int:pk>', views.GuestViewsHostsListings, name="host-lisitngs"),
     path('all_listings/', views.see_all_listings, name='lisitngs'),
-    path('charts/', views.chart_view, name="chart"),
-    path('api/', views.get_data, name="data"),
+    path('charts', views.chart_view, name="chart"),
 ]

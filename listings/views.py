@@ -20,6 +20,8 @@ from listings.booking_functions.availability import check_availability
 from listings.calculate_distance.distance import calculate_distance
 from listings.calculate_distance.find_optimun import near_places
 from django.contrib.auth import get_user_model
+from django.contrib.auth.decorators import login_required
+
 # Create your views here.
 
 def CancelBooking(request, pk):
@@ -507,17 +509,49 @@ def contact_us(request):
         }
         return render(request, "listings/contact_us.html", context)
 
+from dateutil import parser
+from .utils import get_plot_pie
+from .models import Booking
+@login_required
 def chart_view(request):
-    return render(request, 'listings/charts.html', {})
 
+    graph_type  = request.GET.get('gtype')
 
-def get_data(request, *args, **kwargs):
+    if graph_type == "bookings":
+        object = Listing.objects.filter(user=request.user, is_published=True, approved=True)
+        if object:
+            x = [x.title for x in object]
+            y = [y.total_bookings for y in object]
+            chart = get_plot_pie(x,y)
+            context = {
+                'chart' : chart,
+            }
+            return render(request, 'listings/charts.html', context)
 
-    data ={
+    elif graph_type == "earnings" or graph_type == None:
+        object = Booking.objects.filter()
 
-        "Sales" : 100,
-        "customers" : 10
+        if ((request.GET.get('from') == None )or (request.GET.get('from') == "")) or ((request.GET.get('to') == None) or (request.GET.get('to') == "")):
+            context = {
+            'graph_type' : "Value",
+            }
+            return render(request, 'listings/charts.html', context)
+        else:
+            date_in  = parser.parse(request.GET.get('from')).date()
+            date_out  = parser.parse(request.GET.get('to')).date()
 
+            if date_in > datetime.date.today():
+                messages.warning(request, f'Enter from date today or less than today.')
+            elif date_out > datetime.date.today():
+                messages.warning(request, f'Enter to date today or less than today.')
+            elif date_out < date_in:
+                messages.warning(request, f'From date must be less than to date.')    
+            else:
+                pass
+
+    context = {
+            'graph_type' : "Value",
     }
+    return render(request, 'listings/charts.html', context)
 
-    return JsonResponse(data)
+    
