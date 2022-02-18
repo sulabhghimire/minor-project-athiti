@@ -32,7 +32,7 @@ class EmailThread(threading.Thread):
 
     def __init__(self, email, messages, filename, pdf):
         self.email      = email
-        self.messages    = messages
+        self.messages   = messages
         self.filename   = filename
         self.pdf        = pdf
         threading.Thread.__init__(self)

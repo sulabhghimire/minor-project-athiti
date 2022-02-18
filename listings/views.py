@@ -274,6 +274,8 @@ def check_host(user):
     if user.is_authenticated:
         if user.host:
             return True
+        else:
+            return False
     else:
         return False
 
@@ -509,11 +511,32 @@ def contact_us(request):
         }
         return render(request, "listings/contact_us.html", context)
 
-from dateutil import parser
-from .utils import get_plot_pie
+from .utils import get_plot_pie, get_booking_details_bar, earning_details_bar
 from .models import Booking
-@login_required
+@user_passes_test(check_host)
 def chart_view(request):
+
+    year_dropdown = []
+    for y in range(2021, (datetime.datetime.now().year)+1):
+        year_dropdown.append(y)
+
+    month_dropdown = ['Jan', 'Feb', 'Mar', 'April', 'May', 
+                    'Jun', 'Jul', 'Aug' , 'Sept', 'Oct', 'Nov', 'Dec']
+
+    corr_value = {
+        'Jan' : '01', 
+        'Feb' : '02', 
+        'Mar' : '03', 
+        'April' : '04',
+        'May' : '05', 
+        'Jun' : '06', 
+        'Jul' : '07', 
+        'Aug' : '08', 
+        'Sept': '09', 
+        'Oct' : '10', 
+        'Nov' : '11', 
+        'Dec' : '12',
+    }
 
     graph_type  = request.GET.get('gtype')
 
@@ -529,28 +552,157 @@ def chart_view(request):
             return render(request, 'listings/charts.html', context)
 
     elif graph_type == "earnings" or graph_type == None:
-        object = Booking.objects.filter()
 
-        if ((request.GET.get('from') == None )or (request.GET.get('from') == "")) or ((request.GET.get('to') == None) or (request.GET.get('to') == "")):
+        if ((request.GET.get('year') == None )or (request.GET.get('year') == "")) or ((request.GET.get('month') == None) or (request.GET.get('month') == "")):
+            
+            check_year = str(datetime.date.today().year);
+            check_mth = str(datetime.date.today().month);
+            items = Booking.objects.filter(date_booked__year=check_year, 
+                                                date_booked__month=check_mth,
+                                                room_host_id = request.user.pk)
+            items_count = len(items)
+            booked_items = []
+            cancelled_items = []
+            completed_items =[]
+
+            for item in items:
+                if item.booking_progres=="Booked":
+                    booked_items.append(item)
+                elif item.booking_progres=="Cancelled":
+                    cancelled_items.append(item)
+                elif item.booking_progres=="Completed" :
+                    completed_items.append(item)
+
+            cancelled_count = len(cancelled_items)
+            booked_count = len(booked_items)
+            completed_count = len(completed_items)
+
+            bar_graph_bookings_lables = ["Total", "Active", "Completed", "Cancelled"]
+            bar_graph_bookings_values = [items_count, booked_count, completed_count, cancelled_count]
+
+            this_month_booking_bar = get_booking_details_bar(bar_graph_bookings_lables, bar_graph_bookings_values, check_year, check_mth )
+
+            rem_recieved_sum = 0
+            rem_recieved_tax = 0
+            rem_recieved_total = 0
+            for item in booked_items:
+                rem_recieved_sum += item.sum_amount
+                rem_recieved_tax += item.tax_amount
+                rem_recieved_total += rem_recieved_sum + rem_recieved_tax
+
+            completed_recieved_sum = 0
+            completed_recieved_tax = 0
+            completed_total = 0
+            for item in completed_items:
+                completed_recieved_sum += item.sum_amount
+                completed_recieved_tax += item.tax_amount
+                completed_total += completed_recieved_sum + completed_recieved_tax
+
+            labels = ["Remaining", "Recieved"]
+            y_first = [rem_recieved_total, completed_total]
+            y_second = [rem_recieved_tax, completed_recieved_tax]
+            y_third = [rem_recieved_sum, completed_recieved_sum]
+
+            earning_bar = earning_details_bar(labels, y_first, y_second, y_third, check_year, check_mth)
+
             context = {
             'graph_type' : "Value",
+            'year_dropdown' : year_dropdown,
+            'month_dropdown' : month_dropdown,
+            'items_count' : items_count,
+            'cancelled_count' : cancelled_count,
+            'booked_count' : booked_count,
+            'completed_count' : completed_count,
+            'this_month_booking_bar' : this_month_booking_bar,
+            'earning_bar' : earning_bar,
             }
+
+
             return render(request, 'listings/charts.html', context)
         else:
-            date_in  = parser.parse(request.GET.get('from')).date()
-            date_out  = parser.parse(request.GET.get('to')).date()
+            check_year = request.GET.get('year')
+            check_mth = request.GET.get('month') 
 
-            if date_in > datetime.date.today():
-                messages.warning(request, f'Enter from date today or less than today.')
-            elif date_out > datetime.date.today():
-                messages.warning(request, f'Enter to date today or less than today.')
-            elif date_out < date_in:
-                messages.warning(request, f'From date must be less than to date.')    
+            curr_year = datetime.date.today().year;
+            curr_mth = datetime.date.today().month;
+
+            if curr_year <= int(check_year):
+                if curr_mth <= curr_mth:
+                    print("yes")
+
+            if check_mth in corr_value.keys():
+
+                items = Booking.objects.filter(date_booked__year=check_year, 
+                                                date_booked__month=corr_value[check_mth],
+                                                room_host_id = request.user.pk)
+                items_count = len(items)
+
+                booked_items = []
+                cancelled_items = []
+                completed_items =[]
+
+                for item in items:
+                    if item.booking_progres=="Booked":
+                        booked_items.append(item)
+                    elif item.booking_progres=="Cancelled":
+                        cancelled_items.append(item)
+                    elif item.booking_progres=="Completed" :
+                        completed_items.append(item)
+
+                cancelled_count = len(cancelled_items)
+                booked_count = len(booked_items)
+                completed_count = len(completed_items)
+                
+                bar_graph_bookings_lables = ["Total", "Active", "Completed", "Cancelled"]
+                bar_graph_bookings_values = [items_count, booked_count, completed_count, cancelled_count]
+
+                this_month_booking_bar = get_booking_details_bar(bar_graph_bookings_lables, bar_graph_bookings_values, check_year, corr_value[check_mth] )
+
+                rem_recieved_sum = 0
+                rem_recieved_tax = 0
+                rem_recieved_total = 0
+                for item in booked_items:
+                    rem_recieved_sum += item.sum_amount
+                    rem_recieved_tax += item.tax_amount
+                    rem_recieved_total += rem_recieved_sum + rem_recieved_tax
+
+                completed_recieved_sum = 0
+                completed_recieved_tax = 0
+                completed_total = 0
+                for item in completed_items:
+                    completed_recieved_sum += item.sum_amount
+                    completed_recieved_tax += item.tax_amount
+                    completed_total += completed_recieved_sum + completed_recieved_tax
+
+                labels = ["Remaining", "Recieved"]
+                y_first = [rem_recieved_total, completed_total]
+                y_second = [rem_recieved_tax, completed_recieved_tax]
+                y_third = [rem_recieved_sum, completed_recieved_sum]
+
+                earning_bar = earning_details_bar(labels, y_first, y_second, y_third, check_year, corr_value[check_mth])
+
+                context = {
+                'graph_type' : "Value",
+                'year_dropdown' : year_dropdown,
+                'month_dropdown' : month_dropdown,
+                'items_count' : items_count,
+                'cancelled_count' : cancelled_count,
+                'booked_count' : booked_count,
+                'completed_count' : completed_count,
+                'this_month_booking_bar' : this_month_booking_bar,
+                'earning_bar' : earning_bar,
+                }
+
+
+                return render(request, 'listings/charts.html', context)
+
             else:
-                pass
-
+                messages.info(request, "Please give month correctly!")
+    
     context = {
-            'graph_type' : "Value",
+        'graph_type' : "Value",
+        'year_dropdown' : year_dropdown,
+        'month_dropdown' : month_dropdown,
     }
     return render(request, 'listings/charts.html', context)
 
