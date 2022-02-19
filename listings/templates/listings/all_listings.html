@@ -2,29 +2,129 @@
 This page can only be acessed by host. Here they can see their all listings.
 Get link to update or delete the lisitngs. -->
 
+{% extends 'listings/base.html' %} {% block content %}
+<head>
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.10.2/mdb.min.css"
+    rel="stylesheet"
+  />
 
-{% extends 'listings/base.html' %}
+  <link
+    rel="stylesheet"
+    href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+    crossorigin="anonymous"
+  />
+</head>
 
-{% block content %}
-    <br>
-    <a href="{% url 'listing-post' %}">Add new Lisitng</a> 
-    <br>
-    <br>
-    {% for post in posts %}
-        {% if user == post.user %}
-            <a href="{% url 'listing-details' post.pk %}"> 
-                <div>
-                    Title : {{ post.title }}
-                    <br>
-                    Price : {{  post.price }}
-                    <br>
-                    Ratings : {{ post.rating }}              
-                </div>
-            </a>
-            <br>
-            <a href="{% url 'listing-update' post.pk %}">Update</a> | <a href="{% url 'listing-delete' post.pk %}">Delete</a> 
-            <br>
-            <br>
-        {% endif %}
-    {% endfor %}
+<div class="HomePage" style="width: 90vw; margin: auto">
+  <h2 style="color: orange; text-align: center; margin-top: 1rem">
+    <button class="btn btn-primary">
+      <a
+        style="text-decoration: none; color: white"
+        href="{% url 'listing-post' %}"
+        >Add new Lisitng</a
+      >
+    </button>
+  </h2>
+
+  <div class="NearByListings">
+    <!-- Each listing starts here -->
+
+    <div
+      class="container mt-3"
+      style="
+        position: relative;
+        width: 100%;
+
+        vertical-align: middle;
+      "
+    >
+      <div
+        class="row"
+        style="
+          position: relative;
+          width: 100%;
+          align-items: center;
+
+          margin: auto;
+        "
+      >
+        <div class="card-deck">
+          {% for post in posts %} {% if user == post.user %}
+          <div
+            class="card mb-4"
+            style="
+              min-width: 18rem;
+              max-width: 18rem;
+              margin: 0 auto;
+
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              justify-content: center;
+            "
+          >
+            <img
+              class="card-img-top"
+              src="{{post.main_photo.url}}"
+              alt="Main image cap"
+              style="width: 18rem; min-height: 180px; max-height: 180px"
+            />
+            <div
+              class="card-body"
+              style="
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+              "
+            >
+              <h5 class="card-title">{{post.title}}</h5>
+
+              <p
+                class="card-text"
+                style="
+                  display: flex;
+                  flex-direction: column;
+                  align-items: center;
+                  justify-content: center;
+                "
+              >
+                <i class="fa fa-map-marker" aria-hidden="true"></i>
+                {{post.exact_address}}
+              </p>
+              <p class="card-text">
+                <i class="fa fa-money" aria-hidden="true"></i>{{post.price}}$
+                Per Night
+              </p>
+              <h5 class="card-title">
+                <i class="fa fa-star-o" aria-hidden="true"></i>{{post.rating}}
+              </h5>
+
+              <p class="card-text">
+                <button class="btn btn-primary-info">
+                  <a
+                    style="text-decoration: none"
+                    href="{% url 'listing-update' post.pk %}"
+                    >Update</a
+                  >
+                </button>
+                <button class="btn btn-danger">
+                  <a
+                    style="text-decoration: none; color: white"
+                    href="{% url 'listing-delete' post.pk %}"
+                    >Delete</a
+                  >
+                </button>
+              </p>
+            </div>
+          </div>
+          {% endif %} {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 {% endblock content %}
