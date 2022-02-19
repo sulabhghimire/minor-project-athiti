@@ -22,6 +22,7 @@ click-plugins==1.1.1
 click-repl==0.2.0
 constantly==15.1.0
 cryptography==36.0.1
+cycler==0.11.0
 daphne==3.0.2
 decorator==4.4.2
 Deprecated==1.2.13
@@ -41,10 +42,12 @@ django-redis==5.2.0
 django-timezone-field==4.2.3
 django-utils-six==2.0
 folium==0.12.1.post1
+fonttools==4.29.1
 future==0.18.2
 geocoder==1.38.1
 google-api-python-client==1.4.1
 googlemaps==4.5.3
+haversine==2.5.1
 hiredis==2.0.0
 html5lib==1.1
 httplib2==0.20.2
@@ -53,12 +56,16 @@ idna==3.3
 incremental==21.3.0
 jason==0.1.7
 Jinja2==3.0.3
+kiwisolver==1.3.2
 kombu==5.2.3
 MarkupSafe==2.0.1
+matplotlib==3.5.1
 msgpack==1.0.3
+numpy==1.22.1
 oauth2client==4.1.3
 orjson==3.6.6
 packaging==21.3
+pandas==1.4.0
 Pillow==8.4.0
 prompt-toolkit==3.0.26
 pyasn1==0.4.8
@@ -76,6 +83,8 @@ redis==4.1.0
 reportlab==3.6.5
 requests==2.26.0
 rsa==4.8
+scipy==1.8.0
+seaborn==0.11.2
 service-identity==21.1.0
 shortuuid==1.0.8
 simplejson==3.17.6

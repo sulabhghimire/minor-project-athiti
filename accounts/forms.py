@@ -10,6 +10,10 @@ from accounts.models import GuestUser, HostUser, Profile
 
 User = get_user_model()
 
+class EmailConformationResendForm(forms.Form):
+
+    email_address = forms.EmailField(max_length=255, required=True)
+
 class RegisterForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput)
     password_2 = forms.CharField(label='Confirm Password', widget=forms.PasswordInput)

@@ -1,15 +1,11 @@
-{% load static %}
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <title>Athiti Invoice</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@500&family=Sacramento&family=Satisfy&display=swap" rel="stylesheet">
+<style type="text/css">
 
-</head>
-<style>
+
   .clearfix:after {
  content: "";
  display: table;
@@ -184,7 +180,7 @@ footer {
   width: 49.5%;
   height: 130%;
   opacity: 0.2;
-  background-image: url('background.png');
+  background-image: url('atithi-logo.png');
   background-repeat: no-repeat;
   background-position: 50% 0;
   background-size: cover;
@@ -193,12 +189,13 @@ footer {
 .demo-content {
   position: relative;
 }
-
 </style>
+</head>
+
 <body>
   <div id="logo" style="display:flex; justify-content:center; align-items:center;">
-    <img src="{% static 'images/aa.png' %}" class="brand-logo" >
-  </div> 
+    <img src="background.png" class="brand-logo" >
+  </div>
 
   <div class='demo-wrap'>
     <div class='demo-content'>
@@ -211,39 +208,39 @@ footer {
       <table id="project">
       <tr>
         <td class ='headOfTable'>CLIENT:</td>
-        <td>user_full_name</td>
+        <td>{{user_full_name}}</td>
       </tr>
       <tr>
         <td class ='headOfTable'>EMAIL:</td>
-        <td>someemail@gmail.com</td>
+        <td>{{user_email}}</td>
       </tr>
       <tr>
         <td class ='headOfTable'>HOST:</td>
-        <td>room_host_full_name</td>
+        <td>{{room_host_full_name}}</td>
       </tr>
       <tr>
         <td class ='headOfTable'>HOST EMAIL:</td>
-        <td>room_host_email</td>
+        <td>{{room_host_email}}</td>
       </tr>
       <tr>
         <td class ='headOfTable'>CITY:</td>
-        <td>room_city</td>
+        <td>{{room_city}}</td>
       </tr>
       <tr>
         <td class ='headOfTable'>EXACT ADDRESS:</td>
-        <td>room_exact_address</td>
+        <td>{{room_exact_address}}</td>
       </tr>
       <tr>
         <td class ='headOfTable'>DATE</td>
-        <td>date</td>
+        <td>{{date}}</td>
       </tr>
       <tr>
         <td class ='headOfTable'>INVOICE_ID:</td>
-        <td>order_id</td>
+        <td>{{order_id}}</td>
       </tr>
       <tr>
         <td class ='headOfTable'>TRANSACTION_ID</td>
-        <td>idx</td>
+        <td>{{idx}}</td>
       </tr>
       </table>
 

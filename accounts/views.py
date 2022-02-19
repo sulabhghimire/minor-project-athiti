@@ -1,14 +1,35 @@
+from email import message
 from django.shortcuts import render, redirect
 from django.contrib import messages
-
+from django.contrib.auth.forms import AuthenticationForm
 from listings.models import Listing
-from . forms import GuestRegisterForm, HostRegisterForm, UserUpdateForm, ProfileUpdateForm, UserDeleteForm
-from django.contrib.auth import logout
+from . forms import (
+    GuestRegisterForm, HostRegisterForm, UserUpdateForm, ProfileUpdateForm, UserDeleteForm,
+    EmailConformationResendForm
+)
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 from .models import Profile
 from review.models import RateGuest
+from django.contrib.auth import login, authenticate, logout
+from .models import EmailVerification, User
+import uuid
+from core import settings
+import threading
+from django.core.mail import send_mail
+class EmailThread(threading.Thread):
+
+    def __init__(self, mail_subject, to_mail, message, from_mail):
+        self.mail_subject      = mail_subject
+        self.to_mail           = to_mail
+        self.message           = message
+        self.from_mail         = from_mail 
+        threading.Thread.__init__(self)
+
+    def run(self):
+        send_mail(subject = self.mail_subject, message = self.message, recipient_list = self.to_mail, 
+        from_email =self.from_mail ,fail_silently=False)
 
 def register_as_guest(request):
 
@@ -16,16 +37,29 @@ def register_as_guest(request):
         if request.method == 'POST':
             form = GuestRegisterForm(request.POST)
             if form.is_valid():
-                form.save()
+                new_guest = form.save()
+                uid = uuid.uuid4()
+                verify_obj = EmailVerification(user=new_guest, token=uid)
+                verify_obj.save()
                 username = form.cleaned_data.get('username')
-                messages.success(request, f'Your account has been created as guest you can login.')
-                return redirect('home')
+                mail_subject = 'Please Verify your guest account at Athiti'
+                to_email = [new_guest.email]
+                from_email = settings.EMAIL_HOST_USER
+                message =  f'''Hi recently you have made a guest account in our platform Athiti.
+                Please, click on the link given to verify your account.
+                http://127.0.0.1:8000/account/verify/{uid}'''
+                EmailThread(mail_subject, to_email, message, from_email ).start()
+                messages.success(request, f'''Your account has been created as guest and an unique 
+                token has been sent to your email address. Please verify your account.''')
+            else:
+                form = GuestRegisterForm()
+                messages.warning(request, "Something wrong with your information. Please try again.")
+                return render(request, 'accounts/guest_register.html', {'form': form})
         else:
             form = GuestRegisterForm()
-
-        return render(request, 'accounts/guest_register.html', {'form': form})
-    else:
-        return redirect("home")
+            return render(request, 'accounts/guest_register.html', {'form': form})
+    
+    return redirect("home")
 
 def register_as_host(request):
 
@@ -33,17 +67,30 @@ def register_as_host(request):
         if request.method == 'POST':
             form = HostRegisterForm(request.POST)
             if form.is_valid():
-                form.save()
-                username = form.cleaned_data.get('username')
-                messages.success(request, f'Your account has been created as host now you can login.')
+                new_host = form.save()
+                uid = uuid.uuid4()
+                verify_obj = EmailVerification(user=new_host, token=uid)
+                verify_obj.save()
+                mail_subject = 'Please Verify your guest account at Athiti'
+                to_email = [new_host.email]
+                from_email = settings.EMAIL_HOST_USER
+                message =  f'''Hi recently you have made a host account in our platform Athiti.
+                Please, click on the link given to verify your account.
+                               http://127.0.0.1:8000/account/verify/{uid}'''
+                EmailThread(mail_subject, to_email, message, from_email ).start()
+                messages.success(request, f'''Your account has been created as host and an unique 
+                token has been sent to your email address. Please verify your account.''')
                 return redirect('home')
+            else:
+                form = HostRegisterForm()
+                messages.warning(request, "Something wrong with your information. Please try again.")
+                return render(request, 'accounts/host_register.html', {'form': form})
         else:
             form = HostRegisterForm()
+            return render(request, 'accounts/host_register.html', {'form': form})
 
-        return render(request, 'accounts/host_register.html', {'form': form})
 
-    else:
-        return redirect("home")
+    return redirect("home")
 
 def logout_view(request):
 
@@ -179,3 +226,103 @@ def find_stars(star):
     else :
         stars = star
     return stars
+
+
+def log_in(request):
+
+    if not request.user.is_authenticated:
+        if request.method == "POST":
+            form    = AuthenticationForm(request, data=request.POST)
+            if form.is_valid():
+                username = form.cleaned_data.get('username')
+                password = form.cleaned_data.get('password')
+                user = authenticate(username=username, password=password)
+                if user is not None:
+                    if user.emailverification.is_verified:
+                        login(request, user)
+                        messages.info(request, f"You have logged in as {username}.")
+                        return redirect("home")
+                    else:
+                        messages.info(request, '''You haven't verified your email address yet.
+                        Go to your email and check for verification mail. Also Check in junk folder.
+                        If not found you can resend the verification mail.''')
+                        return redirect("notverifiedemails")
+                else:
+                    messages.warning(request, "Invalid email or password.")
+            else:
+                messages.warning(request, "Invalid email or password.")
+
+        form    = AuthenticationForm()
+        context = {
+            'form'  : form
+        }
+        return render(request, "accounts/login.html", context)
+    
+    else:
+        return redirect("home")
+
+def account_verify(request, token):
+
+    try:
+        object = EmailVerification.objects.get(token=token)
+    except:
+        object = None
+    
+    if object:
+        if not object.is_verified:
+            object.is_verified = True
+            object.save()
+            messages.success(request, "Your account has been verified. Now, you can login to your account.")
+            return redirect('login')
+        else:
+            messages.info(request, "Your account was already verified.")
+            return redirect('home')
+    else:
+        return redirect('home')
+
+def not_verified(request):
+
+    if request.method == "POST":
+        form_data = EmailConformationResendForm(request.POST)
+        if form_data.is_valid():
+            email_address = form_data.cleaned_data.get('email_address')
+            objects = User.objects.filter(email = email_address)
+            if objects:
+                for object in objects:
+                    new_que = EmailVerification.objects.get(user = object)
+                    if not new_que.is_verified:
+                        resend_conformation_link(email_address, new_que)
+                        messages.info(request, "We have resent conformation mail to your email address.")
+                        return redirect("notverifiedemails")
+                    else:
+                        messages.info(request, "Your account with this email is already verified!")
+                        return redirect('login')
+            else:
+                messages.info(request, "We don't any account registered with this email address.")
+                return redirect("notverifiedemails")
+        else:
+            messages.warning(request, "Your email address isn't valid.")
+
+    form = EmailConformationResendForm()
+    context = {
+        'form' : form,
+    }
+
+    return render(request, "accounts/not_verified_users.html", context)
+
+def resend_conformation_link(email_address, object):
+    uid = uuid.uuid4()
+    object.token = uid
+    object.save()
+    if object.user.host:
+        account_type = "host"
+    if object.user.guest:
+        account_type = "guest"
+    mail_subject = f'Please Verify your {account_type} account at Athiti'
+    to_email = [email_address]
+    from_email = settings.EMAIL_HOST_USER
+    message =  f'''Hi recently you have made a {account_type} account in our platform Athiti.
+                This is new conformation mail being sent as per your request.
+                Please, click on the link given to verify your account.
+                http://127.0.0.1:8000/account/verify/{uid}'''
+    EmailThread(mail_subject, to_email, message, from_email ).start()

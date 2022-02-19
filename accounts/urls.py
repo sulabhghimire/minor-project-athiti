@@ -5,9 +5,10 @@ from django.urls import path, reverse_lazy
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
+    path('verify/<slug:token>/', views.account_verify, name='verify-account'),
     path('guest_register/', views.register_as_guest, name='guest-register'),
     path('host_register/', views.register_as_host, name='host-register'),
-    path('login/', auth_views.LoginView.as_view(template_name='accounts/login.html'), name='login'),
+    path('login/', views.log_in, name="login"),
     path('logout/', views.logout_view, name='logout'),
     path('profile/<int:pk>/', views.profile, name='profile'),
     path('profile_update/', views.profile_update, name='profile-update'),
