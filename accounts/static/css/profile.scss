@@ -67,6 +67,11 @@ $mainLetterSpacing: 1.5px;
         color: $PrimaryWhite;
       }
     }
+    .HostPosts {
+      display: flex;
+      
+      // flex-direction: column-reverse;
+    }
     .actInfo {
       margin-top: 1rem;
       justify-content: space-evenly;

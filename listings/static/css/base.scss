@@ -147,7 +147,8 @@ hr {
 
         align-items: center;
         select {
-          border: 1px solid teal;
+          // border: 1px solid teal;
+          border: none;
           border-radius: 2px;
           outline: none;
           color: teal;
@@ -156,6 +157,8 @@ hr {
           option {
             text-align: center;
             color: teal;
+            outline:none;
+            border:none;
             :enabled {
               border-color: teal;
             }
@@ -298,3 +301,4 @@ footer {
     }
   }
 }
+

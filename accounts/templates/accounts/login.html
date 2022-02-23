@@ -11,7 +11,7 @@
     {% csrf_token %}
     <div class="loginForm">
       <h2>Login</h2>
-      <div class="text-danger">{{ form.email.errors|striptags }}</div>
+      <div class="text-danger">{{ form.username.errors|striptags }}</div>
       <p>
         <label for="exampleInputEmail">Email:</label>
         <input

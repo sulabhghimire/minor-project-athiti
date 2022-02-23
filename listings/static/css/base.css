@@ -199,7 +199,7 @@ hr {
 .searchBox div form .ratingSort select,
 .searchBox div form .priceSort select,
 .searchBox div form .searchArea select {
-  border: 1px solid teal;
+  border: none;
   border-radius: 2px;
   outline: none;
   color: teal;
@@ -212,6 +212,8 @@ hr {
 .searchBox div form .searchArea select option {
   text-align: center;
   color: teal;
+  outline: none;
+  border: none;
 }
 
 .searchBox div form .ratingSort select option :enabled,

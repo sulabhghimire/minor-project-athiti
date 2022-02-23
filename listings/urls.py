@@ -3,6 +3,7 @@ from django.urls import path
 from jason import view
 from . import views
 from . import models
+from accounts import views as account_views
 
 urlpatterns = [
     path('', views.home, name='home'),
@@ -20,4 +21,6 @@ urlpatterns = [
     path('contact-us/', views.contact_us, name="contact-us"),
     path('view-hosts-listings/<int:pk>', views.GuestViewsHostsListings, name="host-lisitngs"),
     path('all_listings/', views.see_all_listings, name='lisitngs'),
+    path('charts', views.chart_view, name="chart"),
+    path('verification-check/', account_views.not_verified, name="notverifiedemails"),
 ]

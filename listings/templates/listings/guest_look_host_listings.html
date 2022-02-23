@@ -2,21 +2,115 @@
 This is the page that is directed after a user clicks see more lisitngs from host profile
 -->
 
+{% extends 'listings/base.html' %} {% block content %}
 
-{% extends 'listings/base.html' %}
+<br />
 
-{% block content %}
+<div class="HomePage" style="width: 90vw; margin: auto">
+  <h2 style="color: orange; text-align: center; margin-top: 1rem">
     The listings made by Host :- {{host_name}}
-    <br>
-    <!-- If posts checks if host has posted any lsitings or not -->
-    {% if posts %}
-        {% for post in posts %}
-            Host Name : <a href="{% url 'profile' post.user.pk %}">{{post.user.full_name}}</a> 
-            Title     : {{post.title}}  
-            <!-- To redirect the url to the details of current lisitng this anchor tag can be used -->
-            <a href="{% url 'listing-details' post.pk %}">LINK</a> 
-            <!-- OTHER ATTRIBUTES CAN BE ACESSED AS USING FOLLOWS IF NEEDED -->
-            <!-- {{post.city}}   
+  </h2>
+  {% if posts %}
+  <div class="NearByListings">
+    <!-- Each listing starts here -->
+
+    <div
+      class="container mt-3"
+      style="
+        position: relative;
+        width: 100%;
+
+        vertical-align: middle;
+      "
+    >
+      <div
+        class="row"
+        style="
+          position: relative;
+          width: 100%;
+          align-items: center;
+
+          margin: auto;
+        "
+      >
+        <div class="card-deck">
+          {% for post in posts %}
+          <div
+            class="card mb-4"
+            style="
+              min-width: 18rem;
+              max-width: 18rem;
+              margin: 0 auto;
+
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              justify-content: center;
+            "
+          >
+            <img
+              class="card-img-top"
+              src="{{post.main_photo.url}}"
+              alt="Main image cap"
+              style="width: 18rem; min-height: 180px; max-height: 180px"
+            />
+            <div
+              class="card-body"
+              style="
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+              "
+            >
+              <h5 class="card-title">{{post.title}}</h5>
+
+              <p
+                class="card-text"
+                style="
+                  display: flex;
+                  flex-direction: column;
+                  align-items: center;
+                  justify-content: center;
+                "
+              >
+                <i class="fa fa-map-marker" aria-hidden="true"></i>
+                {{post.exact_address}}
+              </p>
+              <p class="card-text">
+                <i class="fa fa-money" aria-hidden="true"></i>{{post.price}}$
+                Per Night
+              </p>
+              <h5 class="card-title">
+                <i class="fa fa-star-o" aria-hidden="true"></i>{{post.rating}}
+              </h5>
+              <p class="card-text">
+                <button class="btn btn-outline-info text-muted">
+                  <a href="{% url 'listing-details' post.id %}"
+                    >View DETAILS
+                  </a>
+                </button>
+              </p>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+  {% else %}
+  <h2>This host has no lisitngs currently posted</h2>
+  {% endif %}
+</div>
+
+<!-- If posts checks if host has posted any lsitings or not -->
+<!-- {% if posts %} {% for post in posts %} Host Name : -->
+<!-- <a href="{% url 'profile' post.user.pk %}">{{post.user.full_name}}</a> -->
+<!-- Title : {{post.title}} -->
+<!-- To redirect the url to the details of current lisitng this anchor tag can be used -->
+<!-- <a href="{% url 'listing-details' post.pk %}">LINK</a> -->
+<!-- OTHER ATTRIBUTES CAN BE ACESSED AS USING FOLLOWS IF NEEDED -->
+<!-- {{post.city}}   
             {{post.exact_address}}   
             {{post.lat}}   
             {{post.lng                }}   
@@ -37,10 +131,5 @@ This is the page that is directed after a user clicks see more lisitngs from hos
             {{post.date_created       }}   
             {{post.rating             }}   
             {{post.total_bookings     }}    -->
-        
-        <br>
-        {% endfor %}
-    {% else %}
-        <h2> This host has no lisitngs currently posted</h2>        
-    {% endif %}
+
 {% endblock content %}
