@@ -2,6 +2,21 @@
 
 {% block content %}
 {% load static %}
+<head>
+    
+  <link
+  href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.10.2/mdb.min.css"
+  rel="stylesheet"
+  />
+  
+  <link
+    rel="stylesheet"
+    href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+    crossorigin="anonymous"
+  />
+</head>
+
 <style>
   /* Hide Radio button */
   .rate>input {
@@ -113,19 +128,118 @@
       </script>
       <!-- TO REPORT USERS ENDS HERE -->
 
-      {% if posts %}
-      <a href="{% url 'host-lisitngs' object.user.pk %}">See more from host</a>
-        {% for post in posts %}
-          <!-- Only providing top 10 posts with highest ratings to see more click see_all -->
-          Title : {{post.title}} <br>
-          Ratings : {{post.rating}} <br>
-          Price : {{post.price}} <br>
-          <a href="{% url 'listing-details' post.pk %}">View DETAILS </a> <br>
-          <!-- Main image : <img src="{{post.main_photo.url}}"> -->
-          <!-- If needed other attributes are needed same thing as homepage top lisitngs can be followed -->
-          <br>
-        {% endfor %}
-      {% endif %}
+<div class="HostPosts">
+  {% if posts %}
+  
+  <div class="HomePage" style="width: 90vw; margin: auto">
+    <h2 style="color: orange; text-align: center; margin-top: 1rem">
+      All Listings
+    </h2>
+    <div class="NearByListings">
+      <!-- Each listing starts here -->
+  
+      <div
+        class="container mt-3"
+        style="
+          position: relative;
+          width: 100%;
+  
+          vertical-align: middle;
+        "
+      >
+        <div
+          class="row"
+          style="
+            position: relative;
+            width: 100%;
+            align-items: center;
+  
+            margin: auto;
+          "
+        >
+          <div class="card-deck">
+            {% for post in posts %}
+            <div
+              class="card mb-4"
+              style="
+                min-width: 18rem;
+                max-width: 18rem;
+                margin: 0 auto;
+  
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+              "
+            >
+              <img
+                class="card-img-top"
+                src="{{post.main_photo.url}}"
+                alt="Main image cap"
+                style="width: 18rem; min-height: 180px; max-height: 180px; border-radius: 0    ;box-shadow:none;
+                border: none;
+                box-shadow: none;"
+              />
+              <div
+                class="card-body"
+                style="
+                  display: flex;
+                  flex-direction: column;
+                  align-items: center;
+                  justify-content: center;
+                "
+              >
+                <h5 class="card-title">{{post.title}}</h5>
+  
+                <p
+                  class="card-text"
+                  style="
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                  "
+                >
+                  <i class="fa fa-map-marker" aria-hidden="true"></i>
+                  {{post.exact_address}}
+                </p>
+                <p class="card-text">
+                  <i class="fa fa-money" aria-hidden="true"></i>{{post.price}}$
+                  Per Night
+                </p>
+                <h5 class="card-title">
+                  <i class="fa fa-star-o" aria-hidden="true"></i>{{post.rating}}
+                </h5>
+                <p class="card-text">
+                  <button class="btn btn-primary-info ">
+                    <a style="text-decoration: none;"  href="{% url 'listing-details' post.id %}"
+                      >View DETAILS
+                    </a>
+                  </button>
+                </p>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="width: 100%; display: flex; align-items: center; justify-content: center; margin-bottom: 1rem;">
+      <button class="btn btn-primary-info" >
+        <a style="text-decoration: none;" href="{% url 'host-lisitngs' object.user.pk %}">See more from host</a>
+      </button>
+    </div>
+        <hr />
+        <hr />
+        <hr />
+   
+  </div>
+
+
+
+    
+  {% endif %}
+</div>
 
 
       <span class="actInfo row justify-content-center">

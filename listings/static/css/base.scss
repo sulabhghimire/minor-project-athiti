@@ -26,11 +26,11 @@ $mainLetterSpacing: 1.5px;
 }
 body {
   height: 100vh;
-  // letter-spacing: $mainLetterSpacing;
+  letter-spacing: $mainLetterSpacing;
 }
 header {
   display: flex;
-  // background-color: #e3f2fd;
+
   height: 100px;
   width: 90vw;
   letter-spacing: $mainLetterSpacing;
@@ -115,42 +115,68 @@ header {
 hr {
   width: 90vw;
   margin: auto;
-  margin-bottom: 1rem;
   margin-top: 1rem;
 }
 .searchBox {
-  // border: 1px solid red;
   width: 90vw;
   margin: auto;
-  margin-bottom: 1rem;
+
+  // margin-bottom: 1rem;
 
   div {
+    height: 100%;
     form {
       @include flex();
       font-family: "Mulish";
-      font-weight: lighter;
+      font-weight: bold;
       justify-content: space-evenly;
       font-size: 1.35rem;
-      color: $font-color;
-
+      height: 100%;
+      min-height: 200px;
+      color: teal;
       .ratingSort,
-      .priceSort {
+      .priceSort,
+      .searchArea {
+        background-color: rgb(255, 255, 255);
+        opacity: 0.6;
+        padding: 5px;
+        border-radius: 5px;
         // border: 1px solid red;
         display: flex;
         flex-direction: row;
 
         align-items: center;
         select {
-          color: $font-color;
-          // border: 1px solid red;
+          // border: 1px solid teal;
+          border: none;
+          border-radius: 2px;
+          outline: none;
+          color: teal;
           margin-left: 5px;
-          @include repeatedFont();
+          font-weight: bold;
           option {
             text-align: center;
+            color: teal;
+            outline:none;
+            border:none;
             :enabled {
               border-color: teal;
             }
           }
+        }
+      }
+      .searchArea {
+        input {
+          border: none;
+          outline: none;
+          color: teal;
+          font-weight: bold;
+        }
+        ::placeholder {
+          text-align: center;
+          color: teal;
+          @include repeatedFont();
+          font-weight: bold;
         }
       }
     }
@@ -275,3 +301,4 @@ footer {
     }
   }
 }
+

@@ -1,0 +1,16 @@
+
+
+{% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }}">
+        {{ message }}
+    </div>
+    {% endfor %}
+{% endif %}
+  
+<h2>Resend Conformation link</h2>
+<form  method="POST">
+    {% csrf_token %}
+    {{form}}
+    <button type="submit">Resend Conformation Link</button>
+</form>

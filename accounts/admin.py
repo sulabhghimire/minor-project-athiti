@@ -3,7 +3,7 @@ from django.contrib.admin.decorators import register
 from django.contrib.auth import get_user_model
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from .forms import UserAdminCreationForm, UserAdminChangeForm
-from .models import HostUser, GuestUser, Profile
+from .models import HostUser, GuestUser, Profile, EmailVerification
 
 User = get_user_model()
 
@@ -33,4 +33,4 @@ admin.site.register(User, UserAdmin)
 admin.site.register(HostUser)
 admin.site.register(GuestUser)
 admin.site.register(Profile)
-
+admin.site.register(EmailVerification)

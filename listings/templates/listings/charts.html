@@ -1,0 +1,52 @@
+{% extends 'listings/base.html' %}
+
+{% block content %}
+<div>
+    <form method="GET" action="">
+        <label>Know About</label>
+        <br>
+        <input type="radio" id="first" name="gtype" value="earnings" checked>
+        <label for="first">Earnings</label>
+        <input type="radio" id="second" name="gtype" value="bookings">
+        <label for="second">Bookings</label>
+        {% if graph_type %}
+        <br>
+            View your Earnings By Date
+            <br>
+            <select name="year">
+                {% for y in year_dropdown %}
+                <option value="{{ y }}">{{ y }}</option>
+                {% endfor%}
+            </select>
+            <select name="month">
+                {% for y in month_dropdown %}
+                <option value="{{ y }}">{{ y }}</option>                
+                {% endfor%}
+            </select>
+
+        {% endif %}
+        <br>
+        <button type="submit" class="btn btn-primary">Search</button>
+     </form>
+</div>
+    
+<!-- Comes when booking is searched -->
+    {% if chart %}
+        <img src="data:image/png;base64, {{chart|safe}}">
+    {% endif %}
+
+<!-- Comes when earnings is choosed -->
+    {% if this_month_booking_bar %}
+        <img src="data:image/png;base64, {{this_month_booking_bar|safe}}">
+    {% endif %}
+    {% if earning_bar %}
+        <img src="data:image/png;base64, {{earning_bar|safe}}">
+    {% endif %}
+    
+
+
+
+
+{% endblock content %}
+
+

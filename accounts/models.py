@@ -1,3 +1,5 @@
+from operator import mod
+from statistics import mode
 from django.db import models
 from django.contrib.auth.models import (
     AbstractBaseUser, BaseUserManager, UserManager
@@ -8,6 +10,7 @@ from django.utils import timezone
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.forms.fields import ImageField
 from PIL import Image
+from rsa import verify
 
 
 class UserManager(BaseUserManager):
@@ -176,3 +179,9 @@ class HostUser(models.Model):
 
     def __str__(self):
         return self.user.email
+
+class EmailVerification(models.Model):
+
+    user        = models.OneToOneField(User, on_delete=models.CASCADE)
+    token       = models.CharField(max_length=150)
+    is_verified = models.BooleanField(default=False) 
