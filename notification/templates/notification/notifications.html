@@ -1,36 +1,51 @@
+{% extends 'listings/base.html' %} {% block content %}
 
-{% extends 'listings/base.html' %}
+<style>
+  .notification {
+    width: 80%;
+    margin: auto;
+  }
+  hr {
+    width: 100%;
+  }
+  .fa-trash-alt {
+    color: red;
+  }
 
-{% block content %}
-    {% for not in notifs %}
-        {% if not.room %}
-            <p>
-                {{not.notification_message}} <a class="far fa-trash-alt" href="{% url 'delete-noti' not.pk %}"></a>
-                <br>
-                <a href="{% url 'listing-details' not.room.pk %}">Room</a>
-                <br>
-                {% if user.is_guest %}
-                    <a href="{% url 'profile' not.room.user.id %}">Host Profile</a>
-                {% endif %}
-                {% if user.is_host %}
-                     <a href="{% url 'profile' not.guest.id %}">Guest Profile</a> 
-                {% endif %}
-            </p>
-            <br> 
-            <br>
-        {% endif %}
-        {% if not not.room %}
-                <p>{{not.notification_message}} 
-                    <a class="far fa-trash-alt" href="{% url 'delete-noti' not.pk %}"></a>
-                {% if user.is_guest %}
-                    {% if not.guest %}
-                        <br>
-                        <a href="{% url 'profile' not.guest.id %}">Host Profile</a>
-                    {% endif %}
-                {% endif %}
-                </p>
-                <br> 
-                <br>
-        {% endif %}
-        {% endfor %}
-{% endblock content %}
+  a {
+    text-decoration: none;
+  }
+</style>
+<br />
+{% for not in notifs %}
+
+<div class="notification">
+  {% if not.room %}
+  <p>
+    {{not.notification_message}}
+    <a class="far fa-trash-alt" href="{% url 'delete-noti' not.pk %}"></a>
+    <br />
+    <a href="{% url 'listing-details' not.room.pk %}">Room</a>
+    <br />
+    {% if user.is_guest %}
+    <a href="{% url 'profile' not.room.user.id %}">Host Profile</a>
+    {% endif %} {% if user.is_host %}
+    <a href="{% url 'profile' not.guest.id %}">Guest Profile</a>
+    {% endif %}
+  </p>
+
+  {% endif %} {% if not not.room %}
+  <p>
+    {{not.notification_message}}
+    <a class="far fa-trash-alt" href="{% url 'delete-noti' not.pk %}"></a>
+    {% if user.is_guest %} {% if not.guest %}
+    <br />
+    <a href="{% url 'profile' not.guest.id %}">Host Profile</a>
+    {% endif %} {% endif %}
+  </p>
+
+  {% endif %}
+  <hr />
+</div>
+
+{% endfor %} {% endblock content %}

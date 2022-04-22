@@ -1,237 +1,319 @@
-{%  load static %}
+{% load static %}
 
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-    <head>
+  <head>
+    <!-- <script src="https://kit.fontawesome.com/8ffe7f9666.js" crossorigin="anonymous"></script> -->
+    <title>Athiti</title>
+    <!-- Auto Refresh -->
+    <!-- <meta http-equiv="refresh" content="5">  -->
+    <!-- Auto Refresh end -->
 
-        <!-- <script src="https://kit.fontawesome.com/8ffe7f9666.js" crossorigin="anonymous"></script> -->
-        <title>Athiti</title>
-                <!-- Auto Refresh -->
-        <!-- <meta http-equiv="refresh" content="5">  -->
-        <!-- Auto Refresh end -->
+    <!-- Font Awesome Import Start -->
+    <link
+      crossorigin="anonymous"
+      href="https://use.fontawesome.com/releases/v5.13.0/css/all.css"
+      integrity="sha384-Bfad6CLCknfcloXFOyFnlgtENryhrpZCe29RTifKEixXQZ38WheV+i/6YWSzkz3V"
+      rel="stylesheet"
+    />
+    <!-- Font Awesome Import End -->
+    <!--- Khalti payment service down below--->
+    <script src="https://khalti.s3.ap-south-1.amazonaws.com/KPG/dist/2020.12.17.0.0.0/khalti-checkout.iffe.js"></script>
+    <link rel="stylesheet" href="{% static 'css/base.css' %}" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <!-- Bootstrap starts -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+      crossorigin="anonymous"
+    />
+    <!-- Bootstrap ends -->
+    <!-- Font Awesome -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+      rel="stylesheet"
+    />
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+      rel="stylesheet"
+    />
 
-        <!-- Font Awesome Import Start -->
-        <link crossorigin="anonymous" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css" integrity="sha384-Bfad6CLCknfcloXFOyFnlgtENryhrpZCe29RTifKEixXQZ38WheV+i/6YWSzkz3V" rel="stylesheet"/>
-        <!-- Font Awesome Import End -->
-        <!--- Khalti payment service down below---> 
-        <script src="https://khalti.s3.ap-south-1.amazonaws.com/KPG/dist/2020.12.17.0.0.0/khalti-checkout.iffe.js"></script>
-        <link rel="stylesheet" href="{% static 'css/base.css' %}">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <!-- Bootstrap starts -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-        <!-- Bootstrap ends -->
-        <!-- Font Awesome -->
-<link
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
-rel="stylesheet"
-/>
-<!-- Google Fonts -->
-<link
-href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
-rel="stylesheet"
-/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Mulish:wght@200&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      .fa-stack[data-count]:after {
+        position: absolute;
+        right: 0%;
+        top: 1%;
+        content: attr(data-count);
+        font-size: 30%;
+        padding: 0.6em;
+        border-radius: 999px;
+        line-height: 0.75em;
+        color: white;
+        background: rgba(255, 0, 0, 0.85);
+        text-align: center;
+        min-width: 2em;
+        font-weight: bold;
+      }
+    </style>
+  </head>
 
-
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@200&display=swap" rel="stylesheet">
-        <style>
-            .fa-stack[data-count]:after{
-                position:absolute;
-                right:0%;
-                top:1%;
-                content: attr(data-count);
-                font-size:30%;
-                padding:.6em;
-                border-radius:999px;
-                line-height:.75em;
-                color: white;
-                background:rgba(255,0,0,.85);
-                text-align:center;
-                min-width:2em;
-                font-weight:bold;
-}
-
-
-        </style>
-    </head>
-  
-
-    <body style="background: #e5f0f8;">
-        <header id="HeaderPopUp">
-            <nav class="navbar ">
-                <div class="nav" >
-                    <div class="nav-left"><a href="{% url 'home' %}">Home </a> </div>
-                    <div class="hamburger" id="hamburgerClick">
-                        <span class="bar1"></span>
-                        <span class="bar2"></span>
-                        <span class="bar3"></span>
-                    </div>
-                    <div class="nav-right" id="hamburgerPopUp">
-                        <span  title="Locations" ><a href="{% url 'map' %}"><i class="fas fa-map-marker "> </i> <b>Localtions</b> </a> </span>
-                        {% if user.is_authenticated %}
-                            {% if user.host %}
-                                <span title="My Listings"><a href="{% url 'listing-list' %}"><i class="fas fa-house-user "></i> <b>My Listings</b>  </a></span>
-                                <span title="View Bookings"><a href="{% url 'hosts-booking' %}"><i class="fas fa-calendar-check ">  </i> <b>My Bookings</b></a></span>
-                            {% endif %}
-                            {% if user.guest %}
-                                <span title="View Bookings"><a href="{% url 'guests-booking' %}"><i class="fas fa-calendar-check ">  </i>  <b>My Bookings</b></a></span>
-                            {% endif %}
-                            <span title="Profile"><a href="{% url 'profile' user.pk %}"><i class="fas fa-user-circle ">  </i> <b>Profile</b></a> </span>
-                            {% if user.guest %}
-                                <span title="Cart"><a href="{% url 'display_cart' %}"><i class="fas fa-cart-plus"> </i> <b>My Cart</b></a></span>
-                            {% endif %}
-                            <!--Data-count gives number of notifications that are not seen-->
-                      <span title="Notification" >
-                        <a  href="{% url 'notifications' %}">
-                            <span style=" width: 40px; height: 18px; top: -10px; " class="fa-stack " data-count="{{count_notifications}}">
-                                    <i class="fa fa-bell fa-stack icon-yellow">  </i>
-                            </span>
-                            <b>Notification</b>
-                        </a>
-                      </span>
-                            <span title="Contact Us"><a href="{% url 'contact-us' %}"><i class="fas fa-comments "></i> <b>Contact Us</b> </a> </span>
-                            <span title="Log Out"><a  href="{% url 'logout' %}"><i class="fas fa-sign-out-alt "></i> <b>Log Out</b> </a> </span> 
-                        {% else %}
-                            <span><a href="{% url 'host-register' %}">Join as Host</a</span>
-                            <span><a href="{% url 'guest-register' %}">Join as Guest</a> </span>
-                            <span title="Contact Us"><a href="{% url 'contact-us' %}"><i class="fas fa-comments "> </i> <b>Contact Us</b> </a> </span>
-                            <span title="Log In">
-                               <a href="{% url 'login' %}"><i class="fas fa-sign-in-alt ">  </i> <b>LogIn</b></a> 
-                            </span>
-                        {% endif %}   
-                    </div>
-               </div>
-            </nav>
-
-            <script>
-                const hamburger = document.getElementById('hamburgerClick');
-                const navMenu = document.getElementById('hamburgerPopUp')
-                    const headerpop = document.getElementById('HeaderPopUp')
-                hamburger.addEventListener('click', mobileMenu);
-                function mobileMenu(){
-                    hamburger.classList.toggle('active');
-                    navMenu.classList.toggle('active');
-                    headerpop.classList.toggle('active')
-                }
-            </script>
-        </header>
-
-       <section class="searchBox" style='background-image: url("https://th.bing.com/th/id/R.85bc4da66ac2a667c4c92dffe18e5a79?rik=ZVZCkg%2bldu2V%2bw&pid=ImgRaw&r=0")
-      ; background-position: center; background-repeat: no-repeat; background-size: cover; border-radius: 5px;'>
-           <div>
-               <form method="GET" action="{% url 'search' %}">
-                    <div class="ratingSort">
-                        <label for="ratings_by">Sort by Ratings</label>
-                            <select name="ratings_by">
-                                <option></option>
-                                <option>5</option>
-                                <option>4+</option>
-                                <option>3+</option>
-                                <option>2+</option>
-                                <option>1+</option>
-                                <option>0+</option>
-                            </select>
-                    </div>
-                    <div class="priceSort">
-                        <label for="price_by">Sort by Price</label>
-                            <select name="price_by" style="color: teal;">
-                                <option></option>
-                                <option style="color: teal;">Low to high</option>
-                                <option>High to low</option>
-                            </select>
-                    </div>
-                    <div class="searchArea">
-                        <input placeholder="Your preferred Area" type="search" name="searched">
-                    </div>
-                    <div>
-                       
-                        <button type="submit" class="btn btn-primary">Search</button>
-                        </div>
-                </form>
-                <hr>
-           </div>
-       </section>
-    
-       <div id="boxes">
-           <div class="container">
-                {% if messages %}
-                    {% for message in messages %}
-                        <div class="alert alert-{{ message.tags }}">
-                            {{ message }}
-                        </div>
-                    {% endfor %}
-                {% endif %}
-           </div>
-           
-
-       </div>
-
-       <div class="sulabhDon">
-        {% block content %}
-        {% endblock content %}
-       </div>
-
-<section >
-       <div>
-        {% if posts.has_previous %}
-            <a class="btn btn-outline-info mb-4" href="search_listings?ratings_by={{rating_search}}&price_by={{price_search}}&searched={{searched}}&page=1">First</a>
-            <a class="btn btn-outline-info mb-4" href="search_listings?ratings_by={{rating_search}}&price_by={{price_search}}&searched={{searched}}&page={{posts.previous_page_number}}">Previous</a>
-        {% endif %}
-
-        {% for num in posts.paginator.page_range %}
-            {% if posts.number == num %}
-            <a class="btn btn-info mb-4" href="search_listings?ratings_by={{rating_search}}&price_by={{price_search}}&searched={{searched}}&page={{posts.number}}">{{ num }}</a>
-            {% elif num > posts.number|add:'-3' and num < posts.number|add:'3' %}
-            <a class="btn btn-outline-info mb-4" href="search_listings?ratings_by={{rating_search}}&price_by={{price_search}}&searched={{searched}}&page={{num}}">{{ num }}</a>
+  <body style="background: #e5f0f8">
+    <header id="HeaderPopUp">
+      <nav class="navbar">
+        <div class="nav">
+          <div class="nav-left"><a href="{% url 'home' %}">Home </a></div>
+          <div class="hamburger" id="hamburgerClick">
+            <span class="bar1"></span>
+            <span class="bar2"></span>
+            <span class="bar3"></span>
+          </div>
+          <div class="nav-right" id="hamburgerPopUp">
+            <span title="Locations"
+              ><a href="{% url 'map' %}"
+                ><i class="fas fa-map-marker"> </i> <b>Localtions</b>
+              </a>
+            </span>
+            {% if user.is_authenticated %} {% if user.host %}
+            <span title="My Listings"
+              ><a href="{% url 'listing-list' %}"
+                ><i class="fas fa-house-user"></i> <b>My Listings</b>
+              </a></span
+            >
+            <span title="View Bookings"
+              ><a href="{% url 'hosts-booking' %}"
+                ><i class="fas fa-calendar-check"> </i> <b>My Bookings</b></a
+              ></span
+            >
+            {% endif %} {% if user.guest %}
+            <span title="View Bookings"
+              ><a href="{% url 'guests-booking' %}"
+                ><i class="fas fa-calendar-check"> </i> <b>My Bookings</b></a
+              ></span
+            >
             {% endif %}
-        {% endfor %}
+            <span title="Profile"
+              ><a href="{% url 'profile' user.pk %}"
+                ><i class="fas fa-user-circle"> </i> <b>Profile</b></a
+              >
+            </span>
+            {% if user.guest %}
+            <span title="Cart"
+              ><a href="{% url 'display_cart' %}"
+                ><i class="fas fa-cart-plus"> </i> <b>My Cart</b></a
+              ></span
+            >
+            {% endif %}
+            <!--Data-count gives number of notifications that are not seen-->
+            <span title="Notification">
+              <a href="{% url 'notifications' %}">
+                <span
+                  style="width: 40px; height: 18px; top: -10px"
+                  class="fa-stack"
+                  data-count="{{count_notifications}}"
+                >
+                  <i class="fa fa-bell fa-stack icon-yellow"> </i>
+                </span>
+                <b>Notification</b>
+              </a>
+            </span>
+            <span title="Contact Us"
+              ><a href="{% url 'contact-us' %}"
+                ><i class="fas fa-comments"></i> <b>Contact Us</b>
+              </a>
+            </span>
+            <span title="Log Out"
+              ><a href="{% url 'logout' %}"
+                ><i class="fas fa-sign-out-alt"></i> <b>Log Out</b>
+              </a>
+            </span>
+            {% else %}
+            <span title="Join as Host"
+              ><a href="{% url 'host-register' %}"
+                ><i class="fas fa-user"></i> <b>Join as Host</b></a
+              ></span
+            >
+            <span title="Join as Guest"
+              ><a href="{% url 'guest-register' %}">
+                <i class="fas fa-user"></i><b>Join as Guest</b></a
+              >
+            </span>
+            <span title="Contact Us"
+              ><a href="{% url 'contact-us' %}"
+                ><i class="fas fa-comments"> </i> <b>Contact Us</b>
+              </a>
+            </span>
+            <span title="Log In">
+              <a href="{% url 'login' %}"
+                ><i class="fas fa-sign-in-alt"> </i> <b>LogIn</b></a
+              >
+            </span>
+            {% endif %}
+          </div>
+        </div>
+      </nav>
 
-        {% if posts.has_next %}
-            <a class="btn btn-outline-info mb-4" href="search_listings?ratings_by={{rating_search}}&price_by={{price_search}}&searched={{searched}}&page={{posts.next_page_number}}">Next</a>
-            <a class="btn btn-outline-info mb-4" href="search_listings?ratings_by={{rating_search}}&price_by={{price_search}}&searched={{searched}}&page={{posts.paginator.num_pages}}">Last</a>
+      <script>
+        const hamburger = document.getElementById("hamburgerClick");
+        const navMenu = document.getElementById("hamburgerPopUp");
+        const headerpop = document.getElementById("HeaderPopUp");
+        hamburger.addEventListener("click", mobileMenu);
+        function mobileMenu() {
+          hamburger.classList.toggle("active");
+          navMenu.classList.toggle("active");
+          headerpop.classList.toggle("active");
+        }
+      </script>
+    </header>
+
+    <section
+      class="searchBox"
+      style="
+        background-image: url('https://th.bing.com/th/id/R.85bc4da66ac2a667c4c92dffe18e5a79?rik=ZVZCkg%2bldu2V%2bw&pid=ImgRaw&r=0');
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        border-radius: 5px;
+      "
+    >
+      <div>
+        <form method="GET" action="{% url 'search' %}">
+          <div class="ratingSort">
+            <label for="ratings_by">Sort by Ratings</label>
+            <select name="ratings_by">
+              <option></option>
+              <option>5</option>
+              <option>4+</option>
+              <option>3+</option>
+              <option>2+</option>
+              <option>1+</option>
+              <option>0+</option>
+            </select>
+          </div>
+          <div class="priceSort">
+            <label for="price_by">Sort by Price</label>
+            <select name="price_by" style="color: teal">
+              <option></option>
+              <option style="color: teal">Low to high</option>
+              <option>High to low</option>
+            </select>
+          </div>
+          <div class="searchArea">
+            <input
+              placeholder="Your preferred Area"
+              type="search"
+              name="searched"
+            />
+          </div>
+          <div>
+            <button type="submit" class="btn btn-primary">Search</button>
+          </div>
+        </form>
+        <hr />
+      </div>
+    </section>
+
+    <div id="boxes">
+      <div class="container">
+        {% if messages %} {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+        {% endfor %} {% endif %}
+      </div>
+    </div>
+
+    <div class="sulabhDon">{% block content %} {% endblock content %}</div>
+
+    <section>
+      <div>
+        {% if posts.has_previous %}
+        <a
+          class="btn btn-outline-info mb-4"
+          href="search_listings?ratings_by={{rating_search}}&price_by={{price_search}}&searched={{searched}}&page=1"
+          >First</a
+        >
+        <a
+          class="btn btn-outline-info mb-4"
+          href="search_listings?ratings_by={{rating_search}}&price_by={{price_search}}&searched={{searched}}&page={{posts.previous_page_number}}"
+          >Previous</a
+        >
+        {% endif %} {% for num in posts.paginator.page_range %}
+        <br />{% if posts.number == num %}
+        <a
+          class="btn btn-info mb-4"
+          href="search_listings?ratings_by={{rating_search}}&price_by={{price_search}}&searched={{searched}}&page={{posts.number}}"
+          >{{ num }}</a
+        >
+        {% elif num > posts.number|add:'-3' and num < posts.number|add:'3' %}
+        <a
+          class="btn btn-outline-info mb-4"
+          href="search_listings?ratings_by={{rating_search}}&price_by={{price_search}}&searched={{searched}}&page={{num}}"
+          >{{ num }}</a
+        >
+        {% endif %} {% endfor %} {% if posts.has_next %}
+        <a
+          class="btn btn-outline-info mb-4"
+          href="search_listings?ratings_by={{rating_search}}&price_by={{price_search}}&searched={{searched}}&page={{posts.next_page_number}}"
+          >Next</a
+        >
+        <a
+          class="btn btn-outline-info mb-4"
+          href="search_listings?ratings_by={{rating_search}}&price_by={{price_search}}&searched={{searched}}&page={{posts.paginator.num_pages}}"
+          >Last</a
+        >
         {% endif %}
-       </div>
-</section>
-   
-       <!-- <footer>
+      </div>
+    </section>
+
+    <!-- <footer>
            <div class="container">
            <p> Athiti &copy; 2021</p>
            </div>
        </footer> -->
-     <!-- Boostrap js starts -->
-    
-    <!-- for running jscript functions -->
-     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-     
-     <!-- Boostrap js ends -->
-     <!-- MDB -->
-<script
-type="text/javascript"
-src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.10.2/mdb.min.js"
-></script>
-<script
-  src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-  integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-  crossorigin="anonymous"
-></script>
-<script
-  src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-  integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-  crossorigin="anonymous"
-></script>
-<script
-  src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-  integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-  crossorigin="anonymous"
-></script>
+    <!-- Boostrap js starts -->
 
+    <!-- for running jscript functions -->
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- Boostrap js ends -->
+    <!-- MDB -->
+    <script
+      type="text/javascript"
+      src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.10.2/mdb.min.js"
+    ></script>
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
   </body>
 </html>
-
-
-
-
-
-
