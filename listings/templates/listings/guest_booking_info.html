@@ -4,82 +4,143 @@ Get link to download or mail the invoice.
 Also they can cancel their booking from here.
 -->
 
-{% extends 'listings/base.html' %}
+{% extends 'listings/base.html' %} {% block content %}
+<style>
+  .bookingInfo {
+    width: 80%;
+    margin: auto;
+  }
+  h2 {
+    color: gold;
+  }
+  hr {
+    width: 80%;
+    margin: auto;
+  }
+  .wholeItem {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .eachItem {
+    border: 1px solid rgb(202, 243, 19);
+    border-radius: 5px;
+    padding: 10px;
+    width: 30rem;
+    margin: 1rem auto;
+  }
+  .eachItem a {
+    text-decoration: none;
+  }
+</style>
 
-{% block content %}
+<div class="bookingInfo">
+  <div class="currentBooking">
     <h2>Your Bookings Are</h2>
-    <br>
-    {% for post in posts %}
-        {% if post.user_id == user.pk %}
-            {% ifequal post.booking_progres "Booked" %}
-                <p>
-                    Booking Id : {{post.uuid}} <br>
-                    <a href="{% url 'listing-details' post.room_id %}">View Booked Room </a>  <br>
-                    Host Name  : <a href="{% url 'profile' post.room_host_id %}">{{post.room_host_full_name}} </a><br>
-                    Host Email : {{post.room_host_email}}   <br>
-                    Host Phone : {{post.room_host_phone}} <br>
-                    Room Booked : {{post.date_booked}}   <br>
-                    Check In Date : {{post.check_in}}     <br>
-                    Check Out Date : {{post.check_out}}     <br>
-                    Amount Paid : NRS. {{post.total_amount}} via Khalti Wallet <br>
-                    {% ifnotequal post.booking_progres "Cancelled" %}
-                    <a href="{% url 'cancel-booking' post.pk %}" >Cancel Booking</a>
-                    <br>
-                    {% endifnotequal %}
-                    <a href="{% url 'generate_invoice' post.pk post.uuid %}">Download Invoice</a>
-                    <br>
-                    <a href="{% url 'send_invoice' post.pk post.uuid %}">Mail Invoice</a>
-                </p>
-                <br>
-            {% endifequal %}
-        {% endif %}
-    {% endfor %}
-    <br>
+    <br />
+    <div class="wholeItem">
+      {% for post in posts %} {% if post.user_id == user.pk %}
+      <a href=""></a>
+      {% ifequal post.booking_progres "Booked" %}
+      <div class="eachItem">
+        <p>
+          <!-- Booking Id : {{post.uuid}} <br /> -->
+          <a href="{% url 'listing-details' post.room_id %}"
+            >View Booked Room
+          </a>
+          <br />
+          Host Name :
+          <a href="{% url 'profile' post.room_host_id %}"
+            >{{post.room_host_full_name}} </a
+          ><br />
+          Host Email : {{post.room_host_email}} <br />
+          Host Phone : {{post.room_host_phone}} <br />
+          Room Booked : {{post.date_booked}} <br />
+          Check In Date : {{post.check_in}} <br />
+          Check Out Date : {{post.check_out}} <br />
+          Amount Paid : NRS. {{post.total_amount}} via Khalti Wallet <br />
+          {% ifnotequal post.booking_progres "Cancelled" %}
+          <a href="{% url 'cancel-booking' post.pk %}">Cancel Booking</a>
+          <br />
+          {% endifnotequal %}
+          <a href="{% url 'generate_invoice' post.pk post.uuid %}"
+            >Download Invoice</a
+          >
+          <br />
+          <a href="{% url 'send_invoice' post.pk post.uuid %}">Mail Invoice</a>
+        </p>
+      </div>
+      <br />
+      {% endifequal %} {% endif %} {% endfor %}
+      <br />
+    </div>
+  </div>
 
+  <div class="cancelledBooking">
     <h2>Cancelled Bookings Are</h2>
-    <br>
-    {% for post in posts %}
-        {% if post.user_id == user.pk %}
-            {% ifequal post.booking_progres "Cancelled" %}
-                <p>
-                    Booking Id : {{post.uuid}} <br>
-                    <a href="{% url 'listing-details' post.room_id %}">View Cancelled Room </a>  <br>
-                    Host Name  : <a href="{% url 'profile' post.room_host_id %}">{{post.room_host_full_name}} </a><br>
-                    Host Email : {{post.room_host_email}}   <br>
-                    Host Phone : {{post.room_host_phone}} <br>
-                    Room Booked : {{post.date_booked}}   <br>
-                    Check In Date : {{post.check_in}}     <br>
-                    Check Out Date : {{post.check_out}}     <br>
-                    Amount Paid : NRS. {{post.total_amount}} via Khalti Wallet <br>
-                </p>
-                <br>
-            {% endifequal %}
-        {% endif %}
-    {% endfor %}
-    <br>
-
+    <br />
+    <div class="wholeItem">
+      {% for post in posts %} {% if post.user_id == user.pk %}
+      <a href=""></a>
+      {% ifequal post.booking_progres "Cancelled" %}
+      <div class="eachItem">
+        <p>
+          <!-- Booking Id : {{post.uuid}} <br /> -->
+          <a href="{% url 'listing-details' post.room_id %}"
+            >View Cancelled Room
+          </a>
+          <br />
+          Host Name :
+          <a href="{% url 'profile' post.room_host_id %}"
+            >{{post.room_host_full_name}} </a
+          ><br />
+          Host Email : {{post.room_host_email}} <br />
+          Host Phone : {{post.room_host_phone}} <br />
+          Room Booked : {{post.date_booked}} <br />
+          Check In Date : {{post.check_in}} <br />
+          Check Out Date : {{post.check_out}} <br />
+          Amount Paid : NRS. {{post.total_amount}} via Khalti Wallet <br />
+        </p>
+      </div>
+      <br />
+      {% endifequal %} {% endif %} {% endfor %}
+      <br />
+    </div>
+  </div>
+  <div class="completetedBooking">
     <h2>Completed Bookings Are</h2>
-    <br>
-    {% for post in posts %}
-        {% if post.user_id == user.pk %}
-            {% ifequal post.booking_progres "Completed" %}
-                <p>
-                    Booking Id : {{post.uuid}} <br>
-                    <a href="{% url 'listing-details' post.room_id %}">View Completed Room </a>  <br>
-                    Host Name  : <a href="{% url 'profile' post.room_host_id %}">{{post.room_host_full_name}} </a><br>
-                    Host Email : {{post.room_host_email}}   <br>
-                    Host Contact Info : {{post.room_host_phone}} <br>
-                    Room Booked : {{post.date_booked}}   <br>
-                    Check In Date : {{post.check_in}}     <br>
-                    Check Out Date : {{post.check_out}}     <br>
-                    Amount Paid : NRS. {{post.total_amount}} via Khalti Wallet <br>
-                    <a href="{% url 'generate_invoice' post.pk post.uuid %}">Download Invoice</a>
-                    <br>
-                    <a href="{% url 'send_invoice' post.pk post.uuid %}">Mail Invoice</a>
-                </p>
-                <br>
-            {% endifequal %}
-        {% endif %}
-    {% endfor %}
-    <br>
+    <br />
+    <div class="wholeItem">
+      {% for post in posts %} {% if post.user_id == user.pk %}
+      <a href=""></a>
+      {% ifequal post.booking_progres "Completed" %}
+      <div class="eachItem">
+        <p>
+          <!-- Booking Id : {{post.uuid}} <br /> -->
+          <a href="{% url 'listing-details' post.room_id %}"
+            >View Completed Room
+          </a>
+          <br />
+          Host Name :
+          <a href="{% url 'profile' post.room_host_id %}"
+            >{{post.room_host_full_name}} </a
+          ><br />
+          Host Email : {{post.room_host_email}} <br />
+          Host Contact Info : {{post.room_host_phone}} <br />
+          Room Booked : {{post.date_booked}} <br />
+          Check In Date : {{post.check_in}} <br />
+          Check Out Date : {{post.check_out}} <br />
+          Amount Paid : NRS. {{post.total_amount}} via Khalti Wallet <br />
+          <a href="{% url 'generate_invoice' post.pk post.uuid %}"
+            >Download Invoice</a
+          >
+          <br />
+          <a href="{% url 'send_invoice' post.pk post.uuid %}">Mail Invoice</a>
+        </p>
+      </div>
+      {% endifequal %} {% endif %} {% endfor %}
+      <br />
+    </div>
+  </div>
+</div>
+
 {% endblock content %}

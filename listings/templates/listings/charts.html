@@ -1,52 +1,88 @@
-{% extends 'listings/base.html' %}
+{% extends 'listings/base.html' %} {% block content %}
 
-{% block content %}
+<style>
+  .ChartForm {
+    width: 90%;
+    margin: auto;
+
+    padding: 1rem;
+    font-family: "Mulish";
+    font-weight: lighter;
+  }
+  h2 {
+    color: goldenrod;
+  }
+
+  select {
+    padding: 5px;
+  }
+</style>
+
 <div>
-    <form method="GET" action="">
-        <label>Know About</label>
-        <br>
-        <input type="radio" id="first" name="gtype" value="earnings" checked>
+  <form class="ChartForm" method="GET" action="">
+    <b>
+      <h2>Know About</h2>
+    </b>
+    <br />
+    <div style="display: flex; flex-direction: column">
+      <span>
+        <input type="radio" id="first" name="gtype" value="earnings" checked />
         <label for="first">Earnings</label>
-        <input type="radio" id="second" name="gtype" value="bookings">
+      </span>
+      <span>
+        <input type="radio" id="second" name="gtype" value="bookings" />
         <label for="second">Bookings</label>
-        {% if graph_type %}
-        <br>
-            View your Earnings By Date
-            <br>
-            <select name="year">
-                {% for y in year_dropdown %}
-                <option value="{{ y }}">{{ y }}</option>
-                {% endfor%}
-            </select>
-            <select name="month">
-                {% for y in month_dropdown %}
-                <option value="{{ y }}">{{ y }}</option>                
-                {% endfor%}
-            </select>
+      </span>
+    </div>
+    {% if graph_type %}
+    <br />
+    View your Earnings By Date
+    <br />
+    <select name="year">
+      {% for y in year_dropdown %}
+      <option value="{{ y }}">{{ y }}</option>
+      {% endfor%}
+    </select>
+    <select name="month">
+      {% for y in month_dropdown %}
+      <option value="{{ y }}">{{ y }}</option>
+      {% endfor%}
+    </select>
 
-        {% endif %}
-        <br>
-        <button type="submit" class="btn btn-primary">Search</button>
-     </form>
+    {% endif %}
+    <br />
+    <br />
+    <button type="submit" class="btn btn-primary">Search</button>
+  </form>
 </div>
-    
+
 <!-- Comes when booking is searched -->
-    {% if chart %}
-        <img src="data:image/png;base64, {{chart|safe}}">
-    {% endif %}
+<div class="pie">
+  {% if chart %}
+  <img src="data:image/png;base64, {{chart|safe}}" />
+  {% endif %}
+</div>
 
-<!-- Comes when earnings is choosed -->
-    {% if this_month_booking_bar %}
-        <img src="data:image/png;base64, {{this_month_booking_bar|safe}}">
-    {% endif %}
-    {% if earning_bar %}
-        <img src="data:image/png;base64, {{earning_bar|safe}}">
-    {% endif %}
-    
+<style>
+  .barChart,
+  .pie {
+    width: 90%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+  }
+  img {
+    max-width: 80%;
+    margin: auto;
+    margin-bottom: 2rem;
+  }
+</style>
 
-
-
-
-{% endblock content %}
-
-
+<div class="barChart">
+  <!-- Comes when earnings is choosed -->
+  {% if this_month_booking_bar %}
+  <img src="data:image/png;base64, {{this_month_booking_bar|safe}}" />
+  {% endif %} {% if earning_bar %}
+  <img src="data:image/png;base64, {{earning_bar|safe}}" />
+  {% endif %} {% endblock content %}
+</div>
