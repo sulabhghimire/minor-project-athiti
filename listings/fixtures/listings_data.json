@@ -1,0 +1,373 @@
+[
+    {
+        "model" : "listings.RoomLocation",
+        "pk"    : 1,
+        "fields": {
+            "location_city"         : "Pokhara"
+        }
+    },
+    {
+        "model" : "listings.RoomLocation",
+        "pk"    : 2,
+        "fields": {
+            "location_city"         : "Kathmandu"
+        }
+    },
+    {
+        "model" : "listings.RoomLocation",
+        "pk"    : 3,
+        "fields": {
+            "location_city"         : "Chitwan"
+        }
+    },
+    {
+        "model" : "listings.Listing",
+        "pk"    : 10,
+        "fields" : {
+            "user"                : 2,
+            "title"               : "Hillside Apartment",
+            "city"                : 1,
+            "exact_address"       : "Sarangkot, Pokhara",
+            "lat"                 : "28.2439", 
+            "lng"                 : "83.9486",
+            "description"         : "Hillside Apartment is a nepali family run apartment situated in sarangkot hill. It is a beautiful apartment with a view of lake. The building has 5 apartments and on top of the building there is a swimming pool. There is a facility of hot water, tv and wifi on every apartments. ",
+            "price"               : 20,
+            "listing_type"        : "Full House",
+            "kitchen_available"   : true,
+            "kitchen_description" : "There is a nice stove with a chimney. It has a window amd is bright. There is an Ilane table. There are machinaries like coffee machine, oven, fully stocked refrigerator.",
+            "bedrooms"            : 3,
+            "max_acomodation"     : 10,
+            "bathroom_type"       : "Attached Bathroom",
+            "no_bathrooms"        : 4,
+            "room_type"           : "Air Conditioner",
+            "is_published"        : true,
+            "approved"            : true
+
+        }
+    },
+    {
+        "model" : "listings.Listing",
+        "pk"    : 11,
+        "fields" : {
+            "user"                : 2,
+            "title"               : "Lakeview Apartment",
+            "city"                : 1,
+            "exact_address"       : "Lakeside, Pokhara",
+            "lat"                 : "28.2159", 
+            "lng"                 : "83.9585",
+            "description"         : "Lakeview apartment is a nepali family run apartment situated in Lakeside. It is a beautiful apartment with a view of lake. The building has 6 apartments and on top of the building there is a swimming pool. There is a facility of hot water, tv and wifi on every apartments.",
+            "price"               : 15,
+            "listing_type"        : "Apartement",
+            "kitchen_available"   : true,
+            "kitchen_description" : "It has a stove, chimney and a sink. There is also refrigerator with stocks. It is bright as it has windows.",
+            "bedrooms"            : 3,
+            "max_acomodation"     : 7,
+            "bathroom_type"       : "Attached Bathroom",
+            "no_bathrooms"        : 3,
+            "room_type"           : "No Air Conditioner",
+            "is_published"        : true,
+            "approved"            : true
+
+        }
+    },
+    {
+        "model" : "listings.Listing",
+        "pk"    : 12,
+        "fields" : {
+            "user"                : 2,
+            "title"               : "Chabahil renting",
+            "city"                : 2,
+            "exact_address"       : "Chabahil, Kathmandu",
+            "lat"                 : "27.7166", 
+            "lng"                 : "85.3485",
+            "description"         : "It is a single room on Chabahil. The owner of the house are very friendly. The room is located on ground floor. There is a facility of hot water, tv and wifi. The area is peaceful to stay.",
+            "price"               : 17,
+            "listing_type"        : "Room",
+            "kitchen_available"   : false,
+            "kitchen_description" : "",
+            "bedrooms"            : 1,
+            "max_acomodation"     : 2,
+            "bathroom_type"       : "Attached Bathroom",
+            "no_bathrooms"        : 1,
+            "room_type"           : "No Air Conditioner",
+            "is_published"        : true,
+            "approved"            : true
+
+        }
+    },
+    {
+        "model" : "listings.Listing",
+        "pk"    : 13,
+        "fields" : {
+            "user"                : 3,
+            "title"               : "Srijana Chowk Homes",
+            "city"                : 2,
+            "exact_address"       : "Srijana Chowk",
+            "lat"                 : "28.6877", 
+            "lng"                 : "83.886",
+            "description"         : "It is a single room on srijana chowk, pokhara. The owners of the house are very friendly. The room is located on top floor. There is a facility of hot water and wifi for guests. The stay is peaceful.",
+            "price"               : 9,
+            "listing_type"        : "Room",
+            "kitchen_available"   : false,
+            "kitchen_description" : "",
+            "bedrooms"            : 1,
+            "max_acomodation"     : 2,
+            "bathroom_type"       : "Attached Bathroom",
+            "no_bathrooms"        : 2,
+            "is_published"        : true,
+            "approved"            : true
+
+        }
+    },
+    {
+        "model" : "listings.Listing",
+        "pk"    : 14,
+        "fields" : {
+            "user"                : 4,
+            "title"               : "Bharatpur Homes",
+            "city"                : 3,
+            "exact_address"       : "Airport area",
+            "lat"                 : "27.6785", 
+            "lng"                 : "84.4296",
+            "description"         : "This is a house located on bharatpur airport area. It is suitable for a family stay on vacations. The house is located aside of a park. There are 3 floors and every floor has facility of hot water, tv and wifi. The owners are very friendly. There is also a grocery store nearby.",
+            "price"               : 23,
+            "listing_type"        : "Full House",
+            "kitchen_available"   : true,
+            "kitchen_description" : "It has a stove, water heater, mixer, sink and a refigerator. There are also table and chairs. The refrigerator is filled with snacks and drinks.",
+            "bedrooms"            : 3,
+            "max_acomodation"     : 10,
+            "bathroom_type"       : "Attached Bathroom",
+            "no_bathrooms"        : 4,
+            "room_type"           : "Air Conditioner",
+            "is_published"        : true,
+            "approved"            : true
+
+        }
+    },
+    {
+        "model" : "listings.Listing",
+        "pk"    : 15,
+        "fields" : {
+            "user"                : 4,
+            "title"               : "We Rents",
+            "city"                : 3,
+            "exact_address"       : "Bishal Chowk",
+            "lat"                 : "27.6920", 
+            "lng"                 : "84.4404",
+            "description"         : "It is a single room on ground floor. There is a facility of hot water and wifi. The area is peaceful and owners are very friendly.",
+            "price"               : 7,
+            "listing_type"        : "Room",
+            "kitchen_available"   : false,
+            "kitchen_description" : "",
+            "bedrooms"            : 1,
+            "max_acomodation"     : 2,
+            "bathroom_type"       : "Attached Bathroom",
+            "no_bathrooms"        : 1,
+            "room_type"           : "No Air Conditioner",
+            "is_published"        : true,
+            "approved"            : true
+
+        }
+    },
+    {
+        "model" : "listings.Listing",
+        "pk"    : 16,
+        "fields" : {
+            "user"                : 6,
+            "title"               : "Saul Goodman Houses",
+            "city"                : 1,
+            "exact_address"       : "Janapriya marg",
+            "lat"                 : "28.1994", 
+            "lng"                 : "83.9784",
+            "description"         : "This is a nepali family run apartment situated in janapriya marga. It is a beautiful apartment with a view of the airport. The building has 5 apartments and on top of the building there is a swimming pool. There is a facility of hot water, tv and wifi on every apartments.",
+            "price"               : 16,
+            "listing_type"        : "Apartment",
+            "kitchen_available"   : false,
+            "kitchen_description" : "",
+            "bedrooms"            : 3,
+            "max_acomodation"     : 10,
+            "bathroom_type"       : "Attached Bathroom",
+            "no_bathrooms"        : 3,
+            "room_type"           : "Air Conditioner",
+            "is_published"        : true,
+            "approved"            : true
+
+        }
+    },
+    {
+        "model" : "listings.Listing",
+        "pk"    : 17,
+        "fields" : {
+            "user"                : 7,
+            "title"               : "Bishal Housing",
+            "city"                : 2,
+            "exact_address"       : "Chabahil",
+            "lat"                 : "27.7166", 
+            "lng"                 : "85.3485",
+            "description"         : "This is a house located on Chabahil area. It is suitable for a family stay on vacations. It is near to the International Airport. The house is located aside of a park. There are 3 floors and every floor has facility of hot water, tv and wifi. The owners are very friendly. There is also a grocery store nearby.",
+            "price"               : 24,
+            "listing_type"        : "Full House",
+            "kitchen_available"   : true,
+            "kitchen_description" : "The kitchen consists of a stove and various utensils. It has some groceries too.",
+            "bedrooms"            : 4,
+            "max_acomodation"     : 12,
+            "bathroom_type"       : "Attached Bathroom",
+            "no_bathrooms"        : 5,
+            "room_type"           : "Air Conditioner",
+            "is_published"        : true,
+            "approved"            : true
+
+        }
+    },
+    {
+        "model" : "listings.Listing",
+        "pk"    : 18,
+        "fields" : {
+            "user"                : 8,
+            "title"               : "Tribeni House",
+            "city"                : 1,
+            "exact_address"       : "Prithvi Chowk",
+            "lat"                 : "28.6993", 
+            "lng"                 : "83.8607",
+            "description"         : "This is a house located on Prithvi Chowk Bus Park area. It is suitable for a family stay on vacations. The house is located aside of a park. There are 3 floors and every floor has facility of hot water, tv and wifi. The owners are very friendly. There is also a grocery store nearby.",
+            "price"               : 22,
+            "listing_type"        : "Full House",
+            "kitchen_available"   : false,
+            "kitchen_description" : "",
+            "bedrooms"            : 4,
+            "max_acomodation"     : 10,
+            "bathroom_type"       : "Attached Bathroom",
+            "no_bathrooms"        : 4,
+            "room_type"           : "No Air Conditioner",
+            "is_published"        : true,
+            "approved"            : true
+
+        }
+    },
+    {
+        "model" : "listings.Listing",
+        "pk"    : 19,
+        "fields" : {
+            "user"                : 9,
+            "title"               : "Furnished Rooms",
+            "city"                : 1,
+            "exact_address"       : "Zero Km",
+            "lat"                 : "28.2122", 
+            "lng"                 : "83.7019",
+            "description"         : "It is a single room on Zero KM. The owner of the house are very friendly. The room is located on ground floor. There is a facility of hot water, tv and wifi. The area is peaceful to stay.",
+            "price"               : 7,
+            "listing_type"        : "Room",
+            "kitchen_available"   : false,
+            "kitchen_description" : "",
+            "bedrooms"            : 1,
+            "max_acomodation"     : 2,
+            "bathroom_type"       : "Attached Bathroom",
+            "no_bathrooms"        : 1,
+            "room_type"           : "No Air Conditioner",
+            "is_published"        : true,
+            "approved"            : true
+
+        }
+    },
+    {
+        "model" : "listings.Listing",
+        "pk"    : 20,
+        "fields" : {
+            "user"                : 10,
+            "title"               : "Galaxy Apartment",
+            "city"                : 1,
+            "exact_address"       : "Mahendrapool",
+            "lat"                 : "28.2256", 
+            "lng"                 : "83.9910",
+            "description"         : "It is a nepali family run apartment situated in mahendrapool. It is a beautiful apartment. The building has 5 apartments and on top of the building there is a swimming pool. There is a facility of hot water, tv and wifi on every apartments.",
+            "price"               : 15,
+            "listing_type"        : "Apartment",
+            "kitchen_available"   : false,
+            "kitchen_description" : "",
+            "bedrooms"            : 3,
+            "max_acomodation"     : 10,
+            "bathroom_type"       : "Attached Bathroom",
+            "no_bathrooms"        : 3,
+            "room_type"           : "Air Conditioner",
+            "is_published"        : true,
+            "approved"            : true
+
+        }
+    },
+    {
+        "model" : "listings.Listing",
+        "pk"    : 21,
+        "fields" : {
+            "user"                : 11,
+            "title"               : "Annapurna Housing",
+            "city"                : 1,
+            "exact_address"       : "Hallanchowk, Lakeside",
+            "lat"                 : "28.2159", 
+            "lng"                 : "83.9585",
+            "description"         : "This is a house located on Hallanchwok. It is suitable for a family stay on vacations. The house is located aside of a park. There are 3 floors and every floor has facility of hot water, tv and wifi. The owners are very friendly. There is also a grocery store nearby.",
+            "price"               : 25,
+            "listing_type"        : "Full House",
+            "kitchen_available"   : false,
+            "kitchen_description" : "",
+            "bedrooms"            : 3,
+            "max_acomodation"     : 10,
+            "bathroom_type"       : "Attached Bathroom",
+            "no_bathrooms"        : 4,
+            "room_type"           : "Air Conditioner",
+            "is_published"        : true,
+            "approved"            : true
+
+        }
+    },
+    {
+        "model" : "listings.Listing",
+        "pk"    : 22,
+        "fields" : {
+            "user"                : 10,
+            "title"               : "Begnas Apartments",
+            "city"                : 1,
+            "exact_address"       : "Begnas Tal",
+            "lat"                 : "28.1739", 
+            "lng"                 : "84.0973",
+            "description"         : "It is a nepali family run apartment situated in begnas area. It is a beautiful apartment with a view of lake. The building has 5 apartments and on top of the building there is a swimming pool. There is a facility of hot water, tv and wifi on every apartments.",
+            "price"               : 13,
+            "listing_type"        : "Apartment",
+            "kitchen_available"   : false,
+            "kitchen_description" : "",
+            "bedrooms"            : 3,
+            "max_acomodation"     : 10,
+            "bathroom_type"       : "Attached Bathroom",
+            "no_bathrooms"        : 3,
+            "room_type"           : "Air Conditioner",
+            "photo_3"             : "",
+            "is_published"        : true,
+            "approved"            : true
+
+        }
+    },
+    {
+        "model" : "listings.Listing",
+        "pk"    : 23,
+        "fields" : {
+            "user"                : 7,
+            "title"               : "Citizen Housing",
+            "city"                : 1,
+            "exact_address"       : "Paame, Pokhara",
+            "lat"                 : "28.2256", 
+            "lng"                 : "83.9466",
+            "description"         : "It is a single room on Paame. The owner of the house are very friendly. The room is located on top floor. There is a facility of hot water, tv and wifi. The area is peaceful to stay.",
+            "price"               : 7,
+            "listing_type"        : "Room",
+            "kitchen_available"   : false,
+            "kitchen_description" : "",
+            "bedrooms"            : 1,
+            "max_acomodation"     : 1,
+            "bathroom_type"       : "Attached Bathroom",
+            "no_bathrooms"        : 1,
+            "room_type"           : "No Air Conditioner",
+            "is_published"        : true,
+            "approved"            : true
+
+        }
+    }
+]

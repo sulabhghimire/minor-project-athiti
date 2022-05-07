@@ -77,7 +77,7 @@
           <div class="nav-right" id="hamburgerPopUp">
             <span title="Locations"
               ><a href="{% url 'map' %}"
-                ><i class="fas fa-map-marker"> </i> <b>Localtions</b>
+                ><i class="fas fa-map-marker"> </i> <b>Locations</b>
               </a>
             </span>
             {% if user.is_authenticated %} {% if user.host %}
@@ -231,42 +231,80 @@
 
     <section style="margin-bottom: 10rem">
       <div>
-        {% if posts.has_previous %}
+        {% if posts%}
+          {% if posts.has_previous %}
+          <a class="btn"
+            href="search_listings?ratings_by={{rating_search}}&price_by={{price_search}}&searched={{searched}}&page=1"
+            >First</a >
+          <a
+            class="btn"
+            href="search_listings?ratings_by={{rating_search}}&price_by={{price_search}}&searched={{searched}}&page={{posts.previous_page_number}}"
+            >Previous</a
+          >
+          {% endif %} {% for num in posts.paginator.page_range %}
+          {% if posts.number == num %}
+          <a
+            class="btn"
+            href="search_listings?ratings_by={{rating_search}}&price_by={{price_search}}&searched={{searched}}&page={{posts.number}}"
+            >{{ num }}</a
+          >
+          {% elif num > posts.number|add:'-3' and num < posts.number|add:'3' %}
+          <a
+            class="btn"
+            href="search_listings?ratings_by={{rating_search}}&price_by={{price_search}}&searched={{searched}}&page={{num}}"
+            >{{ num }}</a
+          >
+          {% endif %} {% endfor %} {% if posts.has_next %}
+          <a
+            class="btn"
+            href="search_listings?ratings_by={{rating_search}}&price_by={{price_search}}&searched={{searched}}&page={{posts.next_page_number}}"
+            >Next</a
+          >
+          <a
+            class="btn"
+            href="search_listings?ratings_by={{rating_search}}&price_by={{price_search}}&searched={{searched}}&page={{posts.paginator.num_pages}}"
+            >Last</a
+          >
+          {% endif %}
+        {% endif %}
+        {% if hosts%}
+        {% if hosts.has_previous %}
         <a
-          class="btn btn-outline-info mb-4"
-          href="search_listings?ratings_by={{rating_search}}&price_by={{price_search}}&searched={{searched}}&page=1"
+          class="btn"
+          href="?page=1"
           >First</a
         >
         <a
-          class="btn btn-outline-info mb-4"
-          href="search_listings?ratings_by={{rating_search}}&price_by={{price_search}}&searched={{searched}}&page={{posts.previous_page_number}}"
+          class="btn"
+          href="?page={{hosts.previous_page_number}}"
           >Previous</a
         >
-        {% endif %} {% for num in posts.paginator.page_range %}
-        <br />{% if posts.number == num %}
+        {% endif %} {% for num in hosts.paginator.page_range %}
+        {% if hosts.number == num %}
         <a
-          class="btn btn-info mb-4"
-          href="search_listings?ratings_by={{rating_search}}&price_by={{price_search}}&searched={{searched}}&page={{posts.number}}"
+          class="btn"
+          href="?page={{hosts.number}}"
           >{{ num }}</a
         >
-        {% elif num > posts.number|add:'-3' and num < posts.number|add:'3' %}
+        {% elif num > hosts.number|add:'-3' and num < hosts.number|add:'3' %}
         <a
-          class="btn btn-outline-info mb-4"
-          href="search_listings?ratings_by={{rating_search}}&price_by={{price_search}}&searched={{searched}}&page={{num}}"
+          class="btn"
+          href="?page={{num}}"
           >{{ num }}</a
         >
-        {% endif %} {% endfor %} {% if posts.has_next %}
+        {% endif %} {% endfor %} {% if hosts.has_next %}
         <a
-          class="btn btn-outline-info mb-4"
-          href="search_listings?ratings_by={{rating_search}}&price_by={{price_search}}&searched={{searched}}&page={{posts.next_page_number}}"
+          class="btn"
+          href="?page={{hosts.next_page_number}}"
           >Next</a
         >
         <a
-          class="btn btn-outline-info mb-4"
-          href="search_listings?ratings_by={{rating_search}}&price_by={{price_search}}&searched={{searched}}&page={{posts.paginator.num_pages}}"
+          class="btn"
+          href="?page={{hosts.paginator.num_pages}}"
           >Last</a
         >
         {% endif %}
+      {% endif %}
       </div>
     </section>
 

@@ -5,13 +5,13 @@ from django.contrib import messages
 from django.template import context
 from django.urls import reverse
 from django.http.response import Http404
-from markupsafe import re
+from markupsafe import re, string
 from .forms import AvailabilityForm, ContactUsForm
 import datetime
 import folium
 from . models import Listing, Booking, Refund_Control
 import review.models as rev_model
-
+import geocoder
 from django.contrib.auth.decorators import user_passes_test
 from django.views.generic import DeleteView, ListView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin, AccessMixin
@@ -97,12 +97,12 @@ class HostsListingView(LoginRequiredMixin, ListView, AccessMixin):
     template_name       = 'listings/host_bookings_info.html'
     context_object_name = 'posts'
     
-import geocoder    
+  
 def home(request):
        
     url     = request.META.get('HTTP_REFERER')
 
-    top_lisitngs = Listing.objects.filter(is_published=True, approved=True).order_by('-total_bookings')[:10]
+    top_lisitngs = Listing.objects.filter(is_published=True, approved=True).order_by('-total_bookings')[:6]
     objects = Listing.objects.filter(is_published=True, approved=True).values(
         'lat', 'lng', 'title', 'description', 'exact_address', 'city', 'description', 'price', 'listing_type',
         'kitchen_available', 'kitchen_description', 'bedrooms', 'max_acomodation', 'bathroom_type', 'no_bathrooms',
@@ -115,39 +115,44 @@ def home(request):
         lat, lng = float(object['lat']), float(object['lng'])
         object['distance'] = near_places(float(g.latlng[0]), float(g.latlng[1]), lat, lng)
 
+
         if object['main_photo'] == "default_room.jpg":
             initial_url          = object['main_photo']
             object['main_photo'] = "media/" + initial_url
         else:
             initial_url          = object['main_photo']
-            object['main_photo'] = "media/room_images/" + initial_url
+            object['main_photo'] = "media/" + initial_url
 
         if object['photo_1'] == "default_room.jpg":
             initial_url          = object['photo_1']
             object['photo_1']    = "media/" + initial_url
         else:
             initial_url          = object['photo_1']
-            object['photo_1']    = "media/room_images/" + initial_url
+            object['photo_1']    = "media/" + initial_url
 
         if object['photo_2'] == "default_room.jpg":
             initial_url          = object['photo_2']
             object['photo_2'] = "media/" + initial_url
         else:
             initial_url          = object['photo_2']
-            object['photo_2'] = "media/room_images/" + initial_url
+            object['photo_2'] = "media/" + initial_url
 
         if object['photo_3'] == "default_room.jpg":
             initial_url          = object['photo_3']
             object['photo_3'] = "media/" + initial_url
         else:
             initial_url          = object['photo_3']
-            object['photo_3'] = "media/room_images/" + initial_url
+            object['photo_3'] = "media/" + initial_url
 
 
-    my_sorted_list = sorted(objects, key=lambda k: k['distance'])
+    my_sorted_list = sorted(objects, key=lambda d: d['distance'], reverse=False)
+    
+    for object in my_sorted_list:
+
+        object['distance'] = str(object['distance']) + " km"
 
     context = {
-        'near_by_lisitngs' : my_sorted_list[:10],
+        'near_by_lisitngs' : my_sorted_list[:6],
         'top_lisitngs'     : top_lisitngs,
     }
 
@@ -190,8 +195,18 @@ def see_all_listings(request):
 
     lisitngs = Listing.objects.filter(is_published=True, approved=True).order_by('-total_bookings')
 
+    page        = request.GET.get('page') 
+    paginator = Paginator(lisitngs, 6)
+    try:
+        lisitngs = paginator.page(page)
+    except PageNotAnInteger:
+        lisitngs = paginator.page(1)
+    except EmptyPage:
+        lisitngs = paginator.page(paginator.num_pages)
+
+
     context = {
-        'posts' : lisitngs,
+        'hosts' : lisitngs,
     }
 
     return render(request, 'listings/see_all_lisitngs.html', context)
@@ -414,7 +429,7 @@ def SearchTitle(request):
     else:
         title = Listing.objects.filter(exact_address__contains = searched, is_published=True, approved=True)
     
-    paginator = Paginator(title, 20)
+    paginator = Paginator(title, 6)
     try:
         title = paginator.page(page)
     except PageNotAnInteger:
