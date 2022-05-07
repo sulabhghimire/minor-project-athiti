@@ -13,7 +13,7 @@ This page can only be acessed by host. Here they can see their all guest in thei
     margin: auto;
   }
   h2 {
-    color: gold;
+    color: goldenrod;
   }
   hr {
     width: 80%;
@@ -34,7 +34,7 @@ This page can only be acessed by host. Here they can see their all guest in thei
 <div class="bookingInfo">
   <br />
   <div class="currentBooking">
-    <h2>Current Bookings Are</h2>
+    <h2 style="color: blue">Current Bookings Are</h2>
     <br />
     <div class="wholeItem">
       {% for post in posts %} {% if post.room_host_id == user.pk %}
@@ -67,7 +67,7 @@ This page can only be acessed by host. Here they can see their all guest in thei
   <hr />
   <br />
   <div class="cancelledBooking">
-    <h2>Cancelled Bookings Are</h2>
+    <h2 style="color : red">Cancelled Bookings Are</h2>
     <br />
     <div class="wholeItem">
       {% for post in posts %} {% if post.room_host_id == user.pk %}
@@ -97,7 +97,7 @@ This page can only be acessed by host. Here they can see their all guest in thei
   <hr />
   <br />
   <div class="completedBooking">
-    <h2>Completed Bookings Are</h2>
+    <h2 style="color: green;">Completed Bookings Are</h2>
     <br />
     <div class="wholeItem">
       {% for post in posts %} {% if post.room_host_id == user.pk %}

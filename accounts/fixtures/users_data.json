@@ -1,0 +1,579 @@
+[
+    {
+        "model" : "accounts.User",
+        "pk"    : 2,
+        "fields" : {
+            "email"         : "shushilpaudel@gmail.com",
+            "password"      : "pbkdf2_sha256$260000$Kkhgoe2cbQt77rbmAv407s$ASVcGTWgU9bryE0fov7vmA5+IolRK0CvSDURnmNnf+s=",
+            "is_active"     : true,
+            "staff"         : false,
+            "host"          : true,
+            "guest"         : false,
+            "full_name"     : "Shushil Paudel",
+            "country"       : "NP",
+            "state"         : "Gandaki",
+            "phone_number"  : 9866011033
+        }
+    },
+    {
+        "model" : "accounts.Profile",
+        "pk"    : 2,
+        "fields" : {
+            "user"          : 2
+        }
+    },
+    {
+        "model" : "accounts.EmailVerification",
+        "pk"    : 2,
+        "fields" : {
+            "user" : 2,
+            "token" : "pbkdf2_sha256$260000$Kkhgoe2cb",
+            "is_verified" : true
+        }
+    },
+    {
+        "model" : "accounts.User",
+        "pk"    : 3,
+        "fields" : {
+            "email"         : "sulabhghimire@gmail.com",
+            "password"      : "pbkdf2_sha256$260000$Kkhgoe2cbQt77rbmAv407s$ASVcGTWgU9bryE0fov7vmA5+IolRK0CvSDURnmNnf+s=",
+            "is_active"     : true,
+            "staff"         : false,
+            "host"          : true,
+            "guest"         : false,
+            "full_name"     : "Sulab Ghimire",
+            "country"       : "NP",
+            "state"         : "Gandaki",
+            "phone_number"  : 9867011033
+        }
+    },
+    {
+        "model" : "accounts.Profile",
+        "pk"    : 3,
+        "fields" : {
+            "user"          : 3
+        }
+    },
+    {
+        "model" : "accounts.EmailVerification",
+        "pk"    : 3,
+        "fields" : {
+            "user" : 3,
+            "token" : "pbkdf2_sha256$260000$Kkhgoe2cb",
+            "is_verified" : true
+        }
+    },
+    {
+        "model" : "accounts.User",
+        "pk"    : 4,
+        "fields" : {
+            "email"         : "bibekchalise@gmail.com",
+            "password"      : "pbkdf2_sha256$260000$Kkhgoe2cbQt77rbmAv407s$ASVcGTWgU9bryE0fov7vmA5+IolRK0CvSDURnmNnf+s=",
+            "is_active"     : true,
+            "staff"         : false,
+            "host"          : true,
+            "guest"         : false,
+            "full_name"     : "Bibek Chalise",
+            "country"       : "NP",
+            "state"         : "Gandaki",
+            "phone_number"  : 9856011033
+        }
+    },
+    {
+        "model" : "accounts.Profile",
+        "pk"    : 4,
+        "fields" : {
+            "user"          : 4
+        }
+    },
+    {
+        "model" : "accounts.EmailVerification",
+        "pk"    : 4,
+        "fields" : {
+            "user" : 4,
+            "token" : "pbkdf2_sha256$260000$Kkhgoe2cb",
+            "is_verified" : true
+        }
+    },
+    {
+        "model" : "accounts.User",
+        "pk"    : 5,
+        "fields" : {
+            "email"         : "navarajsharma@gmail.com",
+            "password"      : "pbkdf2_sha256$260000$Kkhgoe2cbQt77rbmAv407s$ASVcGTWgU9bryE0fov7vmA5+IolRK0CvSDURnmNnf+s=",
+            "is_active"     : true,
+            "staff"         : false,
+            "host"          : true,
+            "guest"         : false,
+            "full_name"     : "Navaraj Sharma",
+            "country"       : "NP",
+            "state"         : "Bagmati",
+            "phone_number"  : 9820011033
+        }
+    },
+    {
+        "model" : "accounts.EmailVerification",
+        "pk"    : 5,
+        "fields" : {
+            "user" : 5,
+            "token" : "pbkdf2_sha256$260000$Kkhgoe2cb",
+            "is_verified" : true
+        }
+    },
+    {
+        "model" : "accounts.Profile",
+        "pk"    : 5,
+        "fields" : {
+            "user"          : 5
+        }
+    },
+    {
+        "model" : "accounts.User",
+        "pk"    : 6,
+        "fields" : {
+            "email"         : "sagarsubedi@hotmail.com",
+            "password"      : "pbkdf2_sha256$260000$Kkhgoe2cbQt77rbmAv407s$ASVcGTWgU9bryE0fov7vmA5+IolRK0CvSDURnmNnf+s=",
+            "is_active"     : true,
+            "staff"         : false,
+            "host"          : true,
+            "guest"         : false,
+            "full_name"     : "Sagar Subedi",
+            "country"       : "NP",
+            "state"         : "Gandaki",
+            "phone_number"  : 9896011033
+        }
+    },
+    {
+        "model" : "accounts.Profile",
+        "pk"    : 6,
+        "fields" : {
+            "user"          : 6
+        }
+    },
+    {
+        "model" : "accounts.EmailVerification",
+        "pk"    : 6,
+        "fields" : {
+            "user" : 6,
+            "token" : "pbkdf2_sha256$260000$Kkhgoe2cb",
+            "is_verified" : true
+        }
+    },
+    {
+        "model" : "accounts.User",
+        "pk"    : 7,
+        "fields" : {
+            "email"         : "aayushsubedi@hotmail.com",
+            "password"      : "pbkdf2_sha256$260000$Kkhgoe2cbQt77rbmAv407s$ASVcGTWgU9bryE0fov7vmA5+IolRK0CvSDURnmNnf+s=",
+            "is_active"     : true,
+            "staff"         : false,
+            "host"          : true,
+            "guest"         : false,
+            "full_name"     : "Aayush Subedi",
+            "country"       : "NP",
+            "state"         : "Gandaki",
+            "phone_number"  : 9866651033
+        }
+    },
+    {
+        "model" : "accounts.Profile",
+        "pk"    : 7,
+        "fields" : {
+            "user"          : 7
+        }
+    },
+    {
+        "model" : "accounts.EmailVerification",
+        "pk"    : 7,
+        "fields" : {
+            "user" : 7,
+            "token" : "pbkdf2_sha256$260000$Kkhgoe2cb",
+            "is_verified" : true
+        }
+    },
+    {
+        "model" : "accounts.User",
+        "pk"    : 8,
+        "fields" : {
+            "email"         : "diptipandey@hotmail.com",
+            "password"      : "pbkdf2_sha256$260000$Kkhgoe2cbQt77rbmAv407s$ASVcGTWgU9bryE0fov7vmA5+IolRK0CvSDURnmNnf+s=",
+            "is_active"     : true,
+            "staff"         : false,
+            "host"          : true,
+            "guest"         : false,
+            "full_name"     : "Dipti Pandey",
+            "country"       : "NP",
+            "state"         : "Karnali",
+            "phone_number"  : 9866022033
+        }
+    },
+    {
+        "model" : "accounts.Profile",
+        "pk"    : 8,
+        "fields" : {
+            "user"          : 8
+        }
+    },
+    {
+        "model" : "accounts.EmailVerification",
+        "pk"    : 8,
+        "fields" : {
+            "user" : 8,
+            "token" : "pbkdf2_sha256$260000$Kkhgoe2cb",
+            "is_verified" : true
+        }
+    },
+    {
+        "model" : "accounts.User",
+        "pk"    : 9,
+        "fields" : {
+            "email"         : "ramthapa@hotmail.com",
+            "password"      : "pbkdf2_sha256$260000$Kkhgoe2cbQt77rbmAv407s$ASVcGTWgU9bryE0fov7vmA5+IolRK0CvSDURnmNnf+s=",
+            "is_active"     : true,
+            "staff"         : false,
+            "host"          : true,
+            "guest"         : false,
+            "full_name"     : "Ram Thapa",
+            "country"       : "NP",
+            "state"         : "Gandaki",
+            "phone_number"  : 9866015033
+        }
+    },
+    {
+        "model" : "accounts.EmailVerification",
+        "pk"    : 9,
+        "fields" : {
+            "user" : 9,
+            "token" : "pbkdf2_sha256$260000$Kkhgoe2cb",
+            "is_verified" : true
+        }
+    },
+    {
+        "model" : "accounts.Profile",
+        "pk"    : 9,
+        "fields" : {
+            "user"          : 9
+        }
+    },
+    {
+        "model" : "accounts.User",
+        "pk"    : 10,
+        "fields" : {
+            "email"         : "dilip124@hotmail.com",
+            "password"      : "pbkdf2_sha256$260000$Kkhgoe2cbQt77rbmAv407s$ASVcGTWgU9bryE0fov7vmA5+IolRK0CvSDURnmNnf+s=",
+            "is_active"     : true,
+            "staff"         : false,
+            "host"          : true,
+            "guest"         : false,
+            "full_name"     : "Dilip Chhantyal",
+            "country"       : "NP",
+            "state"         : "Biratnagar",
+            "phone_number"  : 9866011203
+        }
+    },
+    {
+        "model" : "accounts.Profile",
+        "pk"    : 10,
+        "fields" : {
+            "user"          : 10
+        }
+    },
+    {
+        "model" : "accounts.EmailVerification",
+        "pk"    : 10,
+        "fields" : {
+            "user" : 10,
+            "token" : "pbkdf2_sha256$260000$Kkhgoe2cb",
+            "is_verified" : true
+        }
+    },
+    {
+        "model" : "accounts.User",
+        "pk"    : 11,
+        "fields" : {
+            "email"         : "sabhyataacharya@yahoo.com",
+            "password"      : "pbkdf2_sha256$260000$Kkhgoe2cbQt77rbmAv407s$ASVcGTWgU9bryE0fov7vmA5+IolRK0CvSDURnmNnf+s=",
+            "is_active"     : true,
+            "staff"         : false,
+            "host"          : true,
+            "guest"         : false,
+            "full_name"     : "Sabhyata Acharya",
+            "country"       : "NP",
+            "state"         : "Lumbini",
+            "phone_number"  : 9866011093
+        }
+    },
+    {
+        "model" : "accounts.Profile",
+        "pk"    : 11,
+        "fields" : {
+            "user"          : 11
+        }
+    },
+    {
+        "model" : "accounts.EmailVerification",
+        "pk"    : 11,
+        "fields" : {
+            "user" : 11,
+            "token" : "pbkdf2_sha256$260000$Kkhgoe2cb",
+            "is_verified" : true
+        }
+    },
+    {
+        "model" : "accounts.User",
+        "pk"    : 12,
+        "fields" : {
+            "email"         : "bikramacharya@yahoo.com",
+            "password"      : "pbkdf2_sha256$260000$Kkhgoe2cbQt77rbmAv407s$ASVcGTWgU9bryE0fov7vmA5+IolRK0CvSDURnmNnf+s=",
+            "is_active"     : true,
+            "staff"         : false,
+            "host"          : false,
+            "guest"         : true,
+            "full_name"     : "Bikram Acharya",
+            "country"       : "NP",
+            "state"         : "Gandaki",
+            "phone_number"  : 9861712896
+        }
+    },
+    {
+        "model" : "accounts.EmailVerification",
+        "pk"    : 12,
+        "fields" : {
+            "user" : 12,
+            "token" : "pbkdf2_sha256$260000$Kkhgoe2cb",
+            "is_verified" : true
+        }
+    },
+    {
+        "model" : "accounts.Profile",
+        "pk"    : 12,
+        "fields" : {
+            "user"          : 12
+        }
+    },
+    {
+        "model" : "accounts.User",
+        "pk"    : 13,
+        "fields" : {
+            "email"         : "sunitathapa@yahoo.com",
+            "password"      : "pbkdf2_sha256$260000$Kkhgoe2cbQt77rbmAv407s$ASVcGTWgU9bryE0fov7vmA5+IolRK0CvSDURnmNnf+s=",
+            "is_active"     : true,
+            "staff"         : false,
+            "host"          : false,
+            "guest"         : true,
+            "full_name"     : "Sunita Thapa",
+            "country"       : "NP",
+            "state"         : "Biratnagar",
+            "phone_number"  : 9861252896
+        }
+    },
+    {
+        "model" : "accounts.Profile",
+        "pk"    : 13,
+        "fields" : {
+            "user"          : 13
+        }
+    },
+    {
+        "model" : "accounts.EmailVerification",
+        "pk"    : 13,
+        "fields" : {
+            "user" : 13,
+            "token" : "pbkdf2_sha256$260000$Kkhgoe2cb",
+            "is_verified" : true
+        }
+    },
+    {
+        "model" : "accounts.User",
+        "pk"    : 14,
+        "fields" : {
+            "email"         : "devraj@yahoo.com",
+            "password"      : "pbkdf2_sha256$260000$Kkhgoe2cbQt77rbmAv407s$ASVcGTWgU9bryE0fov7vmA5+IolRK0CvSDURnmNnf+s=",
+            "is_active"     : true,
+            "staff"         : false,
+            "host"          : false,
+            "guest"         : true,
+            "full_name"     : "Dev Raj Sharma",
+            "country"       : "NP",
+            "state"         : "Bagmati",
+            "phone_number"  : 9861758896
+        }
+    },
+    {
+        "model" : "accounts.Profile",
+        "pk"    : 14,
+        "fields" : {
+            "user"          : 14
+        }
+    },
+    {
+        "model" : "accounts.EmailVerification",
+        "pk"    : 14,
+        "fields" : {
+            "user" : 14,
+            "token" : "pbkdf2_sha256$260000$Kkhgoe2cb",
+            "is_verified" : true
+        }
+    },
+    {
+        "model" : "accounts.User",
+        "pk"    : 15,
+        "fields" : {
+            "email"         : "hariprasad@gmail.com",
+            "password"      : "pbkdf2_sha256$260000$Kkhgoe2cbQt77rbmAv407s$ASVcGTWgU9bryE0fov7vmA5+IolRK0CvSDURnmNnf+s=",
+            "is_active"     : true,
+            "staff"         : false,
+            "host"          : false,
+            "guest"         : true,
+            "full_name"     : "Hari Prasad",
+            "country"       : "NP",
+            "state"         : "Lumbini",
+            "phone_number"  : 9868692896
+        }
+    },
+    {
+        "model" : "accounts.Profile",
+        "pk"    : 15,
+        "fields" : {
+            "user"          : 15
+        }
+    },
+    {
+        "model" : "accounts.EmailVerification",
+        "pk"    : 15,
+        "fields" : {
+            "user" : 15,
+            "token" : "pbkdf2_sha256$260000$Kkhgoe2cb",
+            "is_verified" : true
+        }
+    },
+    {
+        "model" : "accounts.User",
+        "pk"    : 16,
+        "fields" : {
+            "email"         : "florence345@gmail.com",
+            "password"      : "pbkdf2_sha256$260000$Kkhgoe2cbQt77rbmAv407s$ASVcGTWgU9bryE0fov7vmA5+IolRK0CvSDURnmNnf+s=",
+            "is_active"     : true,
+            "staff"         : false,
+            "host"          : false,
+            "guest"         : true,
+            "full_name"     : "Florence Karki",
+            "country"       : "NP",
+            "state"         : "Janakpur",
+            "phone_number"  : 9856012896
+        }
+    },
+    {
+        "model" : "accounts.Profile",
+        "pk"    : 16,
+        "fields" : {
+            "user"          : 16
+        }
+    },
+    {
+        "model" : "accounts.EmailVerification",
+        "pk"    : 16,
+        "fields" : {
+            "user" : 16,
+            "token" : "pbkdf2_sha256$260000$Kkhgoe2cb",
+            "is_verified" : true
+        }
+    },
+    {
+        "model" : "accounts.User",
+        "pk"    : 17,
+        "fields" : {
+            "email"         : "lalitayadav123@gmail.com",
+            "password"      : "pbkdf2_sha256$260000$Kkhgoe2cbQt77rbmAv407s$ASVcGTWgU9bryE0fov7vmA5+IolRK0CvSDURnmNnf+s=",
+            "is_active"     : true,
+            "staff"         : false,
+            "host"          : false,
+            "guest"         : true,
+            "full_name"     : "Lalita Yadav",
+            "country"       : "NP",
+            "state"         : "Sudurpaschim",
+            "phone_number"  : 9858912896
+        }
+    },
+    {
+        "model" : "accounts.Profile",
+        "pk"    : 17,
+        "fields" : {
+            "user"          : 17
+        }
+    },
+    {
+        "model" : "accounts.EmailVerification",
+        "pk"    : 17,
+        "fields" : {
+            "user" : 17,
+            "token" : "pbkdf2_sha256$260000$Kkhgoe2cb",
+            "is_verified" : true
+        }
+    },
+    {
+        "model" : "accounts.User",
+        "pk"    : 18,
+        "fields" : {
+            "email"         : "elliot564@gmail.com",
+            "password"      : "pbkdf2_sha256$260000$Kkhgoe2cbQt77rbmAv407s$ASVcGTWgU9bryE0fov7vmA5+IolRK0CvSDURnmNnf+s=",
+            "is_active"     : true,
+            "staff"         : false,
+            "host"          : false,
+            "guest"         : true,
+            "full_name"     : "Elliot Hugh",
+            "country"       : "NP",
+            "state"         : "Bagmati",
+            "phone_number"  : 9856232896
+        }
+    },
+    {
+        "model" : "accounts.Profile",
+        "pk"    : 18,
+        "fields" : {
+            "user"          : 18
+        }
+    },
+    {
+        "model" : "accounts.EmailVerification",
+        "pk"    : 18,
+        "fields" : {
+            "user" : 18,
+            "token" : "pbkdf2_sha256$260000$Kkhgoe2cb",
+            "is_verified" : true
+        }
+    },
+    {
+        "model" : "accounts.User",
+        "pk"    : 19,
+        "fields" : {
+            "email"         : "netraparajuli123@gmail.com",
+            "password"      : "pbkdf2_sha256$260000$Kkhgoe2cbQt77rbmAv407s$ASVcGTWgU9bryE0fov7vmA5+IolRK0CvSDURnmNnf+s=",
+            "is_active"     : true,
+            "staff"         : false,
+            "host"          : false,
+            "guest"         : true,
+            "full_name"     : "Netra Parajuli",
+            "country"       : "NP",
+            "state"         : "Janakpur",
+            "phone_number"  : 9857712896
+        }
+    },
+
+    {
+        "model" : "accounts.Profile",
+        "pk"    : 19,
+        "fields" : {
+            "user"          : 19
+        }
+    },
+    {
+        "model" : "accounts.EmailVerification",
+        "pk"    : 19,
+        "fields" : {
+            "user" : 19,
+            "token" : "pbkdf2_sha256$260000$Kkhgoe2cb",
+            "is_verified" : true
+        }
+    }
+]

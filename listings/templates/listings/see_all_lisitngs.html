@@ -41,7 +41,7 @@
         "
       >
         <div class="card-deck">
-          {% for post in posts %}
+          {% for host in hosts %}
           <div
             class="card mb-4"
             style="
@@ -57,7 +57,7 @@
           >
             <img
               class="card-img-top"
-              src="{{post.main_photo.url}}"
+              src="{{host.main_photo.url}}"
               alt="Main image cap"
               style="width: 18rem; min-height: 180px; max-height: 180px"
             />
@@ -70,7 +70,7 @@
                 justify-content: center;
               "
             >
-              <h5 class="card-title">{{post.title}}</h5>
+              <h5 class="card-title">{{host.title}}</h5>
 
               <p
                 class="card-text"
@@ -82,20 +82,20 @@
                 "
               >
                 <i class="fa fa-map-marker" aria-hidden="true"></i>
-                {{post.exact_address}}
+                {{host.exact_address}}
               </p>
               <p class="card-text">
-                <i class="fa fa-money" aria-hidden="true"></i>{{post.price}}$
+                <i class="fa fa-money" aria-hidden="true"></i>{{host.price}}$
                 Per Night
               </p>
               <h5 class="card-title">
-                <i class="fa fa-star-o" aria-hidden="true"></i>{{post.rating}}
+                <i class="fa fa-star-o" aria-hidden="true"></i>{{host.rating}}
               </h5>
               <p class="card-text">
                 <button class="btn btn-primary-info">
                   <a
                     style="text-decoration: none"
-                    href="{% url 'listing-details' post.id %}"
+                    href="{% url 'listing-details' host.id %}"
                     >View DETAILS
                   </a>
                 </button>
