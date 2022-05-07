@@ -1,7 +1,6 @@
 {% extends 'listings/base.html' %} {% block content %} {% load static %}
 <head>
 
-
   <link
   href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.10.2/mdb.min.css"
   rel="stylesheet"
@@ -194,7 +193,8 @@
                 Per Night
               </p>
               <h5 class="card-title">
-                <i class="fa fa-star-o" aria-hidden="true"></i>{{post.rating}}
+                {{post.rating}}
+              </h5>
               </h5>
               <p class="card-text">
                 <button class="btn btn-primary-info ">
