@@ -1,6 +1,12 @@
 {% extends 'listings/base.html' %} {% block content %} {% load static %}
 <head>
 
+<<<<<<< HEAD
+=======
+  <link rel="stylesheet" href="{% static 'css/listingDetails.css' %}">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+ 
+>>>>>>> 58d37e11d78184306f6ed8931a3f2e6752d72e0b
   <link
   href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.10.2/mdb.min.css"
   rel="stylesheet"
@@ -13,6 +19,7 @@
     crossorigin="anonymous"
   />
 </head>
+
 <div class="HomePage" style="width: 90vw; margin: auto">
   <div>
     <!-- Carousel wrapper -->
@@ -75,7 +82,7 @@
         </div>
 
         <!-- Single item -->
-        <div class="carousel-item">
+        <div  class="carousel-item">
           <img
             src="https://wallup.net/wp-content/uploads/2019/09/495633-interior-design-home-room-beautiful-arhitecture.jpg"
             class="d-block w-100"
@@ -193,8 +200,22 @@
                 Per Night
               </p>
               <h5 class="card-title">
+<<<<<<< HEAD
                 {{post.rating}}
               </h5>
+=======
+              
+                  <div class="rating-star">
+                    <span>
+                      <i class="fa fa-star{% if object.rating == 0.5 %}-half{% elif object.rating < 1 %}-o {% endif %}" aria-hidden="true"></i>
+                      <i class="fa fa-star{% if object.rating == 1.5 %}-half{% elif object.rating < 2 %}-o {% endif %}" aria-hidden="true"></i>
+                       <i class="fa fa-star{% if object.rating == 2.5 %}-half{% elif object.rating < 3 %}-o {% endif %}" aria-hidden="true"></i>
+                       <i class="fa fa-star{% if object.rating == 3.5 %}-half{% elif object.rating < 4 %}-o {% endif %}" aria-hidden="true"></i>
+                      <i class="fa fa-star{% if object.rating == 4.5 %}-half{% elif object.rating < 5 %}-o {% endif %}" aria-hidden="true"></i>
+                    </span>
+                  </div>
+
+>>>>>>> 58d37e11d78184306f6ed8931a3f2e6752d72e0b
               </h5>
               <p class="card-text">
                 <button class="btn btn-primary-info ">
@@ -324,7 +345,15 @@
                 Per Night
               </p>
               <h5 class="card-title">
-                <i class="fa fa-star-o" aria-hidden="true"></i>{{post.rating}}
+                <div class="rating-star">
+                  <span>
+                    <i class="fa fa-star{% if object.rating == 0.5 %}-half{% elif object.rating < 1 %}-o {% endif %}" aria-hidden="true"></i>
+                    <i class="fa fa-star{% if object.rating == 1.5 %}-half{% elif object.rating < 2 %}-o {% endif %}" aria-hidden="true"></i>
+                     <i class="fa fa-star{% if object.rating == 2.5 %}-half{% elif object.rating < 3 %}-o {% endif %}" aria-hidden="true"></i>
+                     <i class="fa fa-star{% if object.rating == 3.5 %}-half{% elif object.rating < 4 %}-o {% endif %}" aria-hidden="true"></i>
+                    <i class="fa fa-star{% if object.rating == 4.5 %}-half{% elif object.rating < 5 %}-o {% endif %}" aria-hidden="true"></i>
+                  </span>
+                </div>
               </h5>
               <p> Number of bookings : {{post.total_bookings}} </p>
               <p class="card-text">
